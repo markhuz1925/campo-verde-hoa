@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hoa {
+  id               String             @id @default(uuid())
+  accountNumber    String
+  firstName        String
+  lastName         String
+  block            String
+  lot              String
+  waterConsumption WaterConsumption[]
+  waterBilling     WaterBilling[]
+  sticker          Sticker[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model WaterConsumption {
+  id           String   @id @default(uuid())
+  hoaId        String
+  previousRead String
+  currentRead  String
+  consumption  String
+  hoa          Hoa      @relation(fields: [hoaId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model WaterBilling {
+  id          String   @id @default(uuid())
+  hoaId       String
+  billingDate String
+  amount      Float
+  status      Status   @default(ACTIVE)
+  hoa         Hoa      @relation(fields: [hoaId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Sticker {
+  id            String   @id @default(uuid())
+  hoaId         String
+  name          String
+  block         String
+  lot           String
+  stickerDate   String
+  stickerNumber String
+  stickerColor  Color    @default(GREEN)
+  role          Role     @default(HOA)
+  quantity      Int      @default(1)
+  amount        Float    @default(0)
+  hoa           Hoa      @relation(fields: [hoaId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+enum Role {
+  HOA
+  TENANT
+  DELIVERY
+  VISITOR
+  SPECIAL
+}
+
+enum Color {
+  GREEN
+  YELLOW
+  RED
+  WHITE
+  SILVER
+}
