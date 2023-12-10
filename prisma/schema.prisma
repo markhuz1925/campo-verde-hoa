@@ -53,12 +53,28 @@ model WaterBilling {
   updatedAt   DateTime @updatedAt
 }
 
+model WaterPrice {
+  id        String   @id @default(uuid())
+  price     Float
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Dues {
   id        String   @id @default(uuid())
   hoaId     String
   amount    Float
   hoa       Hoa      @relation("Dues", fields: [hoaId], references: [id])
   isPaid    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DuesPrice {
+  id        String   @id @default(uuid())
+  price     Float
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -71,13 +87,22 @@ model Sticker {
   lot           String
   stickerDate   String
   stickerNumber String
-  stickerColor  Color    @default(GREEN)
+  stickerColor  String
   role          Role     @default(HOA)
   quantity      Int      @default(1)
   amount        Float    @default(0)
   hoa           Hoa      @relation("Sticker", fields: [hoaId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model StickerPrice {
+  id        String   @id @default(uuid())
+  price     Float
+  color     Color    @default(GREEN)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Status {
