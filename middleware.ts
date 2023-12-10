@@ -1,4 +1,4 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 // This example protects all routes including api/trpc routes
@@ -7,9 +7,20 @@ import { NextResponse } from "next/server";
 export default authMiddleware({
   publicRoutes: ["/"],
   afterAuth(auth, req) {
+    if (!auth.userId && !auth.isPublicRoute) {
+      return redirectToSignIn({ returnBackUrl: req.url });
+    }
+
+    if (auth.userId && !auth.isPublicRoute) {
+      return NextResponse.next();
+    }
+
+    if (!auth.userId && auth.isPublicRoute) {
+      return NextResponse.next();
+    }
+
     if (auth.userId && auth.isPublicRoute) {
-      let path = "/dashboard";
-      return NextResponse.redirect(new URL(path, req.url));
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
   },
 });
