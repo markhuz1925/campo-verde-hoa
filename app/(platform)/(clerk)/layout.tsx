@@ -1,14 +1,6 @@
-import { Metadata } from "next";
+import { bitter } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
-
-export const metadata: Metadata = {
-  icons: [
-    {
-      url: "/logo.svg",
-      href: "/logo.svg",
-    },
-  ],
-};
 
 export default function ClerkLayout({
   children,
@@ -24,6 +16,9 @@ export default function ClerkLayout({
           width={200}
           height={200}
         />
+        <h1 className={cn("text-3xl font-bold", bitter.className)}>
+          HOA Management System
+        </h1>
       </div>
       {children}
     </div>

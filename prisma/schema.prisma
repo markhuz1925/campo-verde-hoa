@@ -17,9 +17,15 @@ model Hoa {
   lastName         String
   block            String
   lot              String
-  waterConsumption WaterConsumption[]
-  waterBilling     WaterBilling[]
-  sticker          Sticker[]
+  contactNumber    String
+  email            String
+  isAdmin          Boolean            @default(false)
+  isWaterActive    Boolean            @default(false)
+  role             String
+  waterConsumption WaterConsumption[] @relation("WaterConsumption")
+  waterBilling     WaterBilling[]     @relation("WaterBilling")
+  sticker          Sticker[]          @relation("Sticker")
+  dues             Dues[]             @relation("Dues")
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
 }
@@ -30,7 +36,7 @@ model WaterConsumption {
   previousRead String
   currentRead  String
   consumption  String
-  hoa          Hoa      @relation(fields: [hoaId], references: [id])
+  hoa          Hoa      @relation("WaterConsumption", fields: [hoaId], references: [id])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -40,10 +46,21 @@ model WaterBilling {
   hoaId       String
   billingDate String
   amount      Float
-  status      Status   @default(ACTIVE)
-  hoa         Hoa      @relation(fields: [hoaId], references: [id])
+  isPaid      Boolean  @default(false)
+  remarks     String
+  hoa         Hoa      @relation("WaterBilling", fields: [hoaId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Dues {
+  id        String   @id @default(uuid())
+  hoaId     String
+  amount    Float
+  hoa       Hoa      @relation("Dues", fields: [hoaId], references: [id])
+  isPaid    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Sticker {
@@ -58,7 +75,7 @@ model Sticker {
   role          Role     @default(HOA)
   quantity      Int      @default(1)
   amount        Float    @default(0)
-  hoa           Hoa      @relation(fields: [hoaId], references: [id])
+  hoa           Hoa      @relation("Sticker", fields: [hoaId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
