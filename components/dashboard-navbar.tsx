@@ -2,9 +2,11 @@
 
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
+import { SettingsIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 export function DashboardNavbar() {
   const pathname = usePathname();
@@ -64,7 +66,14 @@ export function DashboardNavbar() {
           ))}
         </div>
       </div>
-      <UserButton afterSignOutUrl="/sign-in" />
+      <div className="flex items-center space-x-4">
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/settings">
+            <SettingsIcon />
+          </Link>
+        </Button>
+        <UserButton afterSignOutUrl="/sign-in" />
+      </div>
     </nav>
   );
 }
