@@ -73,7 +73,7 @@ model Dues {
 
 model DuesPrice {
   id        String   @id @default(uuid())
-  price     Float
+  price     Decimal
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -112,9 +112,9 @@ model Vehicle {
 model StickerPrice {
   id        String   @id @default(uuid())
   name      String
-  price     Float
+  price     Decimal
   color     Color    @default(GREEN)
-  isActive  Boolean  @default(true)
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -122,6 +122,7 @@ model StickerPrice {
 model Log {
   id        String   @id @default(uuid())
   title     String
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
