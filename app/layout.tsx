@@ -1,3 +1,4 @@
+import { ToasterProvider } from "@/providers/toast-provider";
 import { Metadata } from "next";
 import "./globals.css";
 
@@ -17,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ToasterProvider />
+        {children}
+      </body>
     </html>
   );
 }
