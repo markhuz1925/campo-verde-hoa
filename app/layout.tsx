@@ -1,3 +1,4 @@
+import { ModalProvider } from "@/providers/modal-provider";
 import { ToasterProvider } from "@/providers/toast-provider";
 import { Metadata } from "next";
 import "./globals.css";
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ToasterProvider />
+        <ModalProvider />
         {children}
       </body>
     </html>
