@@ -7,6 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { bitter, openSans } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface Props {
   title: string;
@@ -31,8 +33,12 @@ export function Modal({
     <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle className={cn("font-bold", bitter.className)}>
+            {title}
+          </DialogTitle>
+          <DialogDescription className={cn("font-medium", openSans.className)}>
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <div>{children}</div>
       </DialogContent>
