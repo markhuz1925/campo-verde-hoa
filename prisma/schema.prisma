@@ -111,6 +111,7 @@ model Vehicle {
 
 model StickerPrice {
   id        String   @id @default(uuid())
+  name      String
   price     Float
   color     Color    @default(GREEN)
   isActive  Boolean  @default(true)
