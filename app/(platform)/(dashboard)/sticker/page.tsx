@@ -2,7 +2,7 @@ import { StickerModal } from "@/components/modals/sticker-modal";
 import prisma from "@/prisma/client";
 
 export default async function StickerPage() {
-  const stickers = await prisma.sticker.findMany();
+  const stickers = await prisma.stickerPrice.findMany();
 
   if (stickers.length <= 0) {
     return <StickerModal />;
