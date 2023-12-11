@@ -80,7 +80,7 @@ model DuesPrice {
 }
 
 model Sticker {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   hoaId         String
   name          String
   block         String
@@ -88,10 +88,23 @@ model Sticker {
   stickerDate   String
   stickerNumber String
   stickerColor  String
-  role          Role     @default(HOA)
-  quantity      Int      @default(1)
-  amount        Float    @default(0)
-  hoa           Hoa      @relation("Sticker", fields: [hoaId], references: [id])
+  role          Role      @default(HOA)
+  quantity      Int       @default(1)
+  amount        Float     @default(0)
+  hoa           Hoa       @relation("Sticker", fields: [hoaId], references: [id])
+  vehicle       Vehicle[] @relation("Vehicle")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Vehicle {
+  id            String   @id @default(uuid())
+  stickerId     String
+  sticker       Sticker  @relation("Vehicle", fields: [stickerId], references: [id])
+  plate         String
+  vehicleType   String
+  color         String
+  driverLicense String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
