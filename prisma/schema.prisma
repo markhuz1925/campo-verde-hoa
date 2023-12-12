@@ -25,7 +25,6 @@ model Hoa {
   role             String
   waterConsumption WaterConsumption[] @relation("WaterConsumption")
   waterBilling     WaterBilling[]     @relation("WaterBilling")
-  sticker          Sticker[]          @relation("Sticker")
   dues             Dues[]             @relation("Dues")
   userId           String
   createdAt        DateTime           @default(now())
@@ -83,7 +82,6 @@ model DuesPrice {
 
 model Sticker {
   id            String    @id @default(uuid())
-  hoaId         String
   name          String
   block         String
   lot           String
@@ -93,7 +91,6 @@ model Sticker {
   role          Role      @default(HOA)
   quantity      Int       @default(1)
   amount        Float     @default(0)
-  hoa           Hoa       @relation("Sticker", fields: [hoaId], references: [id])
   vehicle       Vehicle[] @relation("Vehicle")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
