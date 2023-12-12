@@ -15,6 +15,7 @@ model Hoa {
   accountNumber    String
   firstName        String
   lastName         String
+  phase            String
   block            String
   lot              String
   contactNumber    String

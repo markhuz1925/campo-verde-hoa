@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       lastName,
       block,
       lot,
+      phase,
       contactNumber,
       email,
       isAdmin,
@@ -26,6 +27,7 @@ export async function POST(req: Request) {
     if (!lastName) return new NextResponse("Name is required", { status: 400 });
     if (!block) return new NextResponse("Name is required", { status: 400 });
     if (!lot) return new NextResponse("Name is required", { status: 400 });
+    if (!phase) return new NextResponse("Name is required", { status: 400 });
     if (!contactNumber)
       return new NextResponse("Name is required", { status: 400 });
 
@@ -36,6 +38,7 @@ export async function POST(req: Request) {
         lastName,
         block,
         lot,
+        phase,
         contactNumber,
         email,
         isAdmin,
