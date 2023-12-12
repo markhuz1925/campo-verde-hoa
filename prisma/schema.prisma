@@ -12,7 +12,7 @@ datasource db {
 
 model Hoa {
   id               String             @id @default(uuid())
-  accountNumber    String
+  accountNumber    Int                @default(autoincrement())
   firstName        String
   lastName         String
   phase            String
