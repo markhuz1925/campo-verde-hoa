@@ -7,7 +7,6 @@ export async function POST(req: Request) {
     const { userId } = auth();
     const body = await req.json();
     const {
-      accountNumber,
       firstName,
       lastName,
       block,
@@ -20,8 +19,6 @@ export async function POST(req: Request) {
     } = body;
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
-    if (!accountNumber)
-      return new NextResponse("Name is required", { status: 400 });
     if (!firstName)
       return new NextResponse("Name is required", { status: 400 });
     if (!lastName) return new NextResponse("Name is required", { status: 400 });
@@ -33,7 +30,6 @@ export async function POST(req: Request) {
 
     const member = await prisma.hoa.create({
       data: {
-        accountNumber,
         firstName,
         lastName,
         block,
