@@ -52,7 +52,7 @@ export function StickerModal() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      await axios.post("/api/stickers", values);
+      await axios.post("/api/sticker-price", values);
       await axios.post("/api/logs", {
         title: `[STICKER_POST_SUCCESS] ${values.name}/${values.color}/${values.price}`,
       });
