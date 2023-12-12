@@ -16,6 +16,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
+  className?: string;
 }
 
 export function Modal({
@@ -24,6 +25,7 @@ export function Modal({
   isOpen,
   onClose,
   children,
+  className,
 }: Props) {
   const onChange = (open: boolean) => {
     if (!open) onClose();
@@ -31,7 +33,7 @@ export function Modal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogContent>
+      <DialogContent className={className}>
         <DialogHeader>
           <DialogTitle className={cn("font-bold", bitter.className)}>
             {title}
