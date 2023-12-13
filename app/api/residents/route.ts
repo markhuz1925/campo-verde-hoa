@@ -16,6 +16,19 @@ export async function POST(req: Request) {
     if (!phase) return new NextResponse("Phase is required", { status: 400 });
     if (!role) return new NextResponse("Role is required", { status: 400 });
 
+    const existingResident = await prisma.resident.findFirst({
+      where: {
+        AND: [{ name, block, lot, phase }],
+      },
+    });
+
+    if (existingResident) {
+      return new NextResponse(
+        "Resident with the same name, block, lot, and phase already exists",
+        { status: 400 }
+      );
+    }
+
     const resident = await prisma.resident.create({
       data: {
         name,

@@ -1,7 +1,8 @@
+import { RegisterResidentModal } from "@/components/modals/register-resident-modal";
 import prisma from "@/prisma/client";
-import { ResidentsHeading } from "./_components/resisdents-heading";
 import { ResidentColumn } from "./_components/columns";
 import { ResidetClient } from "./_components/resident-client";
+import { ResidentsHeading } from "./_components/resisdents-heading";
 
 export default async function ResidentsPage() {
   const residents = await prisma.resident.findMany({
@@ -24,6 +25,7 @@ export default async function ResidentsPage() {
   return (
     <div className="pt-20 px-5">
       <ResidentsHeading />
+      <RegisterResidentModal />
       <div className="flex flex-col space-y-4 pt-6">
         <ResidetClient data={formattedResidents} />
       </div>

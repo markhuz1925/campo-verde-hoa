@@ -29,6 +29,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { openSans } from "@/lib/constants";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Last name must be at least 2 characters"),
@@ -50,6 +51,11 @@ export function RegisterResidentModal() {
   const onClose = useModal((state) => state.onClose);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -77,7 +83,19 @@ export function RegisterResidentModal() {
       router.refresh();
       onClose();
     } catch (error) {
-      toast.error("Something went wrong");
+      if (
+        axios.isAxiosError(error) &&
+        error.response &&
+        error.response.status === 400
+      ) {
+        // Specific error for duplicate resident
+        toast.error(
+          "A resident with the same name, block, lot, and phase already exists. Please try again with different details."
+        );
+      } else {
+        // Generic error message for other errors
+        toast.error("Something went wrong. Please try again later.");
+      }
       await axios.post("/api/logs", {
         title: `[RESIDENT_POST_ERROR] ${error}`,
       });
@@ -98,6 +116,8 @@ export function RegisterResidentModal() {
       role: "",
     });
   }, [form, isOpen]);
+
+  if (!isMounted) return null;
 
   return (
     <Modal
@@ -284,7 +304,11 @@ export function RegisterResidentModal() {
                 Cancel
               </Button>
               <Button disabled={isSubmitting} type="submit" size="sm">
-                Continue
+                {isSubmitting ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Continue"
+                )}
               </Button>
             </div>
           </form>
