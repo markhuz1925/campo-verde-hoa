@@ -26,36 +26,38 @@ import {
 } from "../ui/select";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  block: z.string(),
-  lot: z.string(),
-  phase: z.string(),
-  email: z.string().email().optional(),
+  name: z.string().min(2, "Last name must be at least 2 characters"),
+  block: z.string().min(1, "Block number is required"),
+  lot: z.string().min(1, "Lot number is required"),
+  phase: z.string().min(1, "Please select a Phase"),
+  email: z.string().email().optional().nullable(),
   contactNumber: z
     .string()
-    .min(11, "Contact number must be at least 11 characters"),
+    .min(11, "Enter a valid mobile number ex. 09191234567")
+    .optional()
+    .nullable(),
   isAdmin: z.boolean().optional(),
-  role: z.string().optional(),
+  role: z.string().min(1, "Please select a role"),
 });
 
 export function RegisterResidentModal() {
   const isOpen = useModal((state) => state.isOpen);
   const onClose = useModal((state) => state.onClose);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       block: "",
       lot: "",
       phase: "",
-      email: "",
-      contactNumber: "",
+      email: undefined,
+      contactNumber: undefined,
       isAdmin: false,
       role: "",
     },
@@ -67,11 +69,10 @@ export function RegisterResidentModal() {
       const validatedValues = formSchema.parse(values);
       await axios.post("/api/residents", validatedValues);
       await axios.post("/api/logs", {
-        title: `[RESIDENT_POST_SUCCESS] ${values.firstName} ${values.lastName} ${values.block} ${values.lot} ${values.phase} ${values.email} ${values.contactNumber} ${values.isAdmin} ${values.role}`,
+        title: `[RESIDENT_POST_SUCCESS] ${values.name} ${values.block} ${values.lot} ${values.phase} ${values.email} ${values.contactNumber} ${values.isAdmin} ${values.role}`,
       });
-      toast.success(
-        `Resident ${values.firstName} ${values.lastName} registered successfully`
-      );
+      toast.success(`Resident ${values.name} registered successfully`);
+      router.refresh();
       onClose();
     } catch (error) {
       toast.error("Something went wrong");
@@ -85,13 +86,12 @@ export function RegisterResidentModal() {
 
   useEffect(() => {
     form.reset({
-      firstName: "",
-      lastName: "",
+      name: "",
       block: "",
       lot: "",
       phase: "",
-      email: "",
-      contactNumber: "",
+      email: undefined,
+      contactNumber: undefined,
       isAdmin: false,
       role: "",
     });
@@ -113,7 +113,7 @@ export function RegisterResidentModal() {
           >
             <FormField
               control={form.control}
-              name="firstName"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
@@ -121,23 +121,6 @@ export function RegisterResidentModal() {
                     <Input
                       disabled={isSubmitting}
                       placeholder="Enter First name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter Last name"
                       {...field}
                     />
                   </FormControl>
@@ -211,6 +194,8 @@ export function RegisterResidentModal() {
                   <FormLabel>Contact Number</FormLabel>
                   <FormControl>
                     <Input
+                      type="tel"
+                      pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
                       disabled={isSubmitting}
                       placeholder="Enter Contact number"
                       {...field}
