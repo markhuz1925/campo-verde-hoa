@@ -2,18 +2,20 @@
 
 import { Modal } from "@/components/ui/modal";
 import { useModal } from "@/hooks/use-modal";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -22,9 +24,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
-import { useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -40,9 +41,10 @@ const formSchema = z.object({
   role: z.string().optional(),
 });
 
-export function RegisterMemberModal() {
+export function RegisterResidentModal() {
   const isOpen = useModal((state) => state.isOpen);
   const onClose = useModal((state) => state.onClose);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,10 +63,23 @@ export function RegisterMemberModal() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setIsSubmitting(true);
       const validatedValues = formSchema.parse(values);
-      console.log(validatedValues);
+      await axios.post("/api/residents", validatedValues);
+      await axios.post("/api/logs", {
+        title: `[RESIDENT_POST_SUCCESS] ${values.firstName} ${values.lastName} ${values.block} ${values.lot} ${values.phase} ${values.email} ${values.contactNumber} ${values.isAdmin} ${values.role}`,
+      });
+      toast.success(
+        `Resident ${values.firstName} ${values.lastName} registered successfully`
+      );
+      onClose();
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
+      await axios.post("/api/logs", {
+        title: `[RESIDENT_POST_ERROR] ${error}`,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -84,8 +99,8 @@ export function RegisterMemberModal() {
 
   return (
     <Modal
-      title="Register Member"
-      description="Register a new Homeowner Association member"
+      title="Register Resident"
+      description="Register new resident"
       isOpen={isOpen}
       onClose={onClose}
       className="max-h-[90dvh] overflow-y-auto"
@@ -103,7 +118,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter First name" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter First name"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,7 +135,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Last name" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter Last name"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +156,7 @@ export function RegisterMemberModal() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger disabled={isSubmitting}>
                         <SelectValue placeholder="Select Phase" />
                       </SelectTrigger>
                     </FormControl>
@@ -153,7 +176,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>Block</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Block number" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter Block number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -166,7 +193,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>Lot</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Lot number" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter Lot number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -179,7 +210,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>Contact Number</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Contact number" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter Contact number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -192,7 +227,11 @@ export function RegisterMemberModal() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Email address" {...field} />
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter Email address"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -209,7 +248,7 @@ export function RegisterMemberModal() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger disabled={isSubmitting}>
                         <SelectValue placeholder="Select Role" />
                       </SelectTrigger>
                     </FormControl>
@@ -229,6 +268,7 @@ export function RegisterMemberModal() {
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-primary p-4">
                   <FormControl>
                     <Checkbox
+                      disabled={isSubmitting}
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
@@ -241,6 +281,7 @@ export function RegisterMemberModal() {
             />
             <div className="pt-6 space-x-2 flex items-center justify-end">
               <Button
+                disabled={isSubmitting}
                 type="reset"
                 onClick={() => {
                   form.reset();
@@ -251,7 +292,7 @@ export function RegisterMemberModal() {
               >
                 Cancel
               </Button>
-              <Button type="submit" size="sm">
+              <Button disabled={isSubmitting} type="submit" size="sm">
                 Continue
               </Button>
             </div>

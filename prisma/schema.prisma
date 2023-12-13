@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Hoa {
+model Resident {
   id               String             @id @default(uuid())
   accountNumber    Int                @default(autoincrement())
   firstName        String
@@ -33,23 +33,23 @@ model Hoa {
 
 model WaterConsumption {
   id           String   @id @default(uuid())
-  hoaId        String
+  residentId   String
   previousRead String
   currentRead  String
   consumption  String
-  hoa          Hoa      @relation("WaterConsumption", fields: [hoaId], references: [id])
+  resident     Resident @relation("WaterConsumption", fields: [residentId], references: [id])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
 model WaterBilling {
   id          String   @id @default(uuid())
-  hoaId       String
+  residentId  String
   billingDate String
   amount      Float
   isPaid      Boolean  @default(false)
   remarks     String
-  hoa         Hoa      @relation("WaterBilling", fields: [hoaId], references: [id])
+  resident    Resident @relation("WaterBilling", fields: [residentId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -63,13 +63,13 @@ model WaterPrice {
 }
 
 model Dues {
-  id        String   @id @default(uuid())
-  hoaId     String
-  amount    Float
-  hoa       Hoa      @relation("Dues", fields: [hoaId], references: [id])
-  isPaid    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  residentId String
+  amount     Float
+  resident   Resident @relation("Dues", fields: [residentId], references: [id])
+  isPaid     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model DuesPrice {
@@ -88,7 +88,7 @@ model Sticker {
   stickerDate   String
   stickerNumber String
   stickerColor  String
-  role          Role      @default(HOA)
+  role          Role      @default(RESIDENT)
   quantity      Int       @default(1)
   amount        Float     @default(0)
   vehicle       Vehicle[] @relation("Vehicle")
@@ -132,7 +132,7 @@ enum Status {
 }
 
 enum Role {
-  HOA
+  RESIDENT
   TENANT
   DELIVERY
   VISITOR

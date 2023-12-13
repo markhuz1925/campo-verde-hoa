@@ -18,14 +18,14 @@ export function DashboardNavbar() {
       active: pathname === `/dashboard`,
     },
     {
-      name: "Members",
-      href: "/members",
-      active: pathname === `/members`,
+      name: "Residents",
+      href: "/residents",
+      active: pathname === `/residents`,
     },
     {
-      name: "Billing",
-      href: "/billing",
-      active: pathname === `/billing`,
+      name: "Financials",
+      href: "/financials",
+      active: pathname === `/financials`,
     },
     {
       name: "Dues",
@@ -36,6 +36,21 @@ export function DashboardNavbar() {
       name: "Sticker",
       href: "/sticker",
       active: pathname === `/sticker`,
+    },
+    {
+      name: "Maintenance",
+      href: "/maintenance",
+      active: pathname === `/maintenance`,
+    },
+    {
+      name: "Announcements",
+      href: "/announcements",
+      active: pathname === `/announcements`,
+    },
+    {
+      name: "Events",
+      href: "/events",
+      active: pathname === `/events`,
     },
   ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { RegisterMemberModal } from "@/components/modals/register-member-modal";
+import { RegisterResidentModal } from "@/components/modals/register-resident-modal";
 import { useEffect, useState } from "react";
 
 export function ModalProvider() {
@@ -14,7 +14,7 @@ export function ModalProvider() {
 
   return (
     <>
-      <RegisterMemberModal />
+      <RegisterResidentModal />
     </>
   );
 }

@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     if (!contactNumber)
       return new NextResponse("Name is required", { status: 400 });
 
-    const member = await prisma.hoa.create({
+    const resident = await prisma.resident.create({
       data: {
         firstName,
         lastName,
@@ -43,9 +43,9 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(member);
+    return NextResponse.json(resident);
   } catch (error) {
-    console.log("[MEMBERS_POST]", error);
+    console.log("[RESIDENT_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -4,16 +4,16 @@ import { PageHeading } from "@/components/page-heading";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 
-export function MemberHeading() {
-  const registerMember = useModal();
+export function ResidentsHeading() {
+  const registerResident = useModal();
 
   return (
     <div className="flex items-center justify-between">
       <PageHeading
-        title="Members"
-        description="Manage your members. You can register, update and view details of a member."
+        title="Residents"
+        description="Manage your residents. You can register, update and view details of a resident."
       />
-      <Button onClick={registerMember.onOpen}>Register Member</Button>
+      <Button onClick={registerResident.onOpen}>Register Resident</Button>
     </div>
   );
 }
