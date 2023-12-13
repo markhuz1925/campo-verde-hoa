@@ -118,11 +118,11 @@ export function RegisterResidentModal() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Enter First name"
+                      placeholder="Enter name"
                       {...field}
                     />
                   </FormControl>
