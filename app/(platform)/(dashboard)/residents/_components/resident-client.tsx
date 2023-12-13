@@ -8,7 +8,7 @@ export function ResidetClient({ data }: { data: ResidentColumn[] }) {
   return (
     <>
       <Separator />
-      <DataTable columns={columns} data={data} searchKey={"lastName"} />
+      <DataTable columns={columns} data={data} searchKey={"name"} />
     </>
   );
 }
