@@ -27,6 +27,8 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { openSans } from "@/lib/constants";
 
 const formSchema = z.object({
   name: z.string().min(2, "Last name must be at least 2 characters"),
@@ -109,7 +111,7 @@ export function RegisterResidentModal() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex-col space-y-4"
+            className={cn("flex-col space-y-4", openSans.className)}
           >
             <FormField
               control={form.control}
@@ -152,76 +154,80 @@ export function RegisterResidentModal() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="block"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Block</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter Block number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lot"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Lot</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter Lot number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="contactNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Contact Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="tel"
-                      pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                      disabled={isSubmitting}
-                      placeholder="Enter Contact number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter Email address"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex items-center gap-4 w-full">
+              <FormField
+                control={form.control}
+                name="block"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Block</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="Enter Block number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lot"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Lot</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="Enter Lot number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex items-center gap-4 w-full">
+              <FormField
+                control={form.control}
+                name="contactNumber"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Contact Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="tel"
+                        pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
+                        disabled={isSubmitting}
+                        placeholder="Enter Contact number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="Enter Email address"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="role"
