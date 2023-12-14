@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -35,6 +36,7 @@ const formSchema = z.object({
 export function StickerModal() {
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onOpen = useModal((state) => state.onOpen);
   const onClose = useModal((state) => state.onClose);
@@ -54,11 +56,12 @@ export function StickerModal() {
       setLoading(true);
       await axios.post("/api/sticker-price", values);
       await axios.post("/api/logs", {
-        title: `[STICKER_POST_SUCCESS] ${values.name}/${values.color}/${values.price}`,
+        title: `[STICKER_POST_SUCCESS] ${values.name}, ${values.color}, ${values.price}`,
       });
       toast.success(
         `Sticker ${values.name}-${values.color}-${values.price} created`
       );
+      router.refresh();
       onClose();
     } catch (error) {
       toast.error("Something went wrong");

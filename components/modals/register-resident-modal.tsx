@@ -67,7 +67,7 @@ export function RegisterResidentModal() {
       email: undefined,
       contactNumber: undefined,
       isAdmin: false,
-      role: "",
+      role: "homeowner",
     },
   });
 
@@ -90,7 +90,7 @@ export function RegisterResidentModal() {
       ) {
         // Specific error for duplicate resident
         toast.error(
-          "A resident with the same name, block, lot, and phase already exists. Please try again with different details."
+          "The address or name is already registered. Please try again with different details."
         );
       } else {
         // Generic error message for other errors
@@ -113,7 +113,7 @@ export function RegisterResidentModal() {
       email: undefined,
       contactNumber: undefined,
       isAdmin: false,
-      role: "",
+      role: "homeowner",
     });
   }, [form, isOpen]);
 
@@ -218,10 +218,11 @@ export function RegisterResidentModal() {
                   <FormItem className="w-full">
                     <FormLabel>Contact Number</FormLabel>
                     <FormControl>
+                      {/* @ts-ignore */}
                       <Input
+                        disabled={isSubmitting}
                         type="tel"
                         pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                        disabled={isSubmitting}
                         placeholder="Enter Contact number"
                         {...field}
                       />
@@ -237,6 +238,7 @@ export function RegisterResidentModal() {
                   <FormItem className="w-full">
                     <FormLabel>Email</FormLabel>
                     <FormControl>
+                      {/* @ts-ignore */}
                       <Input
                         disabled={isSubmitting}
                         placeholder="Enter Email address"
@@ -254,20 +256,9 @@ export function RegisterResidentModal() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Role</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger disabled={isSubmitting}>
-                        <SelectValue placeholder="Select Role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="homeowner">Homeowner</SelectItem>
-                      <SelectItem value="tenant">Tenant</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <FormControl>
+                    <Input readOnly placeholder="Enter role" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
