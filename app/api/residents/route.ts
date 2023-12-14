@@ -29,6 +29,16 @@ export async function POST(req: Request) {
       );
     }
 
+    const addressAlreadyTaken = await prisma.resident.findFirst({
+      where: {
+        AND: [{ block, lot, phase }],
+      },
+    });
+
+    if (addressAlreadyTaken) {
+      return new NextResponse("The address is already taken.", { status: 400 });
+    }
+
     const resident = await prisma.resident.create({
       data: {
         name,
