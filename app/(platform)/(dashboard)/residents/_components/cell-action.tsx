@@ -15,8 +15,11 @@ import {
   MoreHorizontalIcon,
   Trash2Icon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function CellAction({ data }: { data: ResidentColumn }) {
+  const router = useRouter();
+
   return (
     <>
       <DropdownMenu>
@@ -32,7 +35,9 @@ export function CellAction({ data }: { data: ResidentColumn }) {
             <CopyIcon className="mr-2 h-4 w-4" />
             Copy Id
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => {}}>
+          <DropdownMenuItem
+            onClick={() => router.push(`/residents/${data.id}`)}
+          >
             <EditIcon className="mr-2 h-4 w-4" />
             Update
           </DropdownMenuItem>
