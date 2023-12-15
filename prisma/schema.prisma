@@ -25,6 +25,7 @@ model Resident {
   waterConsumption WaterConsumption[] @relation("WaterConsumption")
   waterBilling     WaterBilling[]     @relation("WaterBilling")
   dues             Dues[]             @relation("Dues")
+  sticker          Sticker[]          @relation("Sticker")
   userId           String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
@@ -82,8 +83,8 @@ model DuesPrice {
 model Sticker {
   id            String    @id @default(uuid())
   name          String
-  block         String
-  lot           String
+  residentId    String
+  resident      Resident  @relation("Sticker", fields: [residentId], references: [id])
   stickerDate   String
   stickerNumber String
   stickerColor  String
