@@ -4,6 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { openSans } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
@@ -14,24 +24,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { openSans } from "@/lib/constants";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
+  XIcon,
 } from "lucide-react";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -62,18 +62,51 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const isFiltered = table.getState().columnFilters.length > 0;
+
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex flex-col md:flex-row items-center gap-5 mb-4 w-full">
         <Input
-          placeholder="Search Name..."
+          placeholder="Search Name"
           value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
+        {table.getColumn("block") && (
+          <Input
+            placeholder="Search Block"
+            value={(table.getColumn("block")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("block")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
+        {table.getColumn("lot") && (
+          <Input
+            placeholder="Search Lot"
+            value={(table.getColumn("lot")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("lot")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
+        {isFiltered && (
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <XIcon className="ml-2 h-4 w-4" />
+          </Button>
+        )}
       </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
