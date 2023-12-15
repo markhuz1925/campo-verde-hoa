@@ -25,7 +25,7 @@ model Resident {
   waterConsumption WaterConsumption[] @relation("WaterConsumption")
   waterBilling     WaterBilling[]     @relation("WaterBilling")
   dues             Dues[]             @relation("Dues")
-  sticker          Sticker[]          @relation("Sticker")
+  stickers         Sticker[]          @relation("stickerToResident")
   userId           String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
@@ -84,7 +84,7 @@ model Sticker {
   id            String    @id @default(uuid())
   name          String
   residentId    String
-  resident      Resident  @relation("Sticker", fields: [residentId], references: [id])
+  resident      Resident  @relation("stickerToResident", fields: [residentId], references: [id])
   stickerDate   String
   stickerNumber String
   stickerColor  String
@@ -114,6 +114,7 @@ model StickerPrice {
   price     Decimal  @db.Decimal(10, 2)
   color     Color    @default(GREEN)
   userId    String
+  isActive  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

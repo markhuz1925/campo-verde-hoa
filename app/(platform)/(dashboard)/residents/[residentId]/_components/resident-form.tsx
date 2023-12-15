@@ -30,8 +30,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { formSchema, openSans } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import prisma from "@/prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Resident } from "@prisma/client";
+import { Resident, Sticker } from "@prisma/client";
 import axios from "axios";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -264,7 +265,19 @@ export function ResidentForm({ resident }: { resident: Resident | null }) {
               <CardTitle>Purchased Stickers</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col space-y-4"></div>
+              <div className="flex flex-col space-y-4">
+                {resident?.stickers && resident.stickers.length > 0 ? (
+                  resident.stickers.map((sticker: Sticker) => (
+                    <div key={sticker.id}>
+                      {/* Render information for each purchased sticker */}
+                      <p>Name: {sticker.name}</p>
+                      {/* Add other properties as needed */}
+                    </div>
+                  ))
+                ) : (
+                  <div>No purchased sticker</div>
+                )}
+              </div>
             </CardContent>
           </Card>
           <Separator />

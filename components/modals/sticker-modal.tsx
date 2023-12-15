@@ -1,5 +1,6 @@
 "use client";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -13,8 +14,10 @@ import { Modal } from "@/components/ui/modal";
 import { useModal } from "@/hooks/use-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -24,13 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   color: z.string().min(1, { message: "Color is required" }),
   price: z.coerce.number().min(1),
+  isActive: z.boolean().optional(),
 });
 
 export function StickerModal() {
@@ -48,6 +50,7 @@ export function StickerModal() {
       name: "",
       color: "",
       price: 0,
+      isActive: false,
     },
   });
 
@@ -75,18 +78,12 @@ export function StickerModal() {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!isOpen) {
-      onOpen();
-    }
-  }, [isOpen, onOpen]);
-
   if (!isMounted) return null;
 
   return (
     <Modal
       title="Setup Sticker"
-      description="You don't have any sticker yet, please add atleast one. You can add more in Settings page."
+      description="Mange your stickers."
       isOpen={isOpen}
       onClose={onClose}
     >
@@ -112,7 +109,7 @@ export function StickerModal() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="ho">Home Owner</SelectItem>
+                      <SelectItem value="homeowner">Home Owner</SelectItem>
                       <SelectItem value="tenant">Tenant</SelectItem>
                       <SelectItem value="visitor">Visitor</SelectItem>
                       <SelectItem value="delivery">Delivery</SelectItem>
@@ -168,8 +165,27 @@ export function StickerModal() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="isActive"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-primary p-4">
+                  <FormControl>
+                    <Checkbox
+                      disabled={loading}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Active</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
             <div className="pt-6 space-x-2 flex items-center justify-end">
               <Button
+                type="reset"
                 onClick={onClose}
                 disabled={loading}
                 variant="secondary"
