@@ -9,7 +9,10 @@ export async function PATCH(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { name, contactNumber, email, isAdmin, role } = body;
+    const { name, phase, block, lot, contactNumber, email, isAdmin, role } =
+      body;
+
+    console.log(params.residentId);
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
     if (!name) return new NextResponse("Name is required", { status: 400 });
@@ -20,6 +23,9 @@ export async function PATCH(
       },
       data: {
         name,
+        phase,
+        block,
+        lot,
         contactNumber,
         email,
         isAdmin,
