@@ -79,10 +79,10 @@ model DuesPrice {
 
 model Sticker {
   id            String    @id @default(uuid())
-  stickerDate   String
+  stickerDate   DateTime  @default(now())
   stickerNumber String
-  stickerColor  String
-  role          Role      @default(RESIDENT)
+  stickerColor  Color     @default(GREEN)
+  role          Role      @default(HOMEOWNER)
   quantity      Int       @default(1)
   amount        Float     @default(0)
   createdAt     DateTime  @default(now())
@@ -98,7 +98,7 @@ model Vehicle {
   stickerId     String
   plate         String
   vehicleType   String
-  color         String
+  vehicleColor  String
   driverLicense String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -130,7 +130,7 @@ enum Status {
 }
 
 enum Role {
-  RESIDENT
+  HOMEOWNER
   TENANT
   DELIVERY
   VISITOR
