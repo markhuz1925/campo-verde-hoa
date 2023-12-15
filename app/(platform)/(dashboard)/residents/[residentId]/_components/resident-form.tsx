@@ -260,7 +260,7 @@ export function ResidentForm({
         </Form>
         <Separator orientation="vertical" className="h-[100vh-1%]" />
         <div className="flex flex-col space-y-5 w-full">
-          <PurchasedStickers data={purchasedStickers} />
+          <PurchasedStickers purchasrdStickers={purchasedStickers} />
           <HoaDues data={hoaDues} />
         </div>
       </div>
