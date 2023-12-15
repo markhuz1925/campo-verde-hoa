@@ -31,19 +31,11 @@ export function CellAction({ data }: { data: ResidentColumn }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => {}}>
-            <CopyIcon className="mr-2 h-4 w-4" />
-            Copy Id
-          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => router.push(`/residents/${data.id}`)}
           >
             <EditIcon className="mr-2 h-4 w-4" />
             Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => {}} className="text-red-500">
-            <Trash2Icon className="mr-2 h-4 w-4" />
-            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
