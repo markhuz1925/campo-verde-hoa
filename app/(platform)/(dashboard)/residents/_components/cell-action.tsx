@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ResidentColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +8,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  CopyIcon,
-  EditIcon,
-  MoreHorizontalIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { DollarSignIcon, EditIcon, MoreHorizontalIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { ResidentColumn } from "./columns";
 
 export function CellAction({ data }: { data: ResidentColumn }) {
   const router = useRouter();
@@ -36,6 +31,14 @@ export function CellAction({ data }: { data: ResidentColumn }) {
           >
             <EditIcon className="mr-2 h-4 w-4" />
             Update
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() =>
+              router.push(`/residents/${data.id}/purchase-sticker`)
+            }
+          >
+            <DollarSignIcon className="mr-2 h-4 w-4" />
+            Purchase Sticker
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
