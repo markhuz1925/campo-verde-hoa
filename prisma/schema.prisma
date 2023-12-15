@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,13 +19,13 @@ model Resident {
   isAdmin          Boolean            @default(false)
   isWaterActive    Boolean?           @default(false)
   role             String
-  waterConsumption WaterConsumption[] @relation("WaterConsumption")
-  waterBilling     WaterBilling[]     @relation("WaterBilling")
-  dues             Dues[]             @relation("Dues")
-  stickers         Sticker[]          @relation("stickerToResident")
   userId           String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
+  dues             Dues[]             @relation("Dues")
+  stickers         Sticker[]          @relation("stickerToResident")
+  waterBilling     WaterBilling[]     @relation("WaterBilling")
+  waterConsumption WaterConsumption[] @relation("WaterConsumption")
 }
 
 model WaterConsumption {
@@ -37,9 +34,9 @@ model WaterConsumption {
   previousRead String
   currentRead  String
   consumption  String
-  resident     Resident @relation("WaterConsumption", fields: [residentId], references: [id])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  resident     Resident @relation("WaterConsumption", fields: [residentId], references: [id])
 }
 
 model WaterBilling {
@@ -49,9 +46,9 @@ model WaterBilling {
   amount      Float
   isPaid      Boolean  @default(false)
   remarks     String
-  resident    Resident @relation("WaterBilling", fields: [residentId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  resident    Resident @relation("WaterBilling", fields: [residentId], references: [id])
 }
 
 model WaterPrice {
@@ -66,10 +63,10 @@ model Dues {
   id         String   @id @default(uuid())
   residentId String
   amount     Float
-  resident   Resident @relation("Dues", fields: [residentId], references: [id])
   isPaid     Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  resident   Resident @relation("Dues", fields: [residentId], references: [id])
 }
 
 model DuesPrice {
@@ -82,30 +79,30 @@ model DuesPrice {
 
 model Sticker {
   id            String    @id @default(uuid())
-  name          String
-  residentId    String
-  resident      Resident  @relation("stickerToResident", fields: [residentId], references: [id])
   stickerDate   String
   stickerNumber String
   stickerColor  String
   role          Role      @default(RESIDENT)
   quantity      Int       @default(1)
   amount        Float     @default(0)
-  vehicle       Vehicle[] @relation("Vehicle")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  residentId    String
+  name          String
+  resident      Resident  @relation("stickerToResident", fields: [residentId], references: [id])
+  vehicle       Vehicle[] @relation("Vehicle")
 }
 
 model Vehicle {
   id            String   @id @default(uuid())
   stickerId     String
-  sticker       Sticker  @relation("Vehicle", fields: [stickerId], references: [id])
   plate         String
   vehicleType   String
   color         String
   driverLicense String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  sticker       Sticker  @relation("Vehicle", fields: [stickerId], references: [id])
 }
 
 model StickerPrice {
@@ -114,9 +111,9 @@ model StickerPrice {
   price     Decimal  @db.Decimal(10, 2)
   color     Color    @default(GREEN)
   userId    String
-  isActive  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(false)
 }
 
 model Log {
