@@ -1,15 +1,7 @@
 "use client";
 
 import { PageHeading } from "@/components/page-heading";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -30,18 +22,23 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { formSchema, openSans } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import prisma from "@/prisma/client";
+import { ResidentWithOptions } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Resident, Sticker } from "@prisma/client";
 import axios from "axios";
-import { CheckCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { HoaDues } from "./hoa-dues";
+import { PurchasedStickers } from "./purchased-stickers";
 
-export function ResidentForm({ resident }: { resident: Resident | null }) {
+export function ResidentForm({
+  resident,
+}: {
+  resident: ResidentWithOptions | null;
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const params = useParams();
@@ -50,6 +47,9 @@ export function ResidentForm({ resident }: { resident: Resident | null }) {
     resolver: zodResolver(formSchema),
     defaultValues: { ...resident },
   });
+
+  const purchasedStickers = resident?.stickers || null;
+  const hoaDues = resident?.dues || null;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -92,7 +92,7 @@ export function ResidentForm({ resident }: { resident: Resident | null }) {
       />
       <Separator />
       <div
-        className={cn("flex flex-col md:flex-row gap-10", openSans.className)}
+        className={cn("flex flex-col md:flex-row gap-5", openSans.className)}
       >
         <Form {...form}>
           <form
@@ -258,45 +258,10 @@ export function ResidentForm({ resident }: { resident: Resident | null }) {
             </div>
           </form>
         </Form>
-        <Separator orientation="vertical" />
+        <Separator orientation="vertical" className="h-[100vh-1%]" />
         <div className="flex flex-col space-y-5 w-full">
-          <Card>
-            <CardHeader>
-              <CardTitle>Purchased Stickers</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col space-y-4">
-                {resident?.stickers && resident.stickers.length > 0 ? (
-                  resident.stickers.map((sticker: Sticker) => (
-                    <div key={sticker.id}>
-                      {/* Render information for each purchased sticker */}
-                      <p>Name: {sticker.name}</p>
-                      {/* Add other properties as needed */}
-                    </div>
-                  ))
-                ) : (
-                  <div>No purchased sticker</div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-          <Separator />
-          <Card>
-            <CardHeader>
-              <CardTitle>Unpaid Dues</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col">
-                <Alert variant="success">
-                  <CheckCircle className="w-4 h-4" />
-                  <AlertTitle>Congratulations!</AlertTitle>
-                  <AlertDescription>
-                    You do not have unpaid dues
-                  </AlertDescription>
-                </Alert>
-              </div>
-            </CardContent>
-          </Card>
+          <PurchasedStickers data={purchasedStickers} />
+          <HoaDues data={hoaDues} />
         </div>
       </div>
     </div>
