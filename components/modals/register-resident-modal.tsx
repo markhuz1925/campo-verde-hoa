@@ -28,23 +28,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { openSans } from "@/lib/constants";
+import { formSchema, openSans } from "@/lib/constants";
 import { Loader2 } from "lucide-react";
-
-const formSchema = z.object({
-  name: z.string().min(2, "Last name must be at least 2 characters"),
-  block: z.string().min(1, "Block number is required"),
-  lot: z.string().min(1, "Lot number is required"),
-  phase: z.string().min(1, "Please select a Phase"),
-  email: z.string().email().optional().nullable(),
-  contactNumber: z
-    .string()
-    .min(11, "Enter a valid mobile number ex. 09191234567")
-    .optional()
-    .nullable(),
-  isAdmin: z.boolean().optional(),
-  role: z.string().min(1, "Please select a role"),
-});
 
 export function RegisterResidentModal() {
   const isOpen = useModal((state) => state.isOpen);
