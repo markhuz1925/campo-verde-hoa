@@ -1,7 +1,7 @@
 import { RegisterResidentModal } from "@/components/modals/register-resident-modal";
 import prisma from "@/prisma/client";
 import { ResidentColumn } from "./_components/columns";
-import { ResidetClient } from "./_components/resident-client";
+import { ResidentClient } from "./_components/resident-client";
 import { ResidentsHeading } from "./_components/resisdents-heading";
 
 export default async function ResidentsPage() {
@@ -27,7 +27,7 @@ export default async function ResidentsPage() {
       <ResidentsHeading />
       <RegisterResidentModal />
       <div className="flex flex-col space-y-4 pt-6">
-        <ResidetClient data={formattedResidents} />
+        <ResidentClient data={formattedResidents} />
       </div>
     </div>
   );
