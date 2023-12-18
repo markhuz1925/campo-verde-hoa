@@ -32,6 +32,8 @@ export function PurchasedStickers({
               <div key={sticker.id}>
                 {/* Render information for each purchased sticker */}
                 <p>Name: {sticker.name}</p>
+                <p>Plate: {sticker.plate}</p>
+                <p>Sticker Color: {sticker.stickerColor}</p>
                 {/* Add other properties as needed */}
               </div>
             ))
