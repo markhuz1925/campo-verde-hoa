@@ -78,31 +78,23 @@ model DuesPrice {
 }
 
 model Sticker {
-  id            String    @id @default(uuid())
-  stickerDate   DateTime  @default(now())
-  stickerNumber String
-  stickerColor  Color     @default(GREEN)
-  role          Role      @default(HOMEOWNER)
-  quantity      Int       @default(1)
-  amount        Float     @default(0)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  residentId    String
-  name          String
-  resident      Resident  @relation("stickerToResident", fields: [residentId], references: [id])
-  vehicle       Vehicle[] @relation("Vehicle")
-}
-
-model Vehicle {
   id            String   @id @default(uuid())
-  stickerId     String
+  residentId    String
+  role          String
+  name          String
+  driverLicense String
+  stickerNumber String
+  stickerColor  String
+  quantity      Int      @default(1)
+  amount        Decimal  @db.Decimal(10, 2)
   plate         String
   vehicleType   String
   vehicleColor  String
-  driverLicense String
+  stickerDate   DateTime @default(now())
+  userId        String
+  resident      Resident @relation("stickerToResident", fields: [residentId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  sticker       Sticker  @relation("Vehicle", fields: [stickerId], references: [id])
 }
 
 model StickerPrice {
