@@ -1,7 +1,7 @@
 "use client";
 
 import { bitter } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, formatter } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 
 export type StickerColumn = {
@@ -10,6 +10,7 @@ export type StickerColumn = {
   stickerColor: string;
   stickerNumber: string;
   stickerDate: string;
+  amount: string;
   block: string;
   lot: string;
   phase: string;
@@ -73,5 +74,9 @@ export const columns: ColumnDef<StickerColumn>[] = [
   {
     accessorKey: "stickerDate",
     header: "Date Purchased",
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
   },
 ];

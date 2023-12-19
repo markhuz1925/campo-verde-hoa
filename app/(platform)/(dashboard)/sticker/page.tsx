@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { ResidentWithOptions } from "@/types";
 import { StickersHeading } from "./_components/stickersHeading";
 import { VisitorDeliveryModal } from "@/components/modals/visitor-delivery-modal";
+import { formatter } from "@/lib/utils";
 
 export default async function StickerPage() {
   const stickerPrices = await prisma.stickerPrice.findMany();
@@ -29,6 +30,7 @@ export default async function StickerPage() {
     block: sticker.resident.block,
     lot: sticker.resident.lot,
     phase: sticker.resident.phase,
+    amount: formatter.format(Number(sticker.amount)), // sticker.amount,
   }));
 
   if (stickerPrices.length <= 0) redirect("/settings");
