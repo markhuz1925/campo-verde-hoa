@@ -11,7 +11,7 @@ export default async function StickerPage() {
 
   const stickers = await prisma.sticker.findMany({
     orderBy: {
-      stickerDate: "asc",
+      createdAt: "asc",
     },
     include: {
       resident: true,
@@ -23,7 +23,7 @@ export default async function StickerPage() {
     name: sticker.name,
     stickerColor: sticker.stickerColor,
     stickerNumber: sticker.stickerNumber,
-    stickerDate: format(sticker.stickerDate, "MM-dd-yyyy"),
+    stickerDate: format(new Date(sticker.stickerDate), "MM-dd-yyyy"),
     block: sticker.resident.block,
     lot: sticker.resident.lot,
   }));
