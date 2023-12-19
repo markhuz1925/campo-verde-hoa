@@ -23,7 +23,7 @@ export default async function StickerPage() {
     name: sticker.name,
     stickerColor: sticker.stickerColor,
     stickerNumber: sticker.stickerNumber,
-    stickerDate: format(new Date(sticker.stickerDate), "MM-dd-yyyy"),
+    stickerDate: format(new Date(sticker.stickerDate), "MMM dd, yyyy"),
     block: sticker.resident.block,
     lot: sticker.resident.lot,
   }));

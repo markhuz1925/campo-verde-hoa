@@ -1,5 +1,6 @@
 "use client";
 
+import { bitter } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -34,13 +35,16 @@ export const columns: ColumnDef<StickerColumn>[] = [
         <div
           className={cn(
             "p-1 rounded w-fit",
-            row.original.stickerColor === "green" && "bg-green-800/20",
-            row.original.stickerColor === "yellow" && "bg-yellow-400/20",
-            row.original.stickerColor === "silver" && "bg-gray-400/20"
+            row.original.stickerColor === "green" &&
+              "bg-[#dbeddb] text-green-900",
+            row.original.stickerColor === "yellow" &&
+              "bg-[#fdecc8] text-yellow-900",
+            row.original.stickerColor === "silver" &&
+              "bg-[#e3e2e0] text-gray-900"
           )}
         >
-          <p className="text-sm font-medium text-center">
-            {row.original.stickerColor}
+          <p className="text-xs font-medium text-center">
+            {`${row.original.stickerColor}`}
           </p>
         </div>
       );
@@ -49,6 +53,17 @@ export const columns: ColumnDef<StickerColumn>[] = [
   {
     accessorKey: "stickerNumber",
     header: "Sticker Number",
+    cell: ({ row }) => {
+      return (
+        <>
+          <p className={cn("text-sm font-semibold", bitter.className)}>
+            {row.original.stickerColor === "silver"
+              ? row.original.stickerNumber
+              : `CVHOA-${row.original.stickerNumber}`}
+          </p>
+        </>
+      );
+    },
   },
   {
     accessorKey: "stickerDate",
