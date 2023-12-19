@@ -34,6 +34,7 @@ export function PurchasedStickers({
                 <p>Name: {sticker.name}</p>
                 <p>Plate: {sticker.plate}</p>
                 <p>Sticker Color: {sticker.stickerColor}</p>
+                <p>Sticker Number: {`CVHOA-${sticker.stickerNumber}`}</p>
                 {/* Add other properties as needed */}
               </div>
             ))
