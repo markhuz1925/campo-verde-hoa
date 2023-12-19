@@ -12,12 +12,17 @@ export type StickerColumn = {
   stickerDate: string;
   block: string;
   lot: string;
+  phase: string;
 };
 
 export const columns: ColumnDef<StickerColumn>[] = [
   {
     accessorKey: "name",
     header: "Name",
+  },
+  {
+    accessorKey: "phase",
+    header: "Phase",
   },
   {
     accessorKey: "block",
