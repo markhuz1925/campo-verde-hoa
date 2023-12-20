@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
 import { ResidentWithOptions } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import { ChevronLeftIcon, Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -33,6 +33,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { HoaDues } from "./hoa-dues";
 import { PurchasedStickers } from "./purchased-stickers";
+import { Sticker } from "@prisma/client";
 
 export function ResidentForm({
   resident,
@@ -260,7 +261,7 @@ export function ResidentForm({
         </Form>
         <Separator orientation="vertical" className="h-[100vh-1%]" />
         <div className="flex flex-col space-y-5 w-full">
-          <PurchasedStickers purchasrdStickers={purchasedStickers} />
+          <PurchasedStickers purchasedStickers={purchasedStickers} />
           <HoaDues data={hoaDues} />
         </div>
       </div>
