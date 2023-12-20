@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { bitter, openSans } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { Sticker } from "@prisma/client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export function PurchasedStickers({
   purchasedStickers,
 }: {
-  purchasedStickers: any[] | null;
+  purchasedStickers: Sticker[] | null;
 }) {
   const params = useParams();
 
@@ -34,7 +35,7 @@ export function PurchasedStickers({
       <CardContent>
         <div className="flex flex-col space-y-4">
           {purchasedStickers && purchasedStickers.length > 0 ? (
-            purchasedStickers.map((sticker: any) => (
+            purchasedStickers.map((sticker: Sticker) => (
               <div
                 key={sticker.id}
                 className={cn(
