@@ -67,32 +67,32 @@ export default async function DashboardPage() {
   });
 
   const totalSales = stickerSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
   const totalGreenSales = stickerGreenSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
   const totalYellowSales = stickerYellowSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
   const totalWhiteSales = stickerWhiteSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
   const totalRedSales = stickerRedSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
   const totalSilverSales = stickerSilverSales.reduce(
-    (total, current) => total + Number(current.amount),
+    (total: any, current: any) => total + Number(current.amount),
     0
   );
 
