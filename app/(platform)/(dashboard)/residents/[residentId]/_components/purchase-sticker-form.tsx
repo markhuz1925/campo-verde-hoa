@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -20,23 +21,21 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { openSans, purchaseStickerFormSchema } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Resident, StickerPrice } from "@prisma/client";
 import axios from "axios";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 
 export default function PurchaseStickerForm({
   resident,
   sticker,
 }: {
-  resident: Resident | null;
-  sticker: StickerPrice[] | null;
+  resident: any | null;
+  sticker: any[] | null;
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const params = useParams();
