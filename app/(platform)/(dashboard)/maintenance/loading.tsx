@@ -1,5 +1,5 @@
 import { Loading } from "@/components/loading";
 
-export default function HomePageLoading() {
+export default function MaintenanceLoading() {
   return <Loading />;
 }
