@@ -26,7 +26,7 @@ export default async function StickerPage() {
     name: sticker.name,
     stickerColor: sticker.stickerColor,
     stickerNumber: sticker.stickerNumber,
-    stickerDate: format(new Date(sticker.stickerDate), "MMM dd, yyyy"),
+    stickerDate: new Date(sticker.stickerDate).toLocaleDateString(),
     block: sticker.resident.block,
     lot: sticker.resident.lot,
     phase: sticker.resident.phase,
