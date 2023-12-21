@@ -56,7 +56,6 @@ export default function PurchaseStickerForm({
       toast.success(`Purchase successful`);
       router.refresh();
       router.back();
-      console.table(values);
     } catch (error) {
       await axios.post("/api/logs", {
         title: `[STICKER_POST_ERROR] ${error}`,
