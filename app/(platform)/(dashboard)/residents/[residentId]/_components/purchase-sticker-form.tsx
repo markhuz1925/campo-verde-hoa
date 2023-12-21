@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -209,6 +210,7 @@ export default function PurchaseStickerForm({
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="driverLicense"
@@ -222,6 +224,7 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription>ex. D00-00-000000</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

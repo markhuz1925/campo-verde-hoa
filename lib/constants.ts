@@ -26,6 +26,8 @@ export const formSchema = z.object({
   role: z.string().min(1, "Please select a role"),
 });
 
+const driverLicenseRegex = /^[A-Za-z]\d{2}-\d{2}-\d{6}$/;
+
 export const purchaseStickerFormSchema = z.object({
   stickerDate: z.string(),
   stickerNumber: z.string(),
@@ -36,7 +38,9 @@ export const purchaseStickerFormSchema = z.object({
   plate: z.string(),
   vehicleType: z.string(),
   vehicleColor: z.string(),
-  driverLicense: z.string(),
+  driverLicense: z.string().regex(driverLicenseRegex, {
+    message: "Invalid driver license format",
+  }),
   residentId: z.string(),
   quantity: z.coerce.number(),
 });

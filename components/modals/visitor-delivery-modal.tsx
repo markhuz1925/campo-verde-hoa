@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -192,6 +193,7 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>ex. D00-00-000000</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
