@@ -203,7 +203,7 @@ export default function PurchaseStickerForm({
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "PPP")
+                              format(field.value, "MMM dd, yyyy")
                             ) : (
                               <span>Pick a date</span>
                             )}
