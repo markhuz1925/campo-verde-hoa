@@ -1,13 +1,11 @@
-import { PageHeading } from "@/components/page-heading";
-import prisma from "@/prisma/client";
-import { redirect } from "next/navigation";
-import { StickerClient } from "./_components/sticker-client";
-import { StickerColumn } from "./_components/columns";
-import { format } from "date-fns";
-import { ResidentWithOptions } from "@/types";
-import { StickersHeading } from "./_components/stickersHeading";
 import { VisitorDeliveryModal } from "@/components/modals/visitor-delivery-modal";
 import { formatter } from "@/lib/utils";
+import prisma from "@/prisma/client";
+import { format } from "date-fns";
+import { redirect } from "next/navigation";
+import { StickerColumn } from "./_components/columns";
+import { StickerClient } from "./_components/sticker-client";
+import { StickersHeading } from "./_components/stickersHeading";
 
 export default async function StickerPage() {
   const stickerPrices = await prisma.stickerPrice.findMany();
@@ -26,7 +24,7 @@ export default async function StickerPage() {
     name: sticker.name,
     stickerColor: sticker.stickerColor,
     stickerNumber: sticker.stickerNumber,
-    stickerDate: new Date(sticker.stickerDate).toLocaleDateString(),
+    stickerDate: format(new Date(sticker.stickerDate), "MM/dd/yyyy"),
     block: sticker.resident.block,
     lot: sticker.resident.lot,
     phase: sticker.resident.phase,

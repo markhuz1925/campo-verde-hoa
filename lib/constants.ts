@@ -27,7 +27,7 @@ export const formSchema = z.object({
 });
 
 export const purchaseStickerFormSchema = z.object({
-  stickerDate: z.date(),
+  stickerDate: z.string(),
   stickerNumber: z.string(),
   stickerColor: z.string(),
   role: z.enum(["homeowner", "tenant", "visitor", "special"]),
