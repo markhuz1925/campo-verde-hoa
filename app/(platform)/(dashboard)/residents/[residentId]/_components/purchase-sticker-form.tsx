@@ -187,7 +187,7 @@ export default function PurchaseStickerForm({
                   <FormItem className="flex flex-col">
                     <FormLabel>Date</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} />
+                      <Input type="date" {...field} className="w-fit" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
