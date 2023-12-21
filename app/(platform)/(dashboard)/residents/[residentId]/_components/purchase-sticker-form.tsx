@@ -28,7 +28,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 
 export default function PurchaseStickerForm({
@@ -424,13 +424,20 @@ export default function PurchaseStickerForm({
           </div>
           <div className="flex gap-5 justify-end">
             <Button
+              disabled={isSubmitting}
               variant="secondary"
               type="reset"
               onClick={() => router.back()}
             >
               Cancel
             </Button>
-            <Button type="submit">Submit</Button>
+            <Button disabled={isSubmitting} type="submit">
+              {isSubmitting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                "Submit"
+              )}
+            </Button>
           </div>
         </form>
       </Form>

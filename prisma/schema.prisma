@@ -90,7 +90,7 @@ model Sticker {
   plate         String
   vehicleType   String
   vehicleColor  String
-  stickerDate   String
+  stickerDate   DateTime
   userId        String
   resident      Resident @relation("stickerToResident", fields: [residentId], references: [id])
   createdAt     DateTime @default(now())
