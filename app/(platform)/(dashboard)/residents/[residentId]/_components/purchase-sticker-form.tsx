@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,14 +22,12 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Resident, StickerPrice } from "@prisma/client";
 import axios from "axios";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import { format } from "date-fns";
-import { CalendarIcon, Loader2 } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 
 export default function PurchaseStickerForm({
   resident,
@@ -203,7 +201,7 @@ export default function PurchaseStickerForm({
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "MMM dd, yyyy")
+                              field.value.toLocaleDateString()
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -214,7 +212,7 @@ export default function PurchaseStickerForm({
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={field.value}
+                          selected={new Date(field.value)}
                           onSelect={field.onChange}
                           disabled={(date) =>
                             date > new Date() || date < new Date("1900-01-01")
@@ -223,7 +221,6 @@ export default function PurchaseStickerForm({
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription>Date of purchase</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

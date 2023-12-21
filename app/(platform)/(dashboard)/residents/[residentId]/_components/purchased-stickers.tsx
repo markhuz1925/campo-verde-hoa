@@ -50,7 +50,17 @@ export function PurchasedStickers({
                     "border-l-gary-400 border-l-4"
                 )}
               >
-                <p className="text-sm font-semibold">{sticker.name}</p>
+                <div className="flex flex-col">
+                  <p className="text-sm font-semibold">{sticker.name}</p>
+                  <p
+                    className={cn(
+                      "text-xs font-semibold bg-neutral-700 text-white text-center p-1 rounded",
+                      bitter.className
+                    )}
+                  >
+                    {sticker.driverLicense}
+                  </p>
+                </div>
                 <div
                   className={cn(
                     "flex flex-col text-sm font-medium",
