@@ -122,7 +122,7 @@ export function VisitorDeliveryModal({
                               form.setValue("stickerColor", "white");
                               form.setValue(
                                 "amount",
-                                sticker ? Number(sticker[3].price) : 0
+                                sticker ? Number(sticker[2].price) : 0
                               );
                             }}
                           />
@@ -138,7 +138,7 @@ export function VisitorDeliveryModal({
                               form.setValue("stickerColor", "red");
                               form.setValue(
                                 "amount",
-                                sticker ? Number(sticker[4].price) : 0
+                                sticker ? Number(sticker[3].price) : 0
                               );
                             }}
                           />
