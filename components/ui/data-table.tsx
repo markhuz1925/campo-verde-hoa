@@ -2,7 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -82,7 +88,7 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("block")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="max-w-xs"
           />
         )}
         {table.getColumn("lot") && (
@@ -92,7 +98,22 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("lot")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="max-w-xs"
+          />
+        )}
+        {table.getColumn("stickerColor") && (
+          <Input
+            placeholder="Search sticker color"
+            value={
+              (table.getColumn("stickerColor")?.getFilterValue() as string) ??
+              ""
+            }
+            onChange={(event) =>
+              table
+                .getColumn("stickerColor")
+                ?.setFilterValue(event.target.value)
+            }
+            className="max-w-xs"
           />
         )}
         {isFiltered && (
