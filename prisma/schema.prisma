@@ -3,14 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql" //"postgresql"
+  provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Resident {
   id               String             @id @default(uuid())
-  // accountNumber    Int                @default(autoincrement())
   name             String
   phase            String
   block            String
