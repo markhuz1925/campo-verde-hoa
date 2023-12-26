@@ -60,7 +60,7 @@ export function ResidentForm({
       await axios.post("/api/logs", {
         title: `[RESIDENT_PATCH_SUCCESS] ${values.name} ${values.block} ${values.lot} ${values.phase} ${values.email} ${values.contactNumber} ${values.isAdmin} ${values.role}`,
       });
-      toast.success(`Resident ${resident?.accountNumber} updated successfully`);
+      toast.success(`Resident ${resident?.name} updated successfully`);
       router.refresh();
       router.push("/residents");
     } catch (error) {
