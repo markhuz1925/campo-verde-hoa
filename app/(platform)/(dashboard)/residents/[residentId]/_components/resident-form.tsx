@@ -88,7 +88,7 @@ export function ResidentForm({
   return (
     <div className="flex flex-col space-y-4 pt-6">
       <PageHeading
-        title={`Editing Resident Account # ${resident?.accountNumber}`}
+        title={`Editing Resident Account # ${resident?.name}`}
         description="Edit details of a resident."
       />
       <Separator />
