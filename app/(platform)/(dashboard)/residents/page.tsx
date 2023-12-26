@@ -7,13 +7,12 @@ import { ResidentsHeading } from "./_components/resisdents-heading";
 export default async function ResidentsPage() {
   const residents = await prisma.resident.findMany({
     orderBy: {
-      accountNumber: "asc",
+      createdAt: "asc",
     },
   });
 
   const formattedResidents: ResidentColumn[] = residents.map((resident) => ({
     id: resident.id,
-    accountNumber: resident.accountNumber,
     name: resident.name,
     phase: resident.phase,
     block: resident.block,

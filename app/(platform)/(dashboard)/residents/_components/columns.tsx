@@ -9,7 +9,6 @@ import { CellAction } from "./cell-action";
 
 export type ResidentColumn = {
   id: string;
-  accountNumber: number;
   name: string;
   phase: string;
   block: string;
@@ -19,21 +18,6 @@ export type ResidentColumn = {
 };
 
 export const columns: ColumnDef<ResidentColumn>[] = [
-  {
-    accessorKey: "accountNumber",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className={cn("font-semibold", bitter.className)}
-        >
-          Account #
-          <ArrowUpDownIcon className="ml-2 w-4 h-4" />
-        </Button>
-      );
-    },
-  },
   {
     accessorKey: "name",
     header: ({ column }) => {
