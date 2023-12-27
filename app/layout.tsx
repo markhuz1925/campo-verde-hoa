@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-gradient-to-r from-teal-100/20 to-amber-100/20">
         <ToasterProvider />
         {children}
         <Analytics />
