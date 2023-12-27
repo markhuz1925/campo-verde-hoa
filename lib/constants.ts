@@ -1,4 +1,4 @@
-import { Bitter, Open_Sans } from "next/font/google";
+import { Bitter, Open_Sans, Urbanist } from "next/font/google";
 import { z } from "zod";
 
 export const bitter = Bitter({
@@ -9,6 +9,11 @@ export const bitter = Bitter({
 export const openSans = Open_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+export const urbanist = Urbanist({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const formSchema = z.object({
