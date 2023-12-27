@@ -103,7 +103,7 @@ export default async function DashboardPage() {
           <TotalStickerSales totalStickerSales={totalSales} />
           <StickerCount stickerCount={stickerCount} />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-5 bg-slate-50/80 rounded-3xl shadow-sm backdrop-blur-3xl">
           <StickerCountGreen
             stickerGreenCount={stickerGreenCount}
             totalGreenSales={totalGreenSales}

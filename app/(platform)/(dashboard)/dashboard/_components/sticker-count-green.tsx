@@ -14,7 +14,7 @@ export function StickerCountGreen({
   return (
     <Card
       className={cn(
-        "w-full border-0 backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-green-100",
+        "w-full border-0 shadow-sm backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-green-100",
         urbanist.className
       )}
     >
