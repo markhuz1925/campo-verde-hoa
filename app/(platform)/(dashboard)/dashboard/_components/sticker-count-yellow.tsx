@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { bitter, openSans } from "@/lib/constants";
+import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 
 export function StickerCountYellow({
@@ -12,31 +12,24 @@ export function StickerCountYellow({
   totalYellowSales: number;
 }) {
   return (
-    <Card className="bg-yellow-300">
+    <Card
+      className={cn(
+        "w-full border-0 backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-yellow-100/70",
+        urbanist.className
+      )}
+    >
       <CardHeader>
-        <CardTitle
-          className={cn(
-            "flex items-center gap-2 text-yellow-900",
-            bitter.className
-          )}
-        >
+        <CardTitle className="flex flex-col text-left items-start font-thin text-xl gap-2">
           Tenant Stickers
+          <span className="text-base font-medium">
+            {formatter.format(totalYellowSales)}
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center justify-between">
-          <p className="text-lg text-yellow-900 font-semibold">
-            {formatter.format(totalYellowSales)}
-          </p>
-          <h2
-            className={cn(
-              "text-3xl text-yellow-900 font-bold",
-              openSans.className
-            )}
-          >
-            {stickerYellowCount}
-          </h2>
-        </div>
+        <h2 className="text-2xl font-medium">
+          {stickerYellowCount} <span className="text-base font-thin">Qty</span>
+        </h2>
       </CardContent>
     </Card>
   );

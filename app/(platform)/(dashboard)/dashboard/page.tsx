@@ -97,13 +97,13 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="px-5">
-      <div className="container max-w-2xl mx-auto flex flex-col justify-center h-[100dvh] gap-10">
-        <div className="flex flex-col md:flex-row gap-10">
+    <div className="px-5 pt-20">
+      <div className="gap-10">
+        <div className="flex flex-col md:flex-row gap-10 px-5">
           <TotalStickerSales totalStickerSales={totalSales} />
           <StickerCount stickerCount={stickerCount} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-5">
           <StickerCountGreen
             stickerGreenCount={stickerGreenCount}
             totalGreenSales={totalGreenSales}
