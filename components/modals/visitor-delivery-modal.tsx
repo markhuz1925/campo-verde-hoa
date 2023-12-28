@@ -90,7 +90,7 @@ export function VisitorDeliveryModal({
               control={form.control}
               name="residentId"
               render={({ field }) => (
-                <FormItem>
+                <FormItem hidden>
                   <FormLabel>Resident Id</FormLabel>
                   <FormControl>
                     <Input

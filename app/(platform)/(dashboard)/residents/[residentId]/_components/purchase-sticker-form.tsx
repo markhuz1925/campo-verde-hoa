@@ -87,7 +87,7 @@ export default function PurchaseStickerForm({
                 control={form.control}
                 name="residentId"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem hidden>
                     <FormLabel>Resident Id</FormLabel>
                     <FormControl>
                       <Input
@@ -106,13 +106,14 @@ export default function PurchaseStickerForm({
                 name="role"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
+                    <FormLabel>Role</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                        className="grid grid-cols-2 md:grid-cols-4 gap-5"
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center">
                           <FormControl>
                             <RadioGroupItem
                               id="homeowner"
@@ -133,13 +134,13 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="homeowner"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
                           >
                             <UserIcon />
                             Resident
                           </Label>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center">
                           <FormControl>
                             <RadioGroupItem
                               id="tenant"
@@ -157,13 +158,13 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="tenant"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
                           >
                             <UsersIcon />
                             Tenant
                           </Label>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center">
                           <FormControl>
                             <RadioGroupItem
                               id="visitor"
@@ -181,13 +182,13 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="visitor"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
                           >
                             <ContactIcon />
                             Visitor
                           </Label>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center">
                           <FormControl>
                             <RadioGroupItem
                               id="special"
@@ -205,7 +206,7 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="special"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
                           >
                             <ShieldCheckIcon />
                             Special
