@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -11,13 +12,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { openSans, purchaseStickerFormSchema } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Resident, StickerPrice } from "@prisma/client";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import {
+  ContactIcon,
+  Loader2,
+  ShieldCheckIcon,
+  UserIcon,
+  UsersIcon,
+} from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -42,6 +50,7 @@ export default function PurchaseStickerForm({
       quantity: 1,
     },
   });
+  console.log(sticker);
 
   const onSubmit = async (
     values: z.infer<typeof purchaseStickerFormSchema>
@@ -101,12 +110,14 @@ export default function PurchaseStickerForm({
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="flex flex-col space-y-1"
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem
+                              id="homeowner"
                               value="homeowner"
+                              className="peer sr-only"
                               onClick={() => {
                                 form.setValue(
                                   "name",
@@ -115,22 +126,76 @@ export default function PurchaseStickerForm({
                                 form.setValue("stickerColor", "green");
                                 form.setValue(
                                   "amount",
+                                  sticker ? Number(sticker[4].price) : 0
+                                );
+                              }}
+                            />
+                          </FormControl>
+                          <Label
+                            htmlFor="homeowner"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          >
+                            <UserIcon />
+                            Resident
+                          </Label>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem
+                              id="tenant"
+                              value="tenant"
+                              className="peer sr-only"
+                              onClick={() => {
+                                form.setValue("name", "");
+                                form.setValue("stickerColor", "yellow");
+                                form.setValue(
+                                  "amount",
+                                  sticker ? Number(sticker[3].price) : 0
+                                );
+                              }}
+                            />
+                          </FormControl>
+                          <Label
+                            htmlFor="tenant"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          >
+                            <UsersIcon />
+                            Tenant
+                          </Label>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem
+                              id="visitor"
+                              value="visitor"
+                              className="peer sr-only"
+                              onClick={() => {
+                                form.setValue("name", "");
+                                form.setValue("stickerColor", "white");
+                                form.setValue(
+                                  "amount",
                                   sticker ? Number(sticker[0].price) : 0
                                 );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="font-normal">
-                            Homeowner
-                          </FormLabel>
+                          <Label
+                            htmlFor="visitor"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          >
+                            <ContactIcon />
+                            Visitor
+                          </Label>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem
-                              value="tenant"
+                              id="special"
+                              value="special"
+                              className="peer sr-only"
                               onClick={() => {
                                 form.setValue("name", "");
-                                form.setValue("stickerColor", "yellow");
+                                form.setValue("stickerColor", "silver");
                                 form.setValue(
                                   "amount",
                                   sticker ? Number(sticker[1].price) : 0
@@ -138,41 +203,13 @@ export default function PurchaseStickerForm({
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="font-normal">Tenant</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem
-                              value="visitor"
-                              onClick={() => {
-                                form.setValue("name", "");
-                                form.setValue("stickerColor", "white");
-                                form.setValue(
-                                  "amount",
-                                  sticker ? Number(sticker[2].price) : 0
-                                );
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className="font-normal">Visitor</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem
-                              value="special"
-                              onClick={() => {
-                                form.setValue("name", "");
-                                form.setValue("stickerColor", "silver");
-                                form.setValue(
-                                  "amount",
-                                  sticker ? Number(sticker[4].price) : 0
-                                );
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Special Identity
-                          </FormLabel>
+                          <Label
+                            htmlFor="special"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          >
+                            <ShieldCheckIcon />
+                            Special
+                          </Label>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>
@@ -278,7 +315,7 @@ export default function PurchaseStickerForm({
                 control={form.control}
                 name="quantity"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem hidden>
                     <FormLabel>Quantity</FormLabel>
                     <FormControl>
                       <Input

@@ -24,6 +24,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { Label } from "../ui/label";
+import { ContactIcon, TruckIcon } from "lucide-react";
 
 export function VisitorDeliveryModal({
   sticker,
@@ -111,15 +113,41 @@ export function VisitorDeliveryModal({
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col space-y-1"
+                      className="grid grid-cols-2 md:grid-cols-4 gap-4"
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
                           <RadioGroupItem
+                            id="visitor"
                             value="visitor"
+                            className="peer sr-only"
                             onClick={() => {
                               form.setValue("name", "");
                               form.setValue("stickerColor", "white");
+                              form.setValue(
+                                "amount",
+                                sticker ? Number(sticker[0].price) : 0
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <Label
+                          htmlFor="visitor"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                        >
+                          <ContactIcon />
+                          Visitor
+                        </Label>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem
+                            id="delivery"
+                            value="delivery"
+                            className="peer sr-only"
+                            onClick={() => {
+                              form.setValue("name", "");
+                              form.setValue("stickerColor", "red");
                               form.setValue(
                                 "amount",
                                 sticker ? Number(sticker[2].price) : 0
@@ -127,23 +155,13 @@ export function VisitorDeliveryModal({
                             }}
                           />
                         </FormControl>
-                        <FormLabel className="font-normal">Visitor</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem
-                            value="special"
-                            onClick={() => {
-                              form.setValue("name", "");
-                              form.setValue("stickerColor", "red");
-                              form.setValue(
-                                "amount",
-                                sticker ? Number(sticker[3].price) : 0
-                              );
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="font-normal">Delivery</FormLabel>
+                        <Label
+                          htmlFor="delivery"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                        >
+                          <TruckIcon />
+                          Delivery
+                        </Label>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -246,7 +264,7 @@ export function VisitorDeliveryModal({
               control={form.control}
               name="quantity"
               render={({ field }) => (
-                <FormItem>
+                <FormItem hidden>
                   <FormLabel>Quantity</FormLabel>
                   <FormControl>
                     <Input
