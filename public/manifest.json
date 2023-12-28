@@ -1,0 +1,27 @@
+{
+    "name": "Campo Verde Homeowners Association - Management Monitoring System",
+    "short_name": "CVHOA MAS",
+    "icons": [
+        {
+            "src": "/logo-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/logo-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1a401d",
+    "background_color": "#af9030",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}

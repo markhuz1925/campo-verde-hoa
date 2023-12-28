@@ -1,16 +1,28 @@
 import { ToasterProvider } from "@/providers/toast-provider";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+import InstallPwa from "@/components/install-pwa";
 
 export const metadata: Metadata = {
+  title: "Campo Verde Homeowners Association - Management Monitoring System",
+  description:
+    "Campo Verde Homeowners Association - Management Monitoring System",
+  manifest: "/manifest.json",
   icons: [
     {
       url: "/logo.svg",
       href: "/logo.svg",
     },
   ],
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#1a401d",
 };
 
 export default function RootLayout({
@@ -25,6 +37,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <InstallPwa />
       </body>
     </html>
   );
