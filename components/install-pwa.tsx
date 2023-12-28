@@ -53,7 +53,7 @@ export default function InstallPwa() {
       <DrawerContent>
         <DrawerHeader>
           <p className={cn("text-xl font-semibold", bitter.className)}>
-            Install CVHOA Management Monitoring System
+            Install CVHOA Management System
           </p>
         </DrawerHeader>
         <div className="pb-5 px-4">

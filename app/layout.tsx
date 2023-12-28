@@ -6,9 +6,8 @@ import "./globals.css";
 import InstallPwa from "@/components/install-pwa";
 
 export const metadata: Metadata = {
-  title: "Campo Verde Homeowners Association - Management Monitoring System",
-  description:
-    "Campo Verde Homeowners Association - Management Monitoring System",
+  title: "Campo Verde Homeowners Association - Management System",
+  description: "Campo Verde Homeowners Association - Management System",
   manifest: "/manifest.json",
   icons: [
     {
