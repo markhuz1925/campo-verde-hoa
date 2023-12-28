@@ -66,7 +66,7 @@ export default function PurchaseStickerForm({
   };
 
   return (
-    <div>
+    <div className="rounded-3xl backdrop-blur-3xl backdrop-opacity-50 bg-teal-900/10 p-5 shadow-sm">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -20,7 +20,7 @@ export default async function ResidentPage({
   );
 
   return (
-    <div className="flex flex-col pt-20 px-5">
+    <div className="flex flex-col pt-20 px-5 pb-10">
       <ResidentForm resident={resident} />
     </div>
   );

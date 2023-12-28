@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-full md:max-w-sm"
         />
         {table.getColumn("block") && (
           <Input
@@ -88,7 +88,7 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("block")?.setFilterValue(event.target.value)
             }
-            className="max-w-xs"
+            className="w-full md:max-w-xs"
           />
         )}
         {table.getColumn("lot") && (
@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("lot")?.setFilterValue(event.target.value)
             }
-            className="max-w-xs"
+            className="w-full md:max-w-xs"
           />
         )}
         {table.getColumn("stickerColor") && (
@@ -113,7 +113,7 @@ export function DataTable<TData, TValue>({
                 .getColumn("stickerColor")
                 ?.setFilterValue(event.target.value)
             }
-            className="max-w-xs"
+            className="w-full md:max-w-xs"
           />
         )}
         {isFiltered && (
@@ -128,7 +128,7 @@ export function DataTable<TData, TValue>({
         )}
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-xl backdrop-blur-3xl bg-white/50 border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -21,7 +21,7 @@ export default async function PurchaseSticker({
   });
 
   return (
-    <div className="pt-20 px-5">
+    <div className="pt-20 px-5 pb-10">
       <PageHeading title="Purchase New Sticker" description={""} />
       <div className="flex flex-col space-y-4 pt-6">
         <Separator />
