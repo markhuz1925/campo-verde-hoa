@@ -8,7 +8,7 @@ export function StickerCount({ stickerCount }: { stickerCount: number }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-center w-full self-center gap-3 mt-20",
+        "flex flex-row items-center justify-center w-full self-center gap-3 mb-10 lg:mb-0 lg:mt-20",
         urbanist.className
       )}
     >

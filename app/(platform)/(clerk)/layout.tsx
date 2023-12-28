@@ -16,7 +16,7 @@ export default function ClerkLayout({
           width={200}
           height={200}
         />
-        <h1 className={cn("text-3xl font-bold", bitter.className)}>
+        <h1 className={cn("text-3xl font-bold text-center", bitter.className)}>
           HOA Management System
         </h1>
       </div>

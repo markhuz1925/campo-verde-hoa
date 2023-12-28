@@ -1,12 +1,18 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
-import { SettingsIcon } from "lucide-react";
+import { MenuIcon, SettingsIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
 
 export function DashboardNavbar() {
   const pathname = usePathname();
@@ -63,7 +69,47 @@ export function DashboardNavbar() {
           : ""
       )}
     >
-      <div className="flex items-center gap-4">
+      {/* mobile */}
+      <div className="lg:hidden flex items-center">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="flex items-center justify-center backdrop-blur-3xl backdrop-opacity-95 bg-white/50 w-full"
+          >
+            <div className="flex flex-col items-center space-y-5">
+              {routes.map((route) => (
+                <SheetClose key={route.href} asChild>
+                  <Link
+                    href={route.href}
+                    className={cn(
+                      "text-2xl font-medium transition hover:text-primary hover:bg-accent hover:rounded p-1",
+                      route.active
+                        ? "text-primary rounded bg-secondary"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {route.name}
+                  </Link>
+                </SheetClose>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+      <Image
+        src="/logo.svg"
+        alt="Campo Verde Homeowners Association"
+        width={48}
+        height={48}
+        className="object-contain lg:hidden"
+      />
+      {/* desktop */}
+      <div className="hidden lg:flex items-center gap-4">
         <Image
           src="/logo.svg"
           alt="Campo Verde Homeowners Association"

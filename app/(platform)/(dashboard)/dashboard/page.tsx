@@ -99,7 +99,7 @@ export default async function DashboardPage() {
   return (
     <div className="px-5 pt-20">
       <div className="gap-10">
-        <div className="flex flex-col md:flex-row gap-10 px-5">
+        <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
           <TotalStickerSales totalStickerSales={totalSales} />
           <StickerCount stickerCount={stickerCount} />
         </div>
