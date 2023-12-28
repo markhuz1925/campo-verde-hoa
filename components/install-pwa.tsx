@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 export default function InstallPwa() {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isIOS, setIsIOS] = useState<boolean>(false);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (event: any) => {
@@ -27,6 +28,8 @@ export default function InstallPwa() {
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+    setIsIOS(/iPhone|iPad|iPod/i.test(navigator.userAgent));
 
     return () => {
       window.removeEventListener(
@@ -56,21 +59,27 @@ export default function InstallPwa() {
             Install CVHOA Management System
           </p>
         </DrawerHeader>
-        <div className="pb-5 px-4">
-          <p className={cn("text-base font-normal", openSans.className)}>
-            Click install button to install the app on your device.
-          </p>
+        <div className={cn("pb-5 px-4", openSans.className)}>
+          {isIOS ? (
+            <p>{`AddTo install this app, tap on the Share icon and select "Add to Home Screen".`}</p>
+          ) : (
+            <p className="text-base font-normal">
+              Click install button to install the app on your device.
+            </p>
+          )}
         </div>
-        <DrawerFooter className="flex flex-row items-center justify-end gap-5">
-          <DrawerClose asChild>
-            <Button variant="secondary" size="sm">
-              Cancel
+        {!isIOS && (
+          <DrawerFooter className="flex flex-row items-center justify-end gap-5">
+            <DrawerClose asChild>
+              <Button variant="secondary" size="sm">
+                Cancel
+              </Button>
+            </DrawerClose>
+            <Button onClick={onInstall} size="sm">
+              Install
             </Button>
-          </DrawerClose>
-          <Button onClick={onInstall} size="sm">
-            Install
-          </Button>
-        </DrawerFooter>
+          </DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   );
