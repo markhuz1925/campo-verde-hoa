@@ -3,13 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Table,
   TableBody,
   TableCell,
@@ -17,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { openSans } from "@/lib/constants";
+import { urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import {
   ColumnDef,
@@ -71,7 +64,7 @@ export function DataTable<TData, TValue>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div>
+    <div className={urbanist.className}>
       <div className="flex flex-col md:flex-row items-center gap-5 mb-4 w-full">
         <Input
           placeholder="Search Name"
@@ -154,10 +147,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className={cn(
-                    "text-base font-medium uppercase",
-                    openSans.className
-                  )}
+                  className="text-base font-medium uppercase"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -185,12 +175,7 @@ export function DataTable<TData, TValue>({
 
       <div className="flex items-center justify-center space-x-2 py-4">
         <div>
-          <div
-            className={cn(
-              "flex w-[100px] items-center justify-center text-sm font-medium",
-              openSans.className
-            )}
-          >
+          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
             Page {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </div>
@@ -198,7 +183,7 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="h-8 w-8 p-0 lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -225,7 +210,7 @@ export function DataTable<TData, TValue>({
           </Button>
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="h-8 w-8 p-0 lg:flex"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

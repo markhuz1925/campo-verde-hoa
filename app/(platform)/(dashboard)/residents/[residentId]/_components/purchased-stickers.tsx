@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { bitter, openSans } from "@/lib/constants";
+import { bitter, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Sticker } from "@prisma/client";
 import Link from "next/link";
@@ -18,14 +18,14 @@ export function PurchasedStickers({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
+        <CardTitle className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div className="flex items-center gap-2">
             <p>Purchased Stickers</p>
             <span className="flex items-center justify-center rounded-full bg-gray-200 w-5 h-5 text-xs">
               {purchasedStickers?.length}
             </span>
           </div>
-          <Button asChild variant="secondary" size="sm">
+          <Button asChild variant="outline" size="sm">
             <Link href={`/residents/${params.residentId}/purchase-sticker`}>
               Purchase Sticker
             </Link>
@@ -64,7 +64,7 @@ export function PurchasedStickers({
                 <div
                   className={cn(
                     "flex flex-col text-sm font-medium",
-                    openSans.className
+                    urbanist.className
                   )}
                 >
                   <p>

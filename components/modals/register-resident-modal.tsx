@@ -1,13 +1,7 @@
 "use client";
 
-import { Modal } from "@/components/ui/modal";
-import { useModal } from "@/hooks/use-modal";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -15,21 +9,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Modal } from "@/components/ui/modal";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+} from "@/components/ui/select";
+import { useModal } from "@/hooks/use-modal";
+import { formSchema, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { formSchema, openSans } from "@/lib/constants";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
 
 export function RegisterResidentModal() {
   const isOpen = useModal((state) => state.isOpen);
@@ -116,7 +116,7 @@ export function RegisterResidentModal() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={cn("flex-col space-y-4", openSans.className)}
+            className={cn("flex-col space-y-4", urbanist.className)}
           >
             <FormField
               control={form.control}

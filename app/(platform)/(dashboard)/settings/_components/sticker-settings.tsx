@@ -3,7 +3,7 @@
 import { StickerModal } from "@/components/modals/sticker-modal";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
-import { bitter } from "@/lib/constants";
+import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { StickerPrice } from "@prisma/client";
 
@@ -15,7 +15,7 @@ export function StickerSettings({ data }: { data: StickerPrice[] }) {
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <StickerModal />
-          <h2 className={cn("text-xl font-semibold", bitter.className)}>
+          <h2 className={cn("text-xl font-semibold", urbanist.className)}>
             Sticker Settings
           </h2>
           <Button onClick={stickerModal.onOpen}>New Sticker</Button>

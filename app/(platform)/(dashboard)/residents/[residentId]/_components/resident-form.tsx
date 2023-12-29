@@ -20,12 +20,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { formSchema, openSans } from "@/lib/constants";
+import { formSchema, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ResidentWithOptions } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ChevronLeftIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -33,7 +33,6 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { HoaDues } from "./hoa-dues";
 import { PurchasedStickers } from "./purchased-stickers";
-import { Sticker } from "@prisma/client";
 
 export function ResidentForm({
   resident,
@@ -93,7 +92,7 @@ export function ResidentForm({
       />
       <Separator />
       <div
-        className={cn("flex flex-col md:flex-row gap-5", openSans.className)}
+        className={cn("flex flex-col md:flex-row gap-5", urbanist.className)}
       >
         <Form {...form}>
           <form

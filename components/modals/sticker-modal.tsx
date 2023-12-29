@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -11,7 +12,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useModal } from "@/hooks/use-modal";
+import { urbanist } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -19,14 +29,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import { Button } from "../ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -87,7 +89,7 @@ export function StickerModal() {
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="space-y-4 py-2 pb-4">
+      <div className={cn("space-y-4 py-2 pb-4", urbanist.className)}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
