@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
+import { Transaction } from "@prisma/client";
 import { PlusCircleIcon, TrendingUpIcon } from "lucide-react";
 
-export function TotalIncome() {
+export function TotalIncome({ data }: { data: Transaction }) {
   return (
     <Card
       className={cn(
@@ -32,7 +33,7 @@ export function TotalIncome() {
         >
           <h2 className="text-3xl md:text-6xl text-slate-800 font-medium">
             <span className="self-end text-2xl md:text-5xl font-thin">₱</span>
-            {formatter.format(99999.99).split("₱")}
+            {formatter.format(Number(data)).split("₱")}
           </h2>
         </div>
       </CardContent>

@@ -10,9 +10,32 @@ export default async function FinancialsPage() {
     include: {
       sticker: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
-  console.log(transactionHistory);
+  const incomeTransactions = await prisma.transaction.findMany({
+    where: {
+      type: "income",
+    },
+  });
+
+  const expenseTransactions = await prisma.transaction.findMany({
+    where: {
+      type: "expense",
+    },
+  });
+
+  const totalIncomeAmount = incomeTransactions.reduce(
+    (total: any, transaction: any) => total + Number(transaction.amount),
+    0
+  );
+
+  const totalExpenseAmount = expenseTransactions.reduce(
+    (total: any, transaction: any) => total + Number(transaction.amount),
+    0
+  );
 
   return (
     <div className="pt-20 px-5">
@@ -22,10 +45,12 @@ export default async function FinancialsPage() {
       />
       <Separator className="my-5" />
       <div className="flex flex-col lg:flex-row justify-between gap-5 mb-5">
-        <TotalIncome />
-        <TotalExpense />
+        <TotalIncome data={totalIncomeAmount} />
+        <TotalExpense data={totalExpenseAmount} />
       </div>
-      <TransactionHistory data={transactionHistory} />
+      <div className="flex flex-col md:flex-row gap-10">
+        <TransactionHistory data={transactionHistory} />
+      </div>
     </div>
   );
 }

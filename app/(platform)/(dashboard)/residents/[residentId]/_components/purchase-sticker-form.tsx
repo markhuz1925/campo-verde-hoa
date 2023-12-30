@@ -18,13 +18,8 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Resident, StickerPrice } from "@prisma/client";
 import axios from "axios";
-import {
-  ContactIcon,
-  Loader2,
-  ShieldCheckIcon,
-  UserIcon,
-  UsersIcon,
-} from "lucide-react";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -104,7 +99,7 @@ export default function PurchaseStickerForm({
                 name="role"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>Sticker Type</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -132,10 +127,15 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="homeowner"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
+                            className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <UserIcon />
-                            Resident
+                            <Image
+                              src="/homeowner.svg"
+                              alt="homeowner"
+                              width={200}
+                              height={200}
+                              className="object-contain"
+                            />
                           </Label>
                         </FormItem>
                         <FormItem className="flex items-center">
@@ -156,10 +156,15 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="tenant"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
+                            className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <UsersIcon />
-                            Tenant
+                            <Image
+                              src="/tenant.svg"
+                              alt="tenant"
+                              width={200}
+                              height={200}
+                              className="object-contain"
+                            />
                           </Label>
                         </FormItem>
                         <FormItem className="flex items-center">
@@ -180,10 +185,15 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="visitor"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
+                            className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <ContactIcon />
-                            Visitor
+                            <Image
+                              src="/visitor.svg"
+                              alt="visitor"
+                              width={200}
+                              height={200}
+                              className="object-contain"
+                            />
                           </Label>
                         </FormItem>
                         <FormItem className="flex items-center">
@@ -204,10 +214,15 @@ export default function PurchaseStickerForm({
                           </FormControl>
                           <Label
                             htmlFor="special"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-20 h-fit gap-2"
+                            className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <ShieldCheckIcon />
-                            Special
+                            <Image
+                              src="/special.svg"
+                              alt="special"
+                              width={200}
+                              height={200}
+                              className="object-contain"
+                            />
                           </Label>
                         </FormItem>
                       </RadioGroup>
@@ -215,55 +230,7 @@ export default function PurchaseStickerForm({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="stickerDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} className="w-fit" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isSubmitting}
-                        placeholder="Enter name"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
-              <FormField
-                control={form.control}
-                name="driverLicense"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Driver License</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isSubmitting}
-                        placeholder="Enter driver license"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>ex. D00-00-000000</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="stickerNumber"
@@ -289,7 +256,7 @@ export default function PurchaseStickerForm({
                 control={form.control}
                 name="stickerColor"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem hidden>
                     <FormLabel>Sticker Color</FormLabel>
                     <FormControl>
                       <Input
@@ -343,8 +310,11 @@ export default function PurchaseStickerForm({
                 control={form.control}
                 name="amount"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel>Amount</FormLabel>
+                    <span className="absolute left-5 top-[60px] text-5xl font-thin">
+                      ₱
+                    </span>
                     <FormControl>
                       <Input
                         disabled={isSubmitting}
@@ -352,15 +322,8 @@ export default function PurchaseStickerForm({
                         {...field}
                         readOnly
                         className={cn(
-                          "",
-                          form.getValues("stickerColor") === "green" &&
-                            "bg-green-800 text-white",
-                          form.getValues("stickerColor") === "yellow" &&
-                            "bg-yellow-400",
-                          form.getValues("stickerColor") === "white" &&
-                            "bg-white",
-                          form.getValues("stickerColor") === "silver" &&
-                            "bg-gray-400"
+                          "text-7xl h-auto backdrop-blur-3xl bg-white/10 pl-14",
+                          urbanist.className
                         )}
                       />
                     </FormControl>
@@ -370,7 +333,54 @@ export default function PurchaseStickerForm({
               />
             </div>
             <div className="flex flex-col space-y-4 w-full">
-              <h2 className="text-xl font-semibold">Vehicle Details</h2>
+              <FormField
+                control={form.control}
+                name="stickerDate"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} className="w-fit" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="Enter name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="driverLicense"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Driver License</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="Enter driver license"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>ex. D00-00-000000</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="plate"

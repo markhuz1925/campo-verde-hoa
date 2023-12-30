@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
+import Image from "next/image";
 
 export function StickerCountYellow({
   stickerYellowCount,
@@ -14,10 +15,17 @@ export function StickerCountYellow({
   return (
     <Card
       className={cn(
-        "w-full border-0 shadow-sm backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-yellow-100/70",
+        "relative w-full border-0 shadow-sm backdrop-opacity-20 backdrop-blur-3xl rounded-3xl overflow-hidden",
         urbanist.className
       )}
     >
+      <Image
+        src="/tenant.svg"
+        alt="tenant"
+        width={150}
+        height={150}
+        className="absolute right-5 top-2 object-contain rotate-12"
+      />
       <CardHeader>
         <CardTitle className="flex flex-col text-left items-start font-thin text-xl gap-2">
           Tenant Stickers

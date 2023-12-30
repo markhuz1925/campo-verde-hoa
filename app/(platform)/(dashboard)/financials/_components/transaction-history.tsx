@@ -2,14 +2,15 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, formatter } from "@/lib/utils";
 import { Transaction } from "@prisma/client";
+import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 
 export function TransactionHistory({ data }: { data: Transaction[] }) {
   return (
     <Card
       className={cn(
-        "w-full backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-white/20",
+        "w-fit backdrop-blur-3xl rounded-3xl bg-slate-500/10 h-[calc(100vh-25rem)] overflow-y-auto",
         urbanist.className
       )}
     >
@@ -19,26 +20,52 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2 overflow-hidden">
           {data.map((transaction) => (
-            <div key={transaction.id} className="flex flex-row gap-10">
-              <div className="flex flex-col">
-                <p>Invoice</p>
-                <p>{`${transaction.prefix}${transaction.id}`}</p>
-              </div>
-              <div className="flex flex-col">
-                <p>Type</p>
-                <p>{transaction.type}</p>
-              </div>
-              <div className="flex flex-col">
-                <p>Description</p>
-                <p>{transaction.name}</p>
-              </div>
-              <div className="flex flex-col">
-                <p>Date</p>
+            <Card key={transaction.id}>
+              <div className="flex flex-row items-center justify-between gap-10 uppercase font-thin text-base p-5">
+                <div className="flex flex-row items-center gap-2">
+                  {transaction.type === "income" ? (
+                    <TrendingUpIcon className="text-green-800 w-4 h-4" />
+                  ) : (
+                    <TrendingDownIcon className="text-red-800 w-4 h-4" />
+                  )}
+                  <p>{transaction.name}</p>
+                </div>
                 <p>{transaction.date}</p>
+                <p
+                  className={cn(
+                    "",
+                    transaction.type === "income"
+                      ? "before:content-['+']"
+                      : "before:content['-']"
+                  )}
+                >
+                  {formatter.format(Number(transaction.amount))}
+                </p>
+                <p className="bg-green-50 text-green-800 p-1 text-xs font-medium rounded">
+                  {transaction.type}
+                </p>
               </div>
-            </div>
+            </Card>
+            // <div  className="flex flex-row gap-10">
+            //   <div className="flex flex-col">
+            //     <p>Invoice</p>
+            //     <p>{`${transaction.prefix}${transaction.id}`}</p>
+            //   </div>
+            //   <div className="flex flex-col">
+            //     <p>Type</p>
+            //     <p>{transaction.type}</p>
+            //   </div>
+            //   <div className="flex flex-col">
+            //     <p>Description</p>
+            //     <p>{transaction.name}</p>
+            //   </div>
+            //   <div className="flex flex-col">
+            //     <p>Date</p>
+            //     <p>{transaction.date}</p>
+            //   </div>
+            // </div>
           ))}
         </div>
       </CardContent>

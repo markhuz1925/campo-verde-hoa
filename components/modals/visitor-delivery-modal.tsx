@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useModal } from "@/hooks/use-modal";
@@ -19,13 +20,12 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StickerPrice } from "@prisma/client";
 import axios from "axios";
-import { ContactIcon, TruckIcon } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import { Label } from "@/components/ui/label";
 
 export function VisitorDeliveryModal({
   sticker,
@@ -133,10 +133,15 @@ export function VisitorDeliveryModal({
                         </FormControl>
                         <Label
                           htmlFor="visitor"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                         >
-                          <ContactIcon />
-                          Visitor
+                          <Image
+                            src="/visitor.svg"
+                            alt="visitor"
+                            width={200}
+                            height={200}
+                            className="object-contain"
+                          />
                         </Label>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
@@ -157,62 +162,19 @@ export function VisitorDeliveryModal({
                         </FormControl>
                         <Label
                           htmlFor="delivery"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                          className="flex flex-col items-center justify-between rounded-3xl border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                         >
-                          <TruckIcon />
-                          Delivery
+                          <Image
+                            src="/delivery.svg"
+                            alt="delivery"
+                            width={200}
+                            height={200}
+                            className="object-contain"
+                          />
                         </Label>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="stickerDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="driverLicense"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Driver License</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="Enter driver license"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>ex. D00-00-000000</FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -241,7 +203,7 @@ export function VisitorDeliveryModal({
               control={form.control}
               name="stickerColor"
               render={({ field }) => (
-                <FormItem>
+                <FormItem hidden>
                   <FormLabel>Sticker Color</FormLabel>
                   <FormControl>
                     <Input
@@ -289,8 +251,11 @@ export function VisitorDeliveryModal({
               control={form.control}
               name="amount"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="relative">
                   <FormLabel>Amount</FormLabel>
+                  <span className="absolute z-50 left-5 top-[60px] text-5xl font-thin">
+                    ₱
+                  </span>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
@@ -298,14 +263,59 @@ export function VisitorDeliveryModal({
                       {...field}
                       readOnly
                       className={cn(
-                        "",
-                        form.getValues("stickerColor") === "white" &&
-                          "bg-white",
-                        form.getValues("stickerColor") === "red" &&
-                          "bg-[#ffe2dd] text-red-900"
+                        "text-7xl h-auto backdrop-blur-3xl bg-white/10 pl-14",
+                        urbanist.className
                       )}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="stickerDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter name"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="driverLicense"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Driver License</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Enter driver license"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>ex. D00-00-000000</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
