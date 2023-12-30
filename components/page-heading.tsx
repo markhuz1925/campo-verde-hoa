@@ -1,4 +1,4 @@
-import { bitter, openSans } from "@/lib/constants";
+import { bitter, openSans, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function PageHeading({
@@ -9,15 +9,9 @@ export function PageHeading({
   description: string;
 }) {
   return (
-    <div>
-      <h2 className={cn("text-3xl font-bold tracking-tight", bitter.className)}>
-        {title}
-      </h2>
-      <p
-        className={cn("text-muted-foreground font-medium", openSans.className)}
-      >
-        {description}
-      </p>
+    <div className={urbanist.className}>
+      <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+      <p className="text-muted-foreground font-medium">{description}</p>
     </div>
   );
 }
