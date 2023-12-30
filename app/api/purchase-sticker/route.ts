@@ -24,9 +24,12 @@ export async function POST(req: Request) {
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+
     const sticker = await prisma.sticker.create({
       data: {
-        residentId,
+        resident: { connect: { id: residentId } },
         role,
         name,
         driverLicense,
@@ -39,6 +42,15 @@ export async function POST(req: Request) {
         vehicleType,
         vehicleColor,
         userId,
+        transaction: {
+          create: {
+            date: stickerNumber,
+            name: "sticker selling",
+            type: "income",
+            amount,
+            prefix: `${year}${month}`,
+          },
+        },
       },
     });
 

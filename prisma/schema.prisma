@@ -83,24 +83,37 @@ model DuesPrice {
   updatedAt DateTime @updatedAt
 }
 
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  date      String
+  prefix    String
+  type      String
+  name      String
+  amount    Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  sticker   Sticker?
+}
+
 model Sticker {
-  id            String   @id @default(uuid())
+  id            String      @id @default(uuid())
   residentId    String
   role          String
   name          String
   driverLicense String
   stickerNumber String
   stickerColor  String
-  quantity      Int      @default(1)
-  amount        Decimal  @db.Decimal(10, 2)
+  quantity      Int         @default(1)
+  amount        Decimal     @db.Decimal(10, 2)
   plate         String
   vehicleType   String
   vehicleColor  String
   stickerDate   String
   userId        String
-  resident      Resident @relation("stickerToResident", fields: [residentId], references: [id])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  transactionId Int         @unique
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  resident      Resident    @relation("stickerToResident", fields: [residentId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   @@index([residentId])
 }
