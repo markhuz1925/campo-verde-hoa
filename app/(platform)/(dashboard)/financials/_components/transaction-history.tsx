@@ -3,8 +3,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { Transaction } from "@prisma/client";
 
-export function TransactionHistory() {
+export function TransactionHistory({ data }: { data: Transaction[] }) {
   return (
     <Card
       className={cn(
@@ -17,7 +18,30 @@ export function TransactionHistory() {
           Transaction History
         </CardTitle>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <div className="flex flex-col gap-5">
+          {data.map((transaction) => (
+            <div key={transaction.id} className="flex flex-row gap-10">
+              <div className="flex flex-col">
+                <p>Invoice</p>
+                <p>{`${transaction.prefix}${transaction.id}`}</p>
+              </div>
+              <div className="flex flex-col">
+                <p>Type</p>
+                <p>{transaction.type}</p>
+              </div>
+              <div className="flex flex-col">
+                <p>Description</p>
+                <p>{transaction.name}</p>
+              </div>
+              <div className="flex flex-col">
+                <p>Date</p>
+                <p>{transaction.date}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
     </Card>
   );
 }
