@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -14,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { openSans, purchaseStickerFormSchema } from "@/lib/constants";
+import { purchaseStickerFormSchema, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Resident, StickerPrice } from "@prisma/client";
@@ -50,7 +49,6 @@ export default function PurchaseStickerForm({
       quantity: 1,
     },
   });
-  console.log(sticker);
 
   const onSubmit = async (
     values: z.infer<typeof purchaseStickerFormSchema>
@@ -79,7 +77,7 @@ export default function PurchaseStickerForm({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className={cn("flex flex-col gap-4", openSans.className)}
+          className={cn("flex flex-col gap-4", urbanist.className)}
         >
           <div className="flex flex-col md:flex-row gap-5">
             <div className="flex flex-col space-y-4 w-full">

@@ -7,7 +7,7 @@ import {
   DrawerFooter,
   DrawerHeader,
 } from "@/components/ui/drawer";
-import { bitter, openSans } from "@/lib/constants";
+import { urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
@@ -53,13 +53,13 @@ export default function InstallPwa() {
 
   return (
     <Drawer open={openDrawer} onOpenChange={setOpenDrawer}>
-      <DrawerContent>
+      <DrawerContent className={urbanist.className}>
         <DrawerHeader>
-          <p className={cn("text-xl font-semibold", bitter.className)}>
+          <p className="text-xl font-semibold">
             Install CVHOA Management System
           </p>
         </DrawerHeader>
-        <div className={cn("pb-5 px-4", openSans.className)}>
+        <div className="pb-5 px-4">
           {isIOS ? (
             <p>{`AddTo install this app, tap on the Share icon and select "Add to Home Screen".`}</p>
           ) : (

@@ -2,12 +2,13 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { urbanist } from "@/lib/constants";
 import { Dues } from "@prisma/client";
 import { CheckCircle } from "lucide-react";
 
 export function HoaDues({ data }: { data: Dues[] | null }) {
   return (
-    <Card>
+    <Card className={urbanist.className}>
       <CardHeader>
         <CardTitle>Unpaid Dues</CardTitle>
       </CardHeader>

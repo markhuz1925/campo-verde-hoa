@@ -7,6 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
 import { MenuIcon, SettingsIcon } from "lucide-react";
@@ -66,7 +67,8 @@ export function DashboardNavbar() {
         "fixed z-50 top-0 px-4 py-3 w-full h-fit shadow-sm backdrop-blur-3xl bg-white/70 flex items-center justify-between",
         pathname === "/sign-in" || pathname === "/sign-in/factor-one"
           ? "hidden opacity-0"
-          : ""
+          : "",
+        urbanist.className
       )}
     >
       {/* mobile */}
@@ -100,14 +102,14 @@ export function DashboardNavbar() {
             </div>
           </SheetContent>
         </Sheet>
+        <Image
+          src="/logo.svg"
+          alt="Campo Verde Homeowners Association"
+          width={48}
+          height={48}
+          className="object-contain"
+        />
       </div>
-      <Image
-        src="/logo.svg"
-        alt="Campo Verde Homeowners Association"
-        width={48}
-        height={48}
-        className="object-contain lg:hidden"
-      />
       {/* desktop */}
       <div className="hidden lg:flex items-center gap-4">
         <Image
