@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         userId,
         transaction: {
           create: {
-            date: stickerNumber,
+            date: stickerDate,
             name: "sticker selling",
             type: "income",
             amount,
