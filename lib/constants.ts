@@ -49,3 +49,10 @@ export const purchaseStickerFormSchema = z.object({
   residentId: z.string(),
   quantity: z.coerce.number(),
 });
+
+export const transactionsFormSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  date: z.string(),
+  amount: z.coerce.number(),
+  type: z.enum(["income", "expense"]),
+});

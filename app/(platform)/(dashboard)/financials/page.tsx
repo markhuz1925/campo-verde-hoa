@@ -1,14 +1,14 @@
-import { PageHeading } from "@/components/page-heading";
-import { TotalIncome } from "./_components/total-income";
-import { TotalExpense } from "./_components/total-expense";
-import { Separator } from "@/components/ui/separator";
-import { TransactionHistory } from "./_components/transaction-history";
-import prisma from "@/prisma/client";
 import {
   getExpense,
   getIncome,
   getTransactionHistory,
 } from "@/app/functions/financials";
+import { PageHeading } from "@/components/page-heading";
+import { Separator } from "@/components/ui/separator";
+import { TotalExpense } from "./_components/total-expense";
+import { TotalIncome } from "./_components/total-income";
+import { TransactionHistory } from "./_components/transaction-history";
+import ExpenseModal from "@/components/modals/expense-modal";
 
 export default async function FinancialsPage() {
   const transactionHistory = await getTransactionHistory();
@@ -17,6 +17,7 @@ export default async function FinancialsPage() {
 
   return (
     <div className="pt-20 px-5">
+      <ExpenseModal />
       <PageHeading
         title="Financials"
         description="View transactions. Create expenses and purchases."

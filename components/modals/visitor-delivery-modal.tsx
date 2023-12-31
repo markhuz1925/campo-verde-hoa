@@ -66,7 +66,7 @@ export function VisitorDeliveryModal({
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
       await axios.post("/api/logs", {
-        title: `[RESIDENT_POST_ERROR] ${error}`,
+        title: `[STICKER_POST_ERROR] ${error}`,
       });
     } finally {
       setIsSubmitting(false);

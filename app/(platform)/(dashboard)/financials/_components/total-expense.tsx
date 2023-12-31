@@ -2,11 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useModal } from "@/hooks/use-modal";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { PlusCircleIcon, TrendingDownIcon } from "lucide-react";
 
 export function TotalExpense({ data }: { data: number }) {
+  const expenseModal = useModal();
   return (
     <Card
       className={cn(
@@ -19,7 +21,7 @@ export function TotalExpense({ data }: { data: number }) {
           Total Expenses
           <TrendingDownIcon />
         </CardTitle>
-        <Button variant="ghost" size="icon">
+        <Button onClick={expenseModal.onOpen} variant="ghost" size="icon">
           <PlusCircleIcon className="text-red-800" />
         </Button>
       </CardHeader>
