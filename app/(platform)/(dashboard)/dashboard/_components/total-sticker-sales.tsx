@@ -18,8 +18,8 @@ export function TotalStickerSales({
             urbanist.className
           )}
         >
-          <h2 className="text-6xl md:text-9xl text-neutral-800 font-medium">
-            <span className="self-end text-4xl md:text-7xl font-thin">₱</span>
+          <h2 className="text-7xl text-neutral-800 font-medium">
+            <span className="self-end text-4xl font-thin">₱</span>
             {formatter.format(totalStickerSales).split("₱")}
           </h2>
         </div>
