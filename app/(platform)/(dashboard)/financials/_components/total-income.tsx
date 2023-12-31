@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
-import { Transaction } from "@prisma/client";
 import { PlusCircleIcon, TrendingUpIcon } from "lucide-react";
 
-export function TotalIncome({ data }: { data: Transaction }) {
+export function TotalIncome({ data }: { data: number }) {
   return (
     <Card
       className={cn(

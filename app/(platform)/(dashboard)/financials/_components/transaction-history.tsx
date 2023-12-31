@@ -10,7 +10,7 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
   return (
     <Card
       className={cn(
-        "w-fit backdrop-blur-3xl rounded-3xl bg-slate-500/10 h-[calc(100vh-25rem)] overflow-y-auto",
+        "backdrop-blur-3xl rounded-3xl bg-slate-500/10 w-full h-[calc(100vh-25rem)] overflow-y-auto",
         urbanist.className
       )}
     >
@@ -23,7 +23,7 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
         <div className="flex flex-col gap-2 overflow-hidden">
           {data.map((transaction) => (
             <Card key={transaction.id}>
-              <div className="flex flex-row items-center justify-between gap-10 uppercase font-thin text-base p-5">
+              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-10 uppercase font-thin text-base p-5">
                 <div className="flex flex-row items-center gap-2">
                   {transaction.type === "income" ? (
                     <TrendingUpIcon className="text-green-800 w-4 h-4" />
@@ -43,29 +43,11 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
                 >
                   {formatter.format(Number(transaction.amount))}
                 </p>
-                <p className="bg-green-50 text-green-800 p-1 text-xs font-medium rounded">
+                <p className="bg-green-50 text-green-800 p-1 text-xs font-medium rounded w-fit">
                   {transaction.type}
                 </p>
               </div>
             </Card>
-            // <div  className="flex flex-row gap-10">
-            //   <div className="flex flex-col">
-            //     <p>Invoice</p>
-            //     <p>{`${transaction.prefix}${transaction.id}`}</p>
-            //   </div>
-            //   <div className="flex flex-col">
-            //     <p>Type</p>
-            //     <p>{transaction.type}</p>
-            //   </div>
-            //   <div className="flex flex-col">
-            //     <p>Description</p>
-            //     <p>{transaction.name}</p>
-            //   </div>
-            //   <div className="flex flex-col">
-            //     <p>Date</p>
-            //     <p>{transaction.date}</p>
-            //   </div>
-            // </div>
           ))}
         </div>
       </CardContent>
