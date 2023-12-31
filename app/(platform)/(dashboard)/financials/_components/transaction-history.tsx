@@ -24,7 +24,7 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
           {data.map((transaction) => (
             <Card key={transaction.id}>
               <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-10 uppercase font-thin text-base p-5">
-                <div className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2 font-medium w-full">
                   {transaction.type === "income" ? (
                     <TrendingUpIcon className="text-green-800 w-4 h-4" />
                   ) : (
@@ -32,18 +32,27 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
                   )}
                   <p>{transaction.name}</p>
                 </div>
-                <p>{transaction.date}</p>
+                <p className="w-full font-medium">{transaction.date}</p>
                 <p
                   className={cn(
-                    "",
-                    transaction.type === "income"
-                      ? "before:content-['+']"
-                      : "before:content['-']"
+                    "w-full font-medium",
+                    transaction.type === "income" &&
+                      "before:content-['+'] text-green-900",
+
+                    transaction.type === "expense" &&
+                      "before:content-['-'] text-red-900"
                   )}
                 >
                   {formatter.format(Number(transaction.amount))}
                 </p>
-                <p className="bg-green-50 text-green-800 p-1 text-xs font-medium rounded w-fit">
+                <p
+                  className={cn(
+                    "p-1 text-xs font-medium rounded w-fit",
+                    transaction.type === "income" &&
+                      "bg-green-50 text-green-900",
+                    transaction.type === "expense" && "bg-red-50 text-red-900"
+                  )}
+                >
                   {transaction.type}
                 </p>
               </div>

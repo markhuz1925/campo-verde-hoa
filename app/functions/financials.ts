@@ -43,3 +43,19 @@ export async function getExpense(): Promise<number> {
 
   return totalExpense;
 }
+
+export async function getHoaFunds(): Promise<number> {
+  const transactions = await prisma.transaction.findMany();
+
+  const totalIncome = transactions
+    .filter((transaction) => transaction.type === "income")
+    .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
+
+  const totalExpense = transactions
+    .filter((transaction) => transaction.type === "expense")
+    .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
+
+  const totalHoaFunds = totalIncome - totalExpense;
+
+  return totalHoaFunds;
+}
