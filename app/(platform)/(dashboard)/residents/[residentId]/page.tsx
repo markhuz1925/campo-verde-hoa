@@ -13,7 +13,11 @@ export default async function ResidentPage({
         id: params.residentId,
       },
       include: {
-        stickers: true,
+        stickers: {
+          include: {
+            transaction: true,
+          },
+        },
         dues: true,
       },
     }

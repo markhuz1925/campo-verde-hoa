@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         transaction: {
           create: {
             date: stickerDate,
-            name: "sticker selling",
+            name: "received payment (sticker)",
             type: "income",
             amount,
             prefix: `${year}${month}`,

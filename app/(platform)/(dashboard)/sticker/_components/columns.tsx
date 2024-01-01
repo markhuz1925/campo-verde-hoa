@@ -14,9 +14,14 @@ export type StickerColumn = {
   block: string;
   lot: string;
   phase: string;
+  invoice: string;
 };
 
 export const columns: ColumnDef<StickerColumn>[] = [
+  {
+    accessorKey: "invoice",
+    header: "Invoice#",
+  },
   {
     accessorKey: "name",
     header: "Name",

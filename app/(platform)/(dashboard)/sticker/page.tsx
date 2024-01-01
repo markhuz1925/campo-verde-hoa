@@ -16,11 +16,13 @@ export default async function StickerPage() {
     },
     include: {
       resident: true,
+      transaction: true,
     },
   });
 
   const formattedStickers: StickerColumn[] = stickers.map((sticker) => ({
     id: sticker.id,
+    invoice: `${sticker.transaction.prefix}${sticker.transaction.id}`,
     name: sticker.name,
     stickerColor: sticker.stickerColor,
     stickerNumber: sticker.stickerNumber,

@@ -22,13 +22,19 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
       <CardContent>
         <div className="flex flex-col gap-2 overflow-hidden">
           {data.map((transaction) => (
-            <Card key={transaction.id}>
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-10 uppercase font-thin text-base p-5">
+            <Card key={transaction.id} className="py-2">
+              <div className="flex flex-col w-full px-5 pb-2">
+                <p className="w-fit font-medium">
+                  <span className="font-thin">Invoice# </span>
+                  {`${transaction.prefix}${transaction.id}`}
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-10 uppercase font-thin text-base px-5">
                 <div className="flex flex-row items-center gap-2 font-medium w-full">
                   {transaction.type === "income" ? (
-                    <TrendingUpIcon className="text-green-800 w-4 h-4" />
+                    <TrendingUpIcon className="text-green-800 w-4 h-4 shrink-0" />
                   ) : (
-                    <TrendingDownIcon className="text-red-800 w-4 h-4" />
+                    <TrendingDownIcon className="text-red-800 w-4 h-4 shrink-0" />
                   )}
                   <p>{transaction.name}</p>
                 </div>

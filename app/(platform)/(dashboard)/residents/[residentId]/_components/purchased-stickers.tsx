@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { bitter, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Sticker } from "@prisma/client";
+import { Sticker, Transaction } from "@prisma/client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export function PurchasedStickers({
   purchasedStickers,
 }: {
-  purchasedStickers: Sticker[] | null;
+  purchasedStickers: (Sticker & Transaction)[] | null;
 }) {
   const params = useParams();
 
@@ -35,7 +35,7 @@ export function PurchasedStickers({
       <CardContent>
         <div className="flex flex-col space-y-4">
           {purchasedStickers && purchasedStickers.length > 0 ? (
-            purchasedStickers.map((sticker: Sticker) => (
+            purchasedStickers.map((sticker: any) => (
               <div
                 key={sticker.id}
                 className={cn(
@@ -84,6 +84,12 @@ export function PurchasedStickers({
                     <span
                       className={cn("font-bold", bitter.className)}
                     >{`CVHOA-${sticker.stickerNumber}`}</span>
+                  </p>
+                  <p>
+                    Invoice Number:{" "}
+                    <span
+                      className={cn("font-bold", bitter.className)}
+                    >{`${sticker.transaction?.prefix}${sticker.transactionId}`}</span>
                   </p>
                 </div>
               </div>
