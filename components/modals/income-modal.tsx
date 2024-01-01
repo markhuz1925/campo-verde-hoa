@@ -30,6 +30,7 @@ export function IncomeModal() {
   const onOpen = useModal((state) => state.onOpen);
   const onClose = useModal((state) => state.onClose);
   const isOpen = useModal((state) => state.isOpen);
+  const incomeModal = useModal();
 
   const form = useForm<z.infer<typeof transactionsFormSchema>>({
     resolver: zodResolver(transactionsFormSchema),
@@ -136,6 +137,8 @@ export function IncomeModal() {
                 variant="secondary"
                 type="reset"
                 onClick={() => {
+                  incomeModal.isIncomeModal = false;
+                  incomeModal.isExpenseModal = false;
                   onClose();
                   form.resetField("name");
                   form.resetField("date");

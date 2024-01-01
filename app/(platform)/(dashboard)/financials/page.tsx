@@ -4,8 +4,6 @@ import {
   getIncome,
   getTransactionHistory,
 } from "@/app/functions/financials";
-import { ExpenseModal } from "@/components/modals/expense-modal";
-import { IncomeModal } from "@/components/modals/income-modal";
 import { PageHeading } from "@/components/page-heading";
 import { TotalExpense } from "@/components/total-expense";
 import { TotalHoaFunds } from "@/components/total-hoa-funds";
@@ -21,8 +19,6 @@ export default async function FinancialsPage() {
 
   return (
     <div className="pt-20 px-5 pb-5">
-      <ExpenseModal />
-      <IncomeModal />
       <PageHeading
         title="Financials"
         description="View transactions. Create income and expense."
