@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { bitter, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Sticker, Transaction } from "@prisma/client";
+import { Sticker } from "@prisma/client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export function PurchasedStickers({
   purchasedStickers,
 }: {
-  purchasedStickers: (Sticker & Transaction)[] | null;
+  purchasedStickers: Sticker[] | null;
 }) {
   const params = useParams();
 
@@ -89,7 +89,7 @@ export function PurchasedStickers({
                     Invoice Number:{" "}
                     <span
                       className={cn("font-bold", bitter.className)}
-                    >{`${sticker.transaction?.prefix}${sticker.transactionId}`}</span>
+                    >{`${sticker.transaction.prefix}${sticker.transactionId}`}</span>
                   </p>
                 </div>
               </div>
