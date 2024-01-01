@@ -5,8 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { PlusCircleIcon, TrendingUpIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function TotalIncome({ data }: { data: number }) {
+  const pathname = usePathname();
+
   return (
     <Card
       className={cn(
@@ -19,9 +22,11 @@ export function TotalIncome({ data }: { data: number }) {
           Total Income
           <TrendingUpIcon />
         </CardTitle>
-        <Button variant="ghost" size="icon">
-          <PlusCircleIcon className="text-green-800" />
-        </Button>
+        {pathname === "/financials" && (
+          <Button variant="ghost" size="icon">
+            <PlusCircleIcon className="text-green-800" />
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         <div

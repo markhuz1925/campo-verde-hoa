@@ -6,11 +6,11 @@ import {
 } from "@/app/functions/financials";
 import { PageHeading } from "@/components/page-heading";
 import { Separator } from "@/components/ui/separator";
-import { TotalExpense } from "./_components/total-expense";
-import { TotalIncome } from "./_components/total-income";
+import { TotalExpense } from "@/components/total-expense";
+import { TotalIncome } from "@/components/total-income";
 import { TransactionHistory } from "./_components/transaction-history";
 import { ExpenseModal } from "@/components/modals/expense-modal";
-import { TotalHoaFunds } from "./_components/total-hoa-funds";
+import { TotalHoaFunds } from "@/components/total-hoa-funds";
 
 export default async function FinancialsPage() {
   const transactionHistory = await getTransactionHistory();

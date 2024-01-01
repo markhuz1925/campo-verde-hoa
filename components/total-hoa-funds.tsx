@@ -19,9 +19,6 @@ export function TotalHoaFunds({ data }: { data: number }) {
           Total HOA Funds
           <TrendingUpIcon />
         </CardTitle>
-        <Button variant="ghost" size="icon">
-          <PlusCircleIcon className="text-green-800" />
-        </Button>
       </CardHeader>
       <CardContent>
         <div

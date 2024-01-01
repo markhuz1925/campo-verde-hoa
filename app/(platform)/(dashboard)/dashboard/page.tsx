@@ -22,10 +22,10 @@ import { TotalStickerSales } from "./_components/total-sticker-sales";
 import { PageHeading } from "@/components/page-heading";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TotalIncome } from "../financials/_components/total-income";
-import { TotalExpense } from "../financials/_components/total-expense";
+import { TotalIncome } from "@/components/total-income";
+import { TotalExpense } from "@/components/total-expense";
 import { getExpense, getHoaFunds, getIncome } from "@/app/functions/financials";
-import { TotalHoaFunds } from "../financials/_components/total-hoa-funds";
+import { TotalHoaFunds } from "@/components/total-hoa-funds";
 
 export default async function DashboardPage() {
   const stickerSales = await getStickerSales();
