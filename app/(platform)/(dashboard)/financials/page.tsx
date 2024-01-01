@@ -4,13 +4,14 @@ import {
   getIncome,
   getTransactionHistory,
 } from "@/app/functions/financials";
-import { PageHeading } from "@/components/page-heading";
-import { Separator } from "@/components/ui/separator";
-import { TotalExpense } from "@/components/total-expense";
-import { TotalIncome } from "@/components/total-income";
-import { TransactionHistory } from "./_components/transaction-history";
 import { ExpenseModal } from "@/components/modals/expense-modal";
+import { IncomeModal } from "@/components/modals/income-modal";
+import { PageHeading } from "@/components/page-heading";
+import { TotalExpense } from "@/components/total-expense";
 import { TotalHoaFunds } from "@/components/total-hoa-funds";
+import { TotalIncome } from "@/components/total-income";
+import { Separator } from "@/components/ui/separator";
+import { TransactionHistory } from "./_components/transaction-history";
 
 export default async function FinancialsPage() {
   const transactionHistory = await getTransactionHistory();
@@ -19,11 +20,12 @@ export default async function FinancialsPage() {
   const totalHoaFunds = await getHoaFunds();
 
   return (
-    <div className="pt-20 px-5">
+    <div className="pt-20 px-5 pb-5">
       <ExpenseModal />
+      <IncomeModal />
       <PageHeading
         title="Financials"
-        description="View transactions. Create expenses and purchases."
+        description="View transactions. Create income and expense."
       />
       <Separator className="my-5" />
       <TotalHoaFunds data={totalHoaFunds} />

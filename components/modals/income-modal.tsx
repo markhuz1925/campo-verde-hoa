@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-export function ExpenseModal() {
+export function IncomeModal() {
   const [isMounted, setIsMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -37,7 +37,7 @@ export function ExpenseModal() {
       date: "",
       amount: 0,
       name: "",
-      type: "expense",
+      type: "income",
     },
   });
 
@@ -48,7 +48,7 @@ export function ExpenseModal() {
       await axios.post("/api/logs", {
         title: `[TRANSACTION_POST_SUCCESS] ${values.name} ${values.type} ${values.date} ${values.amount}`,
       });
-      toast.success(`Purchase successful ${values.name}`);
+      toast.success(`New Income successful ${values.name}`);
       router.refresh();
       onClose();
     } catch (error) {
@@ -69,8 +69,8 @@ export function ExpenseModal() {
 
   return (
     <Modal
-      title="Create New Expense"
-      description="Create new expense."
+      title="Create New Income"
+      description="Create new Income."
       isOpen={isOpen}
       onClose={onClose}
     >

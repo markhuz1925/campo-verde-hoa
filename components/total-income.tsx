@@ -2,12 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useModal } from "@/hooks/use-modal";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { PlusCircleIcon, TrendingUpIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export function TotalIncome({ data }: { data: number }) {
+  const incomeModal = useModal();
   const pathname = usePathname();
 
   return (
@@ -23,7 +25,7 @@ export function TotalIncome({ data }: { data: number }) {
           <TrendingUpIcon />
         </CardTitle>
         {pathname === "/financials" && (
-          <Button variant="ghost" size="icon">
+          <Button onClick={incomeModal.onOpen} variant="ghost" size="icon">
             <PlusCircleIcon className="text-green-800" />
           </Button>
         )}

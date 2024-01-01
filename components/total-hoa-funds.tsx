@@ -27,7 +27,7 @@ export function TotalHoaFunds({ data }: { data: number }) {
             urbanist.className
           )}
         >
-          <h2 className="text-3xl md:text-6xl text-slate-800 font-medium">
+          <h2 className="text-4xl md:text-7xl text-slate-800 font-medium">
             <span className="self-end text-2xl md:text-5xl font-thin">₱</span>
             {formatter.format(Number(data)).split("₱")}
           </h2>
