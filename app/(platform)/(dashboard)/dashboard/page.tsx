@@ -101,7 +101,15 @@ export default async function DashboardPage() {
               <CardTitle className="font-thin">Sticker</CardTitle>
             </CardHeader>
             <CardContent>
-              <StickerChart data={stickerChartData} />
+              <Suspense
+                fallback={
+                  <div>
+                    <LoaderIcon className="w-5 h-5 animate-spin" />
+                  </div>
+                }
+              >
+                <StickerChart data={stickerChartData} />
+              </Suspense>
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalStickerSales totalStickerSales={stickerSales} />
                 <StickerCount stickerCount={stickerCount} />
