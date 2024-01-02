@@ -1,4 +1,5 @@
 import prisma from "@/prisma/client";
+import { format } from "date-fns";
 
 export async function getStickerSales(): Promise<number> {
   const stickerSales = await prisma.sticker.findMany();
@@ -284,4 +285,30 @@ export async function getRedPercentage() {
   const percentage = (soldCount / totalQty.quantity) * 100;
 
   return percentage;
+}
+
+export async function getStickerChartData() {
+  const stickerData = await prisma.sticker.findMany({
+    orderBy: {
+      stickerDate: "asc",
+    },
+  });
+
+  type AggregatedData = Record<string, number>;
+
+  const aggregatedData: AggregatedData = stickerData.reduce(
+    (result: AggregatedData, item) => {
+      const date = format(new Date(item.stickerDate), "MM/dd/yyyy");
+      result[date] = (result[date] || 0) + 1;
+      return result;
+    },
+    {}
+  );
+
+  const formattedData = Object.keys(aggregatedData).map((date) => ({
+    Date: date,
+    Sticker: aggregatedData[date],
+  }));
+
+  return formattedData;
 }

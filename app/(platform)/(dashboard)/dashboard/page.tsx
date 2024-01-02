@@ -1,4 +1,10 @@
 import {
+  getExpense,
+  getHoaFunds,
+  getIncome,
+  getTransactionChartData,
+} from "@/app/functions/financials";
+import {
   getGreenCount,
   getGreenPercentage,
   getGreenSales,
@@ -8,6 +14,7 @@ import {
   getSilverCount,
   getSilverPercentage,
   getSilverSales,
+  getStickerChartData,
   getStickerCount,
   getStickerPercentage,
   getStickerSales,
@@ -18,21 +25,22 @@ import {
   getYellowPercentage,
   getYellowSales,
 } from "@/app/functions/stickers";
+import { PageHeading } from "@/components/page-heading";
+import { TotalExpense } from "@/components/total-expense";
+import { TotalHoaFunds } from "@/components/total-hoa-funds";
+import { TotalIncome } from "@/components/total-income";
+import TransactionChart from "@/components/transaction-chart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import StickerChart from "./_components/sticker-chart";
 import { StickerCount } from "./_components/sticker-count";
 import { StickerGreen } from "./_components/sticker-green";
+import { StickerPercentage } from "./_components/sticker-percentage";
 import { StickerRed } from "./_components/sticker-red";
 import { StickerSilver } from "./_components/sticker-silver";
 import { StickerWhite } from "./_components/sticker-white";
 import { StickerYellow } from "./_components/sticker-yellow";
 import { TotalStickerSales } from "./_components/total-sticker-sales";
-import { PageHeading } from "@/components/page-heading";
-import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TotalIncome } from "@/components/total-income";
-import { TotalExpense } from "@/components/total-expense";
-import { getExpense, getHoaFunds, getIncome } from "@/app/functions/financials";
-import { TotalHoaFunds } from "@/components/total-hoa-funds";
-import { StickerPercentage } from "./_components/sticker-percentage";
 
 export default async function DashboardPage() {
   const stickerSales = await getStickerSales();
@@ -56,9 +64,11 @@ export default async function DashboardPage() {
   const greenPercentage = await getGreenPercentage();
   const yellowPercentage = await getYellowPercentage();
   const whitePercentage = await getWhitePercentage();
+  const stickerChartData = await getStickerChartData();
+  const transactionChartDate = await getTransactionChartData();
 
   return (
-    <div className="px-5 pt-20 pb-20">
+    <div className="md:px-5 pt-20 pb-20">
       <div className="gap-10">
         <PageHeading title="Dashboard" description="" />
         <Separator className="my-5" />
@@ -69,6 +79,7 @@ export default async function DashboardPage() {
               <TotalHoaFunds data={totalHoaFunds} />
             </CardHeader>
             <CardContent>
+              <TransactionChart data={transactionChartDate} />
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalIncome data={incomeTransactions} />
                 <TotalExpense data={expenseTransactions} />
@@ -80,6 +91,7 @@ export default async function DashboardPage() {
               <CardTitle className="font-thin">Sticker</CardTitle>
             </CardHeader>
             <CardContent>
+              <StickerChart data={stickerChartData} />
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalStickerSales totalStickerSales={stickerSales} />
                 <StickerCount stickerCount={stickerCount} />

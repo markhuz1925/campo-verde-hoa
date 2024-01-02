@@ -1,5 +1,6 @@
 import prisma from "@/prisma/client";
 import { Transaction } from "@prisma/client";
+import { format } from "date-fns";
 
 export async function getTransactionHistory(): Promise<Transaction[]> {
   const transactionHistory = await prisma.transaction.findMany({
@@ -58,4 +59,57 @@ export async function getHoaFunds(): Promise<number> {
   const totalHoaFunds = totalIncome - totalExpense;
 
   return totalHoaFunds;
+}
+
+export async function getTransactionChartData() {
+  const data = await prisma.transaction.findMany({
+    orderBy: {
+      date: "asc",
+    },
+  });
+
+  type AggregatedData = Record<
+    string,
+    {
+      count: number;
+      totalAmount: number;
+      incomeTotal: number;
+      expenseTotal: number;
+    }
+  >;
+
+  const aggregatedData: AggregatedData = data.reduce(
+    (result: AggregatedData, item) => {
+      const date = format(new Date(item.date), "MM/dd/yyyy");
+      if (!result[date]) {
+        result[date] = {
+          count: 0,
+          totalAmount: 0,
+          incomeTotal: 0,
+          expenseTotal: 0,
+        };
+      }
+
+      result[date].count += 1;
+      result[date].totalAmount += Number(item.amount);
+
+      if (item.type === "income") {
+        result[date].incomeTotal += Number(item.amount);
+      } else if (item.type === "expense") {
+        result[date].expenseTotal += Number(item.amount);
+      }
+
+      return result;
+    },
+    {}
+  );
+
+  const formattedData = Object.keys(aggregatedData).map((date) => ({
+    Date: date,
+    ExpenseTotal: aggregatedData[date].expenseTotal,
+    IncomeTotal: aggregatedData[date].incomeTotal,
+    TotalAmount: aggregatedData[date].totalAmount,
+  }));
+
+  return formattedData;
 }
