@@ -8,9 +8,11 @@ import Image from "next/image";
 export function StickerWhite({
   count,
   sales,
+  percentage,
 }: {
   count: number;
   sales: number;
+  percentage: number;
 }) {
   return (
     <Card
@@ -19,7 +21,7 @@ export function StickerWhite({
         urbanist.className
       )}
     >
-      <CardHeader className="flex flex-col md:flex-row md:gap-5">
+      <CardHeader className="flex flex-col md:flex-row md:gap-5 w-full">
         <Image
           src="/visitor.svg"
           alt="visitor"
@@ -27,12 +29,17 @@ export function StickerWhite({
           height={64}
           className="self-start object-contain"
         />
-        <CardTitle className="flex flex-col text-left items-start gap-2">
-          <div className="flex flex-col">
-            <p className="font-thin text-xl">Visitor Stickers</p>
-            <span className="text-base font-medium">
-              {formatter.format(sales)}
-            </span>
+        <CardTitle className="flex flex-col text-left items-start gap-2 w-full">
+          <div className="flex items-start justify-between w-full">
+            <div className="flex flex-col">
+              <p className="font-thin text-xl">Visitor Stickers</p>
+              <span className="text-base font-medium">
+                {formatter.format(sales)}
+              </span>
+            </div>
+            <p className="text-xl font-medium text-slate-500">
+              {Math.round(percentage)}%
+            </p>
           </div>
           <p className="text-2xl font-medium">
             {count} <span className="text-base font-thin">Qty</span>

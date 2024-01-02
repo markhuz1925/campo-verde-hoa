@@ -5,7 +5,15 @@ import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
-export function StickerRed({ count, sales }: { count: number; sales: number }) {
+export function StickerRed({
+  count,
+  sales,
+  percentage,
+}: {
+  count: number;
+  sales: number;
+  percentage: number;
+}) {
   return (
     <Card
       className={cn(
@@ -13,7 +21,7 @@ export function StickerRed({ count, sales }: { count: number; sales: number }) {
         urbanist.className
       )}
     >
-      <CardHeader className="flex flex-col md:flex-row md:gap-5">
+      <CardHeader className="flex flex-col md:flex-row md:gap-5 w-full">
         <Image
           src="/delivery.svg"
           alt="delivery"
@@ -21,12 +29,17 @@ export function StickerRed({ count, sales }: { count: number; sales: number }) {
           height={64}
           className="self-start object-contain"
         />
-        <CardTitle className="flex flex-col text-left items-start gap-2">
-          <div className="flex flex-col">
-            <p className="font-thin text-xl">Delivery Stickers</p>
-            <span className="text-base font-medium">
-              {formatter.format(sales)}
-            </span>
+        <CardTitle className="flex flex-col text-left items-start gap-2 w-full">
+          <div className="flex items-start justify-between w-full">
+            <div className="flex flex-col">
+              <p className="font-thin text-xl">Delivery Stickers</p>
+              <span className="text-base font-medium">
+                {formatter.format(sales)}
+              </span>
+            </div>
+            <p className="text-xl font-medium text-slate-500">
+              {Math.round(percentage)}%
+            </p>
           </div>
           <p className="text-2xl font-medium">
             {count} <span className="text-base font-thin">Qty</span>

@@ -10,7 +10,7 @@ export function TotalStickerSales({
   totalStickerSales: number;
 }) {
   return (
-    <Card className="w-full border-0 mt-20 shadow-none backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-white/10">
+    <Card className="w-full border-0 shadow-none backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-white/10">
       <CardContent>
         <div
           className={cn(
@@ -18,8 +18,8 @@ export function TotalStickerSales({
             urbanist.className
           )}
         >
-          <h2 className="text-7xl text-neutral-800 font-medium">
-            <span className="self-end text-4xl font-thin">₱</span>
+          <h2 className="text-4xl text-neutral-800 font-medium">
+            <span className="self-end text-2xl font-thin">₱</span>
             {formatter.format(totalStickerSales).split("₱")}
           </h2>
         </div>

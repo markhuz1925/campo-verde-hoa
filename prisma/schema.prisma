@@ -124,6 +124,7 @@ model StickerPrice {
   price     Decimal  @db.Decimal(10, 2)
   color     Color    @default(GREEN)
   userId    String
+  quantity  Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isActive  Boolean  @default(false)

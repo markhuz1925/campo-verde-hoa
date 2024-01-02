@@ -1,15 +1,21 @@
 import {
   getGreenCount,
+  getGreenPercentage,
   getGreenSales,
   getRedCount,
+  getRedPercentage,
   getRedSales,
   getSilverCount,
+  getSilverPercentage,
   getSilverSales,
   getStickerCount,
+  getStickerPercentage,
   getStickerSales,
   getWhiteCount,
+  getWhitePercentage,
   getWhiteSales,
   getYellowCount,
+  getYellowPercentage,
   getYellowSales,
 } from "@/app/functions/stickers";
 import { StickerCount } from "./_components/sticker-count";
@@ -26,10 +32,12 @@ import { TotalIncome } from "@/components/total-income";
 import { TotalExpense } from "@/components/total-expense";
 import { getExpense, getHoaFunds, getIncome } from "@/app/functions/financials";
 import { TotalHoaFunds } from "@/components/total-hoa-funds";
+import { StickerPercentage } from "./_components/sticker-percentage";
 
 export default async function DashboardPage() {
   const stickerSales = await getStickerSales();
   const stickerCount = await getStickerCount();
+  const stickerPercentage = await getStickerPercentage();
   const stickerGreenCount = await getGreenCount();
   const stickerGreenSales = await getGreenSales();
   const stickerYellowCount = await getYellowCount();
@@ -43,9 +51,14 @@ export default async function DashboardPage() {
   const incomeTransactions = await getIncome();
   const expenseTransactions = await getExpense();
   const totalHoaFunds = await getHoaFunds();
+  const silverPercentage = await getSilverPercentage();
+  const redPercentage = await getRedPercentage();
+  const greenPercentage = await getGreenPercentage();
+  const yellowPercentage = await getYellowPercentage();
+  const whitePercentage = await getWhitePercentage();
 
   return (
-    <div className="px-5 pt-20">
+    <div className="px-5 pt-20 pb-20">
       <div className="gap-10">
         <PageHeading title="Dashboard" description="" />
         <Separator className="my-5" />
@@ -67,27 +80,36 @@ export default async function DashboardPage() {
               <CardTitle className="font-thin">Sticker</CardTitle>
             </CardHeader>
             <CardContent>
-              {/* <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
+              <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalStickerSales totalStickerSales={stickerSales} />
                 <StickerCount stickerCount={stickerCount} />
-              </div> */}
+                <StickerPercentage percentage={stickerPercentage} />
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-5 bg-slate-50/80 rounded-3xl shadow-sm backdrop-blur-3xl">
                 <StickerGreen
                   count={stickerGreenCount}
                   sales={stickerGreenSales}
+                  percentage={greenPercentage}
                 />
                 <StickerYellow
                   count={stickerYellowCount}
                   sales={stickerYellowSales}
+                  percentage={yellowPercentage}
                 />
                 <StickerWhite
                   count={stickerWhiteCount}
                   sales={stickerWhiteSales}
+                  percentage={whitePercentage}
                 />
-                <StickerRed count={stickerRedCount} sales={stickerRedSales} />
+                <StickerRed
+                  count={stickerRedCount}
+                  sales={stickerRedSales}
+                  percentage={redPercentage}
+                />
                 <StickerSilver
                   count={stickerSilverCount}
                   sales={stickerSilverSales}
+                  percentage={silverPercentage}
                 />
               </div>
             </CardContent>

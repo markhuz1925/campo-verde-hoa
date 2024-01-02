@@ -16,6 +16,26 @@ export async function getStickerCount(): Promise<number> {
   return stickerCount;
 }
 
+export async function getStickerPercentage() {
+  const soldCount = await prisma.sticker.count();
+
+  const totalQty = await prisma.stickerPrice.aggregate({
+    _sum: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty._sum?.quantity === null) {
+    throw new Error("Quantity not available.");
+  }
+
+  const totalQuantity = totalQty._sum.quantity;
+
+  const percentage = (soldCount / totalQuantity) * 100;
+
+  return percentage;
+}
+
 export async function getGreenCount(): Promise<number> {
   const stickerGreenCount = await prisma.sticker.count({
     where: {
@@ -139,4 +159,129 @@ export async function getSilverSales(): Promise<number> {
   );
 
   return totalSales;
+}
+
+export async function getSilverPercentage() {
+  const soldCount = await prisma.sticker.count({
+    where: {
+      stickerColor: "silver",
+    },
+  });
+
+  const totalQty = await prisma.stickerPrice.findFirst({
+    where: {
+      color: "SILVER",
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty.quantity === undefined) {
+    throw new Error("Quantity not available for silver color.");
+  }
+
+  const percentage = (soldCount / totalQty.quantity) * 100;
+
+  return percentage;
+}
+
+export async function getGreenPercentage() {
+  const soldCount = await prisma.sticker.count({
+    where: {
+      stickerColor: "green",
+    },
+  });
+
+  const totalQty = await prisma.stickerPrice.findFirst({
+    where: {
+      color: "GREEN",
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty.quantity === undefined) {
+    throw new Error("Quantity not available for green color.");
+  }
+
+  const percentage = (soldCount / totalQty.quantity) * 100;
+
+  return percentage;
+}
+
+export async function getYellowPercentage() {
+  const soldCount = await prisma.sticker.count({
+    where: {
+      stickerColor: "yellow",
+    },
+  });
+
+  const totalQty = await prisma.stickerPrice.findFirst({
+    where: {
+      color: "YELLOW",
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty.quantity === undefined) {
+    throw new Error("Quantity not available for yellow color.");
+  }
+
+  const percentage = (soldCount / totalQty.quantity) * 100;
+
+  return percentage;
+}
+
+export async function getWhitePercentage() {
+  const soldCount = await prisma.sticker.count({
+    where: {
+      stickerColor: "white",
+    },
+  });
+
+  const totalQty = await prisma.stickerPrice.findFirst({
+    where: {
+      color: "WHITE",
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty.quantity === undefined) {
+    throw new Error("Quantity not available for white color.");
+  }
+
+  const percentage = (soldCount / totalQty.quantity) * 100;
+
+  return percentage;
+}
+
+export async function getRedPercentage() {
+  const soldCount = await prisma.sticker.count({
+    where: {
+      stickerColor: "red",
+    },
+  });
+
+  const totalQty = await prisma.stickerPrice.findFirst({
+    where: {
+      color: "RED",
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  if (!totalQty || totalQty.quantity === undefined) {
+    throw new Error("Quantity not available for red color.");
+  }
+
+  const percentage = (soldCount / totalQty.quantity) * 100;
+
+  return percentage;
 }
