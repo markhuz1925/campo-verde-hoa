@@ -1,14 +1,11 @@
-"use client";
-
+import { getStickerSales } from "@/app/functions/stickers";
 import { Card, CardContent } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 
-export function TotalStickerSales({
-  totalStickerSales,
-}: {
-  totalStickerSales: number;
-}) {
+export async function TotalStickerSales() {
+  const stickerSales = await getStickerSales();
+
   return (
     <Card className="w-full border-0 shadow-none backdrop-opacity-20 backdrop-blur-3xl rounded-3xl bg-white/10">
       <CardContent>
@@ -20,7 +17,7 @@ export function TotalStickerSales({
         >
           <h2 className="text-4xl text-neutral-800 font-medium">
             <span className="self-end text-2xl font-thin">₱</span>
-            {formatter.format(totalStickerSales).split("₱")}
+            {formatter.format(stickerSales).split("₱")}
           </h2>
         </div>
       </CardContent>

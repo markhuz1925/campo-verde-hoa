@@ -1,19 +1,18 @@
-"use client";
-
+import {
+  getRedCount,
+  getRedPercentage,
+  getRedSales,
+} from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
-export function StickerRed({
-  count,
-  sales,
-  percentage,
-}: {
-  count: number;
-  sales: number;
-  percentage: number;
-}) {
+export async function StickerRed() {
+  const count = await getRedCount();
+  const sales = await getRedSales();
+  const percentage = await getRedPercentage();
+
   return (
     <Card
       className={cn(

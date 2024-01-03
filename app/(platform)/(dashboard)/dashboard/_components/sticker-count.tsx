@@ -1,10 +1,11 @@
-"use client";
-
+import { getStickerCount } from "@/app/functions/stickers";
 import { urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { BadgeDollarSignIcon } from "lucide-react";
 
-export function StickerCount({ stickerCount }: { stickerCount: number }) {
+export async function StickerCount() {
+  const stickerCount = await getStickerCount();
+
   return (
     <div
       className={cn(

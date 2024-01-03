@@ -1,10 +1,7 @@
 "use client";
 
 import {
-  Bar,
-  BarChart,
   CartesianGrid,
-  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -12,9 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Sticker } from "@prisma/client";
 
-export default function StickerChart({ data }: { data: any[] }) {
+export function StickerChart({ data }: { data: any[] }) {
   return (
     <ResponsiveContainer width="100%" height={500} style={{ marginLeft: -20 }}>
       <LineChart data={data}>

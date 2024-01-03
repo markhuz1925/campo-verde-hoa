@@ -1,19 +1,18 @@
-"use client";
-
+import {
+  getYellowCount,
+  getYellowPercentage,
+  getYellowSales,
+} from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
-export function StickerYellow({
-  count,
-  sales,
-  percentage,
-}: {
-  count: number;
-  sales: number;
-  percentage: number;
-}) {
+export async function StickerYellow() {
+  const count = await getYellowCount();
+  const sales = await getYellowSales();
+  const percentage = await getYellowPercentage();
+
   return (
     <Card
       className={cn(

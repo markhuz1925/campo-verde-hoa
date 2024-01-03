@@ -1,19 +1,18 @@
-"use client";
-
+import {
+  getWhiteCount,
+  getWhitePercentage,
+  getWhiteSales,
+} from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
-export function StickerWhite({
-  count,
-  sales,
-  percentage,
-}: {
-  count: number;
-  sales: number;
-  percentage: number;
-}) {
+export async function StickerWhite() {
+  const count = await getWhiteCount();
+  const sales = await getWhiteSales();
+  const percentage = await getWhitePercentage();
+
   return (
     <Card
       className={cn(

@@ -1,19 +1,18 @@
-"use client";
-
+import {
+  getSilverCount,
+  getSilverPercentage,
+  getSilverSales,
+} from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
-export function StickerSilver({
-  count,
-  sales,
-  percentage,
-}: {
-  count: number;
-  sales: number;
-  percentage: number;
-}) {
+export async function StickerSilver() {
+  const count = await getSilverCount();
+  const sales = await getSilverSales();
+  const percentage = await getSilverPercentage();
+
   return (
     <Card
       className={cn(
