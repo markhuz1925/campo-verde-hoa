@@ -4,32 +4,12 @@ import {
   getIncome,
   getTransactionChartData,
 } from "@/app/functions/financials";
-import {
-  getGreenCount,
-  getGreenPercentage,
-  getGreenSales,
-  getRedCount,
-  getRedPercentage,
-  getRedSales,
-  getSilverCount,
-  getSilverPercentage,
-  getSilverSales,
-  getStickerChartData,
-  getStickerCount,
-  getStickerPercentage,
-  getStickerSales,
-  getWhiteCount,
-  getWhitePercentage,
-  getWhiteSales,
-  getYellowCount,
-  getYellowPercentage,
-  getYellowSales,
-} from "@/app/functions/stickers";
+import { getStickerChartData } from "@/app/functions/stickers";
 import { PageHeading } from "@/components/page-heading";
 import { TotalExpense } from "@/components/total-expense";
 import { TotalHoaFunds } from "@/components/total-hoa-funds";
 import { TotalIncome } from "@/components/total-income";
-import TransactionChart from "@/components/transaction-chart";
+import { TransactionChart } from "@/components/transaction-chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { StickerChart } from "./_components/sticker-chart";
@@ -41,8 +21,6 @@ import { StickerSilver } from "./_components/sticker-silver";
 import { StickerWhite } from "./_components/sticker-white";
 import { StickerYellow } from "./_components/sticker-yellow";
 import { TotalStickerSales } from "./_components/total-sticker-sales";
-import { Suspense } from "react";
-import { LoaderIcon } from "react-hot-toast";
 
 export default async function DashboardPage() {
   const incomeTransactions = await getIncome();
