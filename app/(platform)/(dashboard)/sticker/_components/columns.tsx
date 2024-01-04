@@ -51,7 +51,8 @@ export const columns: ColumnDef<StickerColumn>[] = [
             row.original.stickerColor === "yellow" &&
               "bg-[#fdecc8] text-yellow-900",
             row.original.stickerColor === "silver" &&
-              "bg-[#e3e2e0] text-gray-900"
+              "bg-[#e3e2e0] text-gray-900",
+            row.original.stickerColor === "red" && "bg-[#ffe2dd] text-red-900"
           )}
         >
           <p className="text-xs font-medium text-center">

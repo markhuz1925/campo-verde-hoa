@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StickerPrice } from "@prisma/client";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -95,7 +96,6 @@ export function VisitorDeliveryModal({
                   <FormControl>
                     <Input
                       readOnly
-                      disabled={isSubmitting}
                       placeholder="00000000-0000-0000-0000-000000000000"
                       {...field}
                     />
@@ -189,7 +189,6 @@ export function VisitorDeliveryModal({
                   </div>
                   <FormControl>
                     <Input
-                      disabled={isSubmitting}
                       placeholder="Enter sticker number"
                       {...field}
                       className="pl-[70px]"
@@ -388,11 +387,18 @@ export function VisitorDeliveryModal({
                   form.resetField("amount");
                   form.resetField("vehicleType");
                   form.resetField("vehicleColor");
+                  form.resetField("plate");
                 }}
               >
                 Cancel
               </Button>
-              <Button type="submit">Submit</Button>
+              <Button disabled={isSubmitting} type="submit">
+                {isSubmitting ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
             </div>
           </form>
         </Form>

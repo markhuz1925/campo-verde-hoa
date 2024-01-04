@@ -37,7 +37,7 @@ export const purchaseStickerFormSchema = z.object({
   stickerDate: z.string(),
   stickerNumber: z.string(),
   stickerColor: z.string(),
-  role: z.enum(["homeowner", "tenant", "visitor", "special"]),
+  role: z.enum(["homeowner", "tenant", "visitor", "special", "delivery"]),
   amount: z.coerce.number(),
   name: z.string().min(3, "Name must be at least 3 characters"),
   plate: z.string(),
