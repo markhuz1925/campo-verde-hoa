@@ -1,12 +1,25 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { Transaction } from "@prisma/client";
-import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { DownloadIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { CSVLink } from "react-csv";
 
 export function TransactionHistory({ data }: { data: Transaction[] }) {
+  const csvData = [
+    ["Invoice Number", "Name", "Date", "Amount", "Type"],
+    ...data.map((transaction) => [
+      `${transaction.prefix}${transaction.id}`,
+      transaction.name,
+      transaction.date,
+      transaction.amount,
+      transaction.type,
+    ]),
+  ];
+
   return (
     <Card
       className={cn(
@@ -14,10 +27,21 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
         urbanist.className
       )}
     >
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex gap-2 text-slate-800 font-thin">
           Transaction History
         </CardTitle>
+        <Button variant="outline" size="sm" asChild>
+          <CSVLink
+            data={csvData}
+            separator=","
+            filename="cvhoa-transaction-history.csv"
+            className="flex items-center justify-center gap-2"
+          >
+            <DownloadIcon className="w-4 h-4" />
+            CSV
+          </CSVLink>
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2 overflow-hidden">
