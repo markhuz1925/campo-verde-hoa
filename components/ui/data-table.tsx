@@ -109,6 +109,16 @@ export function DataTable<TData, TValue>({
             className="w-full md:max-w-xs"
           />
         )}
+        {table.getColumn("plate") && (
+          <Input
+            placeholder="Search Plate"
+            value={(table.getColumn("plate")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("plate")?.setFilterValue(event.target.value)
+            }
+            className="w-full md:max-w-xs"
+          />
+        )}
         {isFiltered && (
           <Button
             variant="ghost"

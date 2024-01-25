@@ -8,6 +8,7 @@ export type StickerColumn = {
   id: string;
   name: string;
   stickerColor: string;
+  plate: string;
   stickerNumber: string;
   stickerDate: string;
   amount: string;
@@ -59,6 +60,19 @@ export const columns: ColumnDef<StickerColumn>[] = [
             {`${row.original.stickerColor}`}
           </p>
         </div>
+      );
+    },
+  },
+  {
+    accessorKey: "plate",
+    header: "Plate#",
+    cell: ({ row }) => {
+      return (
+        <>
+          <p className={cn("text-sm font-semibold", bitter.className)}>
+            {row.original.plate}
+          </p>
+        </>
       );
     },
   },

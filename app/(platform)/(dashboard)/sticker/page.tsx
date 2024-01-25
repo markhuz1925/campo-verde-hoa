@@ -28,6 +28,7 @@ export default async function StickerPage() {
     invoice: `${sticker.transaction.prefix}${sticker.transaction.id}`,
     name: sticker.name,
     stickerColor: sticker.stickerColor,
+    plate: sticker.plate,
     stickerNumber: sticker.stickerNumber,
     stickerDate: format(new Date(sticker.stickerDate), "MM/dd/yyyy"),
     block: sticker.resident.block,
