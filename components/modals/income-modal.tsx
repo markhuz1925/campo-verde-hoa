@@ -101,7 +101,7 @@ export function IncomeModal() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter expense name" {...field} />
+                    <Input placeholder="Enter income name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
