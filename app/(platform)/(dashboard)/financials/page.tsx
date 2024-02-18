@@ -5,12 +5,12 @@ import {
   getTransactionChartData,
   getTransactionHistory,
 } from "@/app/functions/financials";
-import { PageHeading } from "@/components/page-heading";
 import { TotalExpense } from "@/components/total-expense";
 import { TotalHoaFunds } from "@/components/total-hoa-funds";
 import { TotalIncome } from "@/components/total-income";
 import { TransactionChart } from "@/components/transaction-chart";
 import { Separator } from "@/components/ui/separator";
+import { FinancialsHeading } from "./_components/financials-heading";
 import { TransactionHistory } from "./_components/transaction-history";
 
 export default async function FinancialsPage() {
@@ -22,10 +22,7 @@ export default async function FinancialsPage() {
 
   return (
     <div className="pt-20 px-5 pb-5">
-      <PageHeading
-        title="Financials"
-        description="View transactions. Create income and expense."
-      />
+      <FinancialsHeading />
       <Separator className="my-5" />
       <TotalHoaFunds data={totalHoaFunds} />
       <TransactionChart data={transactionChartDate} />

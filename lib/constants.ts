@@ -56,3 +56,13 @@ export const transactionsFormSchema = z.object({
   amount: z.coerce.number(),
   type: z.enum(["income", "expense"]),
 });
+
+export const pettyCashFormSchema = z.object({
+  date: z.string(),
+  paidTo: z.string().min(1, { message: "Paid to is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  approvedBy: z.string().min(1, { message: "Approved by is required" }),
+  amount: z.coerce.number(),
+  balance: z.coerce.number(),
+  type: z.enum(["cash-in", "cash-out"]),
+});

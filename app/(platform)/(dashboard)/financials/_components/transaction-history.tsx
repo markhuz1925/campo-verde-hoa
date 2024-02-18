@@ -6,12 +6,24 @@ import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import { Transaction } from "@prisma/client";
 import { DownloadIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import {useEffect, useState} from "react";
 import { CSVLink } from "react-csv";
 
 export function TransactionHistory({ data }: { data: Transaction[] }) {
+  const [filter, setFilter] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    if (filter === "INCOME" || filter === "EXPENSE") {
+      setFilteredData(data.filter((transaction) => transaction.type.toLowerCase() === filter.toLowerCase()));
+    } else {
+      setFilteredData(data); // If no filter is selected, show all data
+    }
+  }, [filter, data]);
+
   const csvData = [
     ["Invoice Number", "Name", "Date", "Amount", "Type"],
-    ...data.map((transaction) => [
+    ...filteredData.map((transaction) => [
       `${transaction.prefix}${transaction.id}`,
       transaction.name,
       transaction.date,
@@ -31,21 +43,28 @@ export function TransactionHistory({ data }: { data: Transaction[] }) {
         <CardTitle className="flex gap-2 text-slate-800 font-thin">
           Transaction History
         </CardTitle>
-        <Button variant="outline" size="sm" asChild>
-          <CSVLink
-            data={csvData}
-            separator=","
-            filename="cvhoa-transaction-history.csv"
-            className="flex items-center justify-center gap-2"
-          >
-            <DownloadIcon className="w-4 h-4" />
-            CSV
-          </CSVLink>
-        </Button>
+        <div className="flex items-center gap-5">
+          <div className="flex items-center gap-2">
+            <p className="font-thin">Filter by</p>
+            <Button variant="link" size="sm" onClick={() => setFilter("INCOME")}>INCOME</Button>
+            <Button variant="link" size="sm" onClick={() => setFilter("EXPENSE")}>EXPENSE</Button>
+          </div>
+          <Button variant="outline" size="sm" asChild>
+            <CSVLink
+              data={csvData}
+              separator=","
+              filename="cvhoa-transaction-history.csv"
+              className="flex items-center justify-center gap-2"
+            >
+              <DownloadIcon className="w-4 h-4" />
+              CSV
+            </CSVLink>
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2 overflow-hidden">
-          {data.map((transaction) => (
+          {filteredData.map((transaction) => (
             <Card key={transaction.id} className="py-2">
               <div className="flex flex-col w-full px-5 pb-2">
                 <p className="w-fit font-medium">
