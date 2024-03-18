@@ -138,6 +138,18 @@ model Log {
   updatedAt DateTime @updatedAt
 }
 
+model PettyCash {
+  id          Int      @id @default(autoincrement())
+  date        String
+  paidTo      String?
+  description String
+  approvedBy  String
+  type        String
+  amount      Decimal  @db.Decimal(10, 2)
+  balance     Decimal  @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
+}
+
 enum Status {
   ACTIVE
   INACTIVE

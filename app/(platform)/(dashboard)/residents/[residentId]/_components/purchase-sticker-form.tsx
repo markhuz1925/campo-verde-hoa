@@ -1,15 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -20,21 +13,18 @@ import { Resident, StickerPrice } from "@prisma/client";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-export default function PurchaseStickerForm({
-  resident,
-  sticker,
-}: {
+export default function PurchaseStickerForm({resident, sticker}: {
   resident: Resident | null;
   sticker: StickerPrice[] | null;
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const params = useParams();
+  const [stickerPenalty, setStickerPenalty] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof purchaseStickerFormSchema>>({
@@ -50,7 +40,14 @@ export default function PurchaseStickerForm({
   ) => {
     try {
       setIsSubmitting(true);
-      const validatedValues = purchaseStickerFormSchema.parse(values);
+      const penaltyAmount = stickerPenalty ? 100 : 0;
+      const totalAmount = Number(values.amount) + penaltyAmount;
+      const validatedValues = {
+        ...purchaseStickerFormSchema.parse(values),
+        amount: totalAmount,
+        stickerPenaltyChecked: stickerPenalty,
+      };
+
       await axios.post(`/api/purchase-sticker`, validatedValues);
       await axios.post("/api/logs", {
         title: `[STICKER_POST_SUCCESS] ${values.name} ${values.driverLicense} ${values.role} ${values.stickerColor} ${values.vehicleColor} ${values.vehicleType} ${values.amount}`,
@@ -79,7 +76,7 @@ export default function PurchaseStickerForm({
               <FormField
                 control={form.control}
                 name="residentId"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem hidden>
                     <FormLabel>Resident Id</FormLabel>
                     <FormControl>
@@ -90,14 +87,14 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="role"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="space-y-3">
                     <FormLabel>Sticker Type</FormLabel>
                     <FormControl>
@@ -234,10 +231,11 @@ export default function PurchaseStickerForm({
               <FormField
                 control={form.control}
                 name="stickerNumber"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="relative">
                     <FormLabel>Sticker Number</FormLabel>
-                    <div className="absolute inset-y-0 top-6 left-0 flex items-center bg-secondary px-1 rounded-tl-md rounded-bl-md text-sm">
+                    <div
+                      className="absolute inset-y-0 top-6 left-0 flex items-center bg-secondary px-1 rounded-tl-md rounded-bl-md text-sm">
                       CVHOA -
                     </div>
                     <FormControl>
@@ -248,14 +246,14 @@ export default function PurchaseStickerForm({
                         className="pl-[70px]"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="stickerColor"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem hidden>
                     <FormLabel>Sticker Color</FormLabel>
                     <FormControl>
@@ -273,14 +271,14 @@ export default function PurchaseStickerForm({
                         )}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="quantity"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem hidden>
                     <FormLabel>Quantity</FormLabel>
                     <FormControl>
@@ -292,24 +290,24 @@ export default function PurchaseStickerForm({
                         className={cn(
                           "",
                           form.getValues("stickerColor") === "green" &&
-                            "bg-green-800 text-white",
+                          "bg-green-800 text-white",
                           form.getValues("stickerColor") === "yellow" &&
-                            "bg-yellow-400",
+                          "bg-yellow-400",
                           form.getValues("stickerColor") === "white" &&
-                            "bg-white",
+                          "bg-white",
                           form.getValues("stickerColor") === "silver" &&
-                            "bg-gray-400"
+                          "bg-gray-400"
                         )}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="amount"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="relative">
                     <FormLabel>Amount</FormLabel>
                     <span className="absolute left-5 top-[60px] text-5xl font-thin">
@@ -327,29 +325,43 @@ export default function PurchaseStickerForm({
                         )}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
+              <FormItem
+                className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-red-700 bg-red-50 p-4 w-40">
+                <FormControl>
+                  <Checkbox
+                    className="border-red-700 data-[state=checked]:bg-red-700 data-[state=checked]:text-primary-foreground"
+                    checked={stickerPenalty} onCheckedChange={(checked) => {
+                    if (checked === true || checked === false) {
+                      setStickerPenalty(checked);
+                    }
+                  }}/>
+                </FormControl>
+                <FormLabel className="font-normal text-red-800">Sticker Penalty</FormLabel>
+                <FormMessage/>
+              </FormItem>
             </div>
             <div className="flex flex-col space-y-4 w-full">
               <FormField
                 control={form.control}
                 name="stickerDate"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Date</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} className="w-fit" />
+                      <Input type="date" {...field} className="w-fit"/>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
@@ -359,14 +371,14 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="driverLicense"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>Driver License</FormLabel>
                     <FormControl>
@@ -377,14 +389,14 @@ export default function PurchaseStickerForm({
                       />
                     </FormControl>
                     <FormDescription>ex. D00-00-000000</FormDescription>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="plate"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>Plate Number</FormLabel>
                     <FormControl>
@@ -394,14 +406,14 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="vehicleType"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>Vehicle Type</FormLabel>
                     <FormControl>
@@ -411,14 +423,14 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="vehicleColor"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>Vehicle Color</FormLabel>
                     <FormControl>
@@ -428,7 +440,7 @@ export default function PurchaseStickerForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 )}
               />
@@ -445,7 +457,7 @@ export default function PurchaseStickerForm({
             </Button>
             <Button disabled={isSubmitting} type="submit">
               {isSubmitting ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin"/>
               ) : (
                 "Submit"
               )}
