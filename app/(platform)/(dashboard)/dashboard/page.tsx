@@ -16,6 +16,7 @@ import {StickerSilver} from "./_components/sticker-silver";
 import {StickerWhite} from "./_components/sticker-white";
 import {StickerYellow} from "./_components/sticker-yellow";
 import {TotalStickerSales} from "./_components/total-sticker-sales";
+import {Suspense} from "react";
 
 export default async function DashboardPage() {
   const [incomeTransactions, expenseTransactions, totalHoaFunds, stickerChartData, transactionChartDate] = await Promise.all([
@@ -35,14 +36,18 @@ export default async function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle className="font-thin">Financials</CardTitle>
-              <TotalHoaFunds data={totalHoaFunds} />
+              <Suspense fallback={<div>Loading...</div>} >
+                <TotalHoaFunds data={totalHoaFunds} />
+              </Suspense>
             </CardHeader>
             <CardContent>
-              <TransactionChart data={transactionChartDate} />
-              <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
-                <TotalIncome data={incomeTransactions} />
-                <TotalExpense data={expenseTransactions} />
-              </div>
+              <Suspense fallback={<div>Loading...</div>} >
+                <TransactionChart data={transactionChartDate} />
+                <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
+                  <TotalIncome data={incomeTransactions} />
+                  <TotalExpense data={expenseTransactions} />
+                </div>
+              </Suspense>
             </CardContent>
           </Card>
           <Card>
@@ -52,16 +57,18 @@ export default async function DashboardPage() {
             <CardContent>
               <StickerChart data={stickerChartData} />
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
-                <TotalStickerSales />
-                <StickerCount />
-                <StickerPercentage />
+                <Suspense fallback={<div>Loading...</div>} >
+                  <TotalStickerSales />
+                  <StickerCount />
+                  <StickerPercentage />
+                </Suspense>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-5 bg-slate-50/80 rounded-3xl shadow-sm backdrop-blur-3xl">
-                <StickerGreen />
-                <StickerYellow />
-                <StickerWhite />
-                <StickerRed />
-                <StickerSilver />
+                <Suspense fallback={<div>Loading...</div>} ><StickerGreen /></Suspense>
+                <Suspense fallback={<div>Loading...</div>} ><StickerYellow /></Suspense>
+                <Suspense fallback={<div>Loading...</div>} ><StickerWhite /></Suspense>
+                <Suspense fallback={<div>Loading...</div>} ><StickerRed /></Suspense>
+                <Suspense fallback={<div>Loading...</div>} ><StickerSilver /></Suspense>
               </div>
             </CardContent>
           </Card>
