@@ -18,12 +18,13 @@ import {StickerYellow} from "./_components/sticker-yellow";
 import {TotalStickerSales} from "./_components/total-sticker-sales";
 
 export default async function DashboardPage() {
-  const incomeTransactions = await getIncome();
-  const expenseTransactions = await getExpense();
-  const totalHoaFunds = await getHoaFunds();
-
-  const stickerChartData = await getStickerChartData();
-  const transactionChartDate = await getTransactionChartData();
+  const [incomeTransactions, expenseTransactions, totalHoaFunds, stickerChartData, transactionChartDate] = await Promise.all([
+    getIncome(),
+    getExpense(),
+    getHoaFunds(),
+    getStickerChartData(),
+    getTransactionChartData()
+  ]);
 
   return (
     <div className="md:px-5 pt-20 pb-20">
