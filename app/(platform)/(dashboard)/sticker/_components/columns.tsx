@@ -1,11 +1,11 @@
 "use client";
 
-import { bitter } from "@/lib/constants";
-import { cn, formatter } from "@/lib/utils";
-import { ColumnDef } from "@tanstack/react-table";
+import {bitter} from "@/lib/constants";
+import {cn} from "@/lib/utils";
+import {ColumnDef} from "@tanstack/react-table";
 
 export type StickerColumn = {
-  id: string;
+  id: number;
   name: string;
   stickerColor: string;
   plate: string;
