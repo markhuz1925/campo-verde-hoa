@@ -1,9 +1,9 @@
 import prisma from "@/prisma/client";
-import { Transaction } from "@prisma/client";
-import { format } from "date-fns";
+import {Transaction} from "@prisma/client";
+import {format} from "date-fns";
 
 export async function getTransactionHistory(): Promise<Transaction[]> {
-  const transactionHistory = await prisma.transaction.findMany({
+  return prisma.transaction.findMany({
     include: {
       sticker: true,
     },
@@ -11,8 +11,6 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
       createdAt: "desc",
     },
   });
-
-  return transactionHistory;
 }
 
 export async function getIncome(): Promise<number> {
@@ -22,12 +20,10 @@ export async function getIncome(): Promise<number> {
     },
   });
 
-  const totalIncome = income.reduce(
-    (total: any, transaction: any) => total + Number(transaction.amount),
-    0
+  return income.reduce(
+      (total: any, transaction: any) => total + Number(transaction.amount),
+      0
   );
-
-  return totalIncome;
 }
 
 export async function getExpense(): Promise<number> {
@@ -37,12 +33,10 @@ export async function getExpense(): Promise<number> {
     },
   });
 
-  const totalExpense = expense.reduce(
-    (total: any, transaction: any) => total + Number(transaction.amount),
-    0
+  return expense.reduce(
+      (total: any, transaction: any) => total + Number(transaction.amount),
+      0
   );
-
-  return totalExpense;
 }
 
 export async function getHoaFunds(): Promise<number> {
@@ -56,9 +50,7 @@ export async function getHoaFunds(): Promise<number> {
     .filter((transaction) => transaction.type === "expense")
     .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
 
-  const totalHoaFunds = totalIncome - totalExpense;
-
-  return totalHoaFunds;
+  return totalIncome - totalExpense;
 }
 
 export async function getTransactionChartData() {
@@ -104,12 +96,10 @@ export async function getTransactionChartData() {
     {}
   );
 
-  const formattedData = Object.keys(aggregatedData).map((date) => ({
+  return Object.keys(aggregatedData).map((date) => ({
     Date: date,
     ExpenseTotal: aggregatedData[date].expenseTotal,
     IncomeTotal: aggregatedData[date].incomeTotal,
     TotalAmount: aggregatedData[date].totalAmount,
   }));
-
-  return formattedData;
 }

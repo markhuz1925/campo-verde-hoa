@@ -1,23 +1,23 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { purchaseStickerFormSchema, urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Resident, StickerPrice } from "@prisma/client";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+import {purchaseStickerFormSchema, urbanist} from "@/lib/constants";
+import {cn} from "@/lib/utils";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Resident, StickerPrice} from "@prisma/client";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import {Loader2} from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
-import { z } from "zod";
+import {z} from "zod";
 
 export default function PurchaseStickerForm({resident, sticker}: {
   resident: Resident | null;
@@ -30,7 +30,7 @@ export default function PurchaseStickerForm({resident, sticker}: {
   const form = useForm<z.infer<typeof purchaseStickerFormSchema>>({
     resolver: zodResolver(purchaseStickerFormSchema),
     defaultValues: {
-      residentId: resident ? resident.id : "",
+      residentId: String(resident) ? String(resident?.id) : "",
       quantity: 1,
     },
   });

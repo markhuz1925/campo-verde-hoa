@@ -1,5 +1,5 @@
-import { PageHeading } from "@/components/page-heading";
-import { Separator } from "@/components/ui/separator";
+import {PageHeading} from "@/components/page-heading";
+import {Separator} from "@/components/ui/separator";
 import prisma from "@/prisma/client";
 import PurchaseStickerForm from "../_components/purchase-sticker-form";
 
@@ -10,7 +10,7 @@ export default async function PurchaseSticker({
 }) {
   const resident = await prisma.resident.findUnique({
     where: {
-      id: params.residentId,
+      id: Number(params.residentId),
     },
   });
 

@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import {auth} from "@clerk/nextjs";
+import {NextResponse} from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
     const sticker = await prisma.sticker.create({
       data: {
-        resident: {connect: {id: residentId}},
+        resident: {connect: {id: Number(residentId)}},
         role,
         name,
         driverLicense,

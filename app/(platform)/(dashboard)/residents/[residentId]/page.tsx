@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
-import { ResidentWithOptions } from "@/types";
-import { ResidentForm } from "./_components/resident-form";
+import {ResidentWithOptions} from "@/types";
+import {ResidentForm} from "./_components/resident-form";
 
 export default async function ResidentPage({
   params,
@@ -10,7 +10,7 @@ export default async function ResidentPage({
   const resident: ResidentWithOptions | null = await prisma.resident.findUnique(
     {
       where: {
-        id: params.residentId,
+        id: Number(params.residentId),
       },
       include: {
         stickers: {
@@ -22,6 +22,7 @@ export default async function ResidentPage({
       },
     }
   );
+
 
   return (
     <div className="flex flex-col pt-20 px-5 pb-10">

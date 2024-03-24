@@ -9,7 +9,7 @@ generator client {
 }
 
 model Resident {
-  id               String             @id @default(uuid())
+  id               Int                @id @default(autoincrement())
   name             String
   phase            String
   block            String
@@ -29,8 +29,8 @@ model Resident {
 }
 
 model WaterConsumption {
-  id           String   @id @default(uuid())
-  residentId   String
+  id           Int      @id @default(autoincrement())
+  residentId   Int
   previousRead String
   currentRead  String
   consumption  String
@@ -42,8 +42,8 @@ model WaterConsumption {
 }
 
 model WaterBilling {
-  id          String   @id @default(uuid())
-  residentId  String
+  id          Int      @id @default(autoincrement())
+  residentId  Int
   billingDate String
   amount      Float
   isPaid      Boolean  @default(false)
@@ -56,7 +56,7 @@ model WaterBilling {
 }
 
 model WaterPrice {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   price     Float
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -64,8 +64,8 @@ model WaterPrice {
 }
 
 model Dues {
-  id         String   @id @default(uuid())
-  residentId String
+  id         Int      @id @default(autoincrement())
+  residentId Int
   amount     Float
   isPaid     Boolean  @default(false)
   createdAt  DateTime @default(now())
@@ -76,7 +76,7 @@ model Dues {
 }
 
 model DuesPrice {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   price     Decimal  @db.Decimal(10, 2)
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -95,8 +95,8 @@ model Transaction {
 }
 
 model Sticker {
-  id            String      @id @default(uuid())
-  residentId    String
+  id            Int         @id @default(autoincrement())
+  residentId    Int
   role          String
   name          String
   driverLicense String
