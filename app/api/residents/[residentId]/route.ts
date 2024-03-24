@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import {auth} from "@clerk/nextjs";
+import {NextResponse} from "next/server";
 
 export async function PATCH(
   req: Request,
@@ -19,7 +19,7 @@ export async function PATCH(
 
     const resident = await prisma.resident.update({
       where: {
-        id: params.residentId,
+        id: Number(params.residentId),
       },
       data: {
         name,
