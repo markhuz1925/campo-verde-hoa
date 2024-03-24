@@ -1,13 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDownIcon } from "lucide-react";
-import { CellAction } from "./cell-action";
+import {Button} from "@/components/ui/button";
+import {ColumnDef} from "@tanstack/react-table";
+import {ArrowUpDownIcon} from "lucide-react";
+import {CellAction} from "./cell-action";
 
 export type ResidentColumn = {
-  id: string;
+  id: number;
   name: string;
   phase: string;
   block: string;
