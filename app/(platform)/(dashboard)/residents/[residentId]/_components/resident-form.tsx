@@ -1,38 +1,25 @@
 "use client";
 
-import { PageHeading } from "@/components/page-heading";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { formSchema, urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { ResidentWithOptions } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {PageHeading} from "@/components/page-heading";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
+import {Separator} from "@/components/ui/separator";
+import {formSchema, urbanist} from "@/lib/constants";
+import {cn} from "@/lib/utils";
+import {ResidentWithOptions} from "@/types";
+import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import {Loader2} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
-import { z } from "zod";
-import { HoaDues } from "./hoa-dues";
-import { PurchasedStickers } from "./purchased-stickers";
+import {z} from "zod";
+import {HoaDues} from "./hoa-dues";
+import {PurchasedStickers} from "./purchased-stickers";
 
 export function ResidentForm({
   resident,
@@ -104,7 +91,10 @@ export function ResidentForm({
               name="name"
               render={({ field }) => (
                 <FormItem>
+                  <div className="flex items-center justify-between">
                   <FormLabel>Name</FormLabel>
+                    <p className="text-xs font-mono font-medium text-primary">{resident?.id}</p>
+                  </div>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
