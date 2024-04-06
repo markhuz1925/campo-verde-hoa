@@ -1,42 +1,34 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Modal } from "@/components/ui/modal";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useModal } from "@/hooks/use-modal";
-import { purchaseStickerFormSchema, urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { StickerPrice } from "@prisma/client";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {Modal} from "@/components/ui/modal";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+import {useModal} from "@/hooks/use-modal";
+import {purchaseStickerFormSchema, urbanist} from "@/lib/constants";
+import {cn} from "@/lib/utils";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {StickerPrice} from "@prisma/client";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import {Loader2} from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
-import { z } from "zod";
+import {z} from "zod";
 
-export function VisitorDeliveryModal({
-  sticker,
-}: {
+export function VisitorDeliveryModal({sticker}: {
   sticker: StickerPrice[] | null;
 }) {
   const isOpen = useModal((state) => state.isOpen);
   const onClose = useModal((state) => state.onClose);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [stickerPenalty, setStickerPenalty] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -56,7 +48,14 @@ export function VisitorDeliveryModal({
   ) => {
     try {
       setIsSubmitting(true);
-      const validatedValues = purchaseStickerFormSchema.parse(values);
+      const penaltyAmount = stickerPenalty ? 100 : 0;
+      const totalAmount = Number(values.amount) + penaltyAmount;
+      const validatedValues = {
+        ...purchaseStickerFormSchema.parse(values),
+        amount: totalAmount,
+        stickerPenaltyChecked: stickerPenalty,
+      };
+
       await axios.post(`/api/purchase-sticker`, validatedValues);
       await axios.post("/api/logs", {
         title: `[STICKER_POST_SUCCESS] ${values.name} ${values.driverLicense} ${values.role} ${values.stickerColor} ${values.vehicleColor} ${values.vehicleType} ${values.amount}`,
@@ -90,7 +89,7 @@ export function VisitorDeliveryModal({
             <FormField
               control={form.control}
               name="residentId"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem hidden>
                   <FormLabel>Resident Id</FormLabel>
                   <FormControl>
@@ -100,14 +99,14 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="role"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="space-y-3">
                   <FormControl>
                     <RadioGroup
@@ -181,10 +180,11 @@ export function VisitorDeliveryModal({
             <FormField
               control={form.control}
               name="stickerNumber"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="relative">
                   <FormLabel>Sticker Number</FormLabel>
-                  <div className="absolute inset-y-0 top-6 left-0 flex items-center bg-secondary px-1 rounded-tl-md rounded-bl-md text-sm">
+                  <div
+                    className="absolute inset-y-0 top-6 left-0 flex items-center bg-secondary px-1 rounded-tl-md rounded-bl-md text-sm">
                     CVHOA -
                   </div>
                   <FormControl>
@@ -194,14 +194,14 @@ export function VisitorDeliveryModal({
                       className="pl-[70px]"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="stickerColor"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem hidden>
                   <FormLabel>Sticker Color</FormLabel>
                   <FormControl>
@@ -217,14 +217,14 @@ export function VisitorDeliveryModal({
                       )}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="quantity"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem hidden>
                   <FormLabel>Quantity</FormLabel>
                   <FormControl>
@@ -236,20 +236,20 @@ export function VisitorDeliveryModal({
                       className={cn(
                         "",
                         form.getValues("stickerColor") === "white" &&
-                          "bg-white",
+                        "bg-white",
                         form.getValues("stickerColor") === "red" &&
-                          "bg-[#ffe2dd] text-red-900"
+                        "bg-[#ffe2dd] text-red-900"
                       )}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="amount"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="relative">
                   <FormLabel>Amount</FormLabel>
                   <span className="absolute z-50 left-5 top-[60px] text-5xl font-thin">
@@ -267,27 +267,41 @@ export function VisitorDeliveryModal({
                       )}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
+            <FormItem
+              className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-red-700 bg-red-50 p-4 w-40">
+              <FormControl>
+                <Checkbox
+                  className="border-red-700 data-[state=checked]:bg-red-700 data-[state=checked]:text-primary-foreground"
+                  checked={stickerPenalty} onCheckedChange={(checked) => {
+                  if (checked === true || checked === false) {
+                    setStickerPenalty(checked);
+                  }
+                }}/>
+              </FormControl>
+              <FormLabel className="font-normal text-red-800">Sticker Penalty</FormLabel>
+              <FormMessage/>
+            </FormItem>
             <FormField
               control={form.control}
               name="stickerDate"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Date</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
@@ -297,14 +311,14 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="driverLicense"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem>
                   <FormLabel>Driver License</FormLabel>
                   <FormControl>
@@ -315,14 +329,14 @@ export function VisitorDeliveryModal({
                     />
                   </FormControl>
                   <FormDescription>ex. D00-00-000000</FormDescription>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="plate"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem>
                   <FormLabel>Plate Number</FormLabel>
                   <FormControl>
@@ -332,14 +346,14 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="vehicleType"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem>
                   <FormLabel>Vehicle Type</FormLabel>
                   <FormControl>
@@ -349,14 +363,14 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="vehicleColor"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem>
                   <FormLabel>Vehicle Color</FormLabel>
                   <FormControl>
@@ -366,7 +380,7 @@ export function VisitorDeliveryModal({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage/>
                 </FormItem>
               )}
             />
@@ -394,7 +408,7 @@ export function VisitorDeliveryModal({
               </Button>
               <Button disabled={isSubmitting} type="submit">
                 {isSubmitting ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin"/>
                 ) : (
                   "Submit"
                 )}
