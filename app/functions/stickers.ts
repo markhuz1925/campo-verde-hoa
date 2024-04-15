@@ -4,17 +4,14 @@ import { format } from "date-fns";
 export async function getStickerSales(): Promise<number> {
   const stickerSales = await prisma.sticker.findMany();
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, sticker: any) => total + Number(sticker.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getStickerCount(): Promise<number> {
-  const stickerCount = await prisma.sticker.count();
-  return stickerCount;
+  return prisma.sticker.count();
 }
 
 export async function getStickerPercentage() {
@@ -27,24 +24,21 @@ export async function getStickerPercentage() {
   });
 
   if (!totalQty || totalQty._sum?.quantity === null) {
-    throw new Error("Quantity not available.");
+    // throw new Error("Quantity not available.");
+    return 0;
   }
 
   const totalQuantity = totalQty._sum.quantity;
 
-  const percentage = (soldCount / totalQuantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQuantity) * 100;
 }
 
 export async function getGreenCount(): Promise<number> {
-  const stickerGreenCount = await prisma.sticker.count({
+  return prisma.sticker.count({
     where: {
       stickerColor: "green",
     },
   });
-
-  return stickerGreenCount;
 }
 
 export async function getGreenSales(): Promise<number> {
@@ -54,22 +48,18 @@ export async function getGreenSales(): Promise<number> {
     },
   });
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, current: any) => total + Number(current.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getYellowCount(): Promise<number> {
-  const stickerCount = await prisma.sticker.count({
+  return prisma.sticker.count({
     where: {
       stickerColor: "yellow",
     },
   });
-
-  return stickerCount;
 }
 
 export async function getYellowSales(): Promise<number> {
@@ -79,22 +69,18 @@ export async function getYellowSales(): Promise<number> {
     },
   });
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, current: any) => total + Number(current.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getWhiteCount(): Promise<number> {
-  const stickerCount = await prisma.sticker.count({
+  return prisma.sticker.count({
     where: {
       stickerColor: "white",
     },
   });
-
-  return stickerCount;
 }
 
 export async function getWhiteSales(): Promise<number> {
@@ -104,22 +90,18 @@ export async function getWhiteSales(): Promise<number> {
     },
   });
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, current: any) => total + Number(current.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getRedCount(): Promise<number> {
-  const stickerCount = await prisma.sticker.count({
+  return prisma.sticker.count({
     where: {
       stickerColor: "red",
     },
   });
-
-  return stickerCount;
 }
 
 export async function getRedSales(): Promise<number> {
@@ -129,22 +111,18 @@ export async function getRedSales(): Promise<number> {
     },
   });
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, current: any) => total + Number(current.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getSilverCount(): Promise<number> {
-  const stickerCount = await prisma.sticker.count({
+  return prisma.sticker.count({
     where: {
       stickerColor: "silver",
     },
   });
-
-  return stickerCount;
 }
 
 export async function getSilverSales(): Promise<number> {
@@ -154,12 +132,10 @@ export async function getSilverSales(): Promise<number> {
     },
   });
 
-  const totalSales = stickerSales.reduce(
+  return stickerSales.reduce(
     (total: any, current: any) => total + Number(current.amount),
     0
   );
-
-  return totalSales;
 }
 
 export async function getSilverPercentage() {
@@ -179,12 +155,11 @@ export async function getSilverPercentage() {
   });
 
   if (!totalQty || totalQty.quantity === undefined) {
-    throw new Error("Quantity not available for silver color.");
+    // throw new Error("Quantity not available for silver color.");
+    return 0;
   }
 
-  const percentage = (soldCount / totalQty.quantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQty.quantity) * 100;
 }
 
 export async function getGreenPercentage() {
@@ -204,12 +179,11 @@ export async function getGreenPercentage() {
   });
 
   if (!totalQty || totalQty.quantity === undefined) {
-    throw new Error("Quantity not available for green color.");
+    // throw new Error("Quantity not available for green color.");
+    return 0;
   }
 
-  const percentage = (soldCount / totalQty.quantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQty.quantity) * 100;
 }
 
 export async function getYellowPercentage() {
@@ -229,12 +203,11 @@ export async function getYellowPercentage() {
   });
 
   if (!totalQty || totalQty.quantity === undefined) {
-    throw new Error("Quantity not available for yellow color.");
+    // throw new Error("Quantity not available for yellow color.");
+    return 0;
   }
 
-  const percentage = (soldCount / totalQty.quantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQty.quantity) * 100;
 }
 
 export async function getWhitePercentage() {
@@ -254,12 +227,11 @@ export async function getWhitePercentage() {
   });
 
   if (!totalQty || totalQty.quantity === undefined) {
-    throw new Error("Quantity not available for white color.");
+    // throw new Error("Quantity not available for white color.");
+    return 0;
   }
 
-  const percentage = (soldCount / totalQty.quantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQty.quantity) * 100;
 }
 
 export async function getRedPercentage() {
@@ -279,12 +251,11 @@ export async function getRedPercentage() {
   });
 
   if (!totalQty || totalQty.quantity === undefined) {
-    throw new Error("Quantity not available for red color.");
+    // throw new Error("Quantity not available for red color.");
+    return 0;
   }
 
-  const percentage = (soldCount / totalQty.quantity) * 100;
-
-  return percentage;
+  return (soldCount / totalQty.quantity) * 100;
 }
 
 export async function getStickerChartData() {
@@ -305,10 +276,8 @@ export async function getStickerChartData() {
     {}
   );
 
-  const formattedData = Object.keys(aggregatedData).map((date) => ({
+  return Object.keys(aggregatedData).map((date) => ({
     Date: date,
     Sticker: aggregatedData[date],
   }));
-
-  return formattedData;
 }
