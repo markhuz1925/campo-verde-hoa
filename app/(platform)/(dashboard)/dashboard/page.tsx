@@ -50,7 +50,7 @@ export default async function DashboardPage() {
               <TotalHoaFunds data={totalHoaFunds} />
             </CardHeader>
             <CardContent>
-              <TransactionChart data={transactionChartDate} />
+              {/* <TransactionChart data={transactionChartDate} /> */}
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalIncome data={incomeTransactions} />
                 <TotalExpense data={expenseTransactions} />
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
               <CardTitle className="font-thin">Sticker</CardTitle>
             </CardHeader>
             <CardContent>
-              <StickerChart data={stickerChartData} />
+              {/* <StickerChart data={stickerChartData} /> */}
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
                 <TotalStickerSales />
                 <StickerCount />
