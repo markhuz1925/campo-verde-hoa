@@ -1,17 +1,15 @@
-import {
-  getRedCount,
-  getRedPercentage,
-  getRedSales,
-} from "@/app/functions/stickers";
+import { getStickerStatistics } from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
 export async function StickerRed() {
-  const count = await getRedCount();
-  const sales = await getRedSales();
-  const percentage = await getRedPercentage();
+  const [redCount, redSales, redPercentage] = await Promise.all([
+    getStickerStatistics("red", "count"),
+    getStickerStatistics("red", "sum"),
+    getStickerStatistics("red", "percentage"),
+  ]);
 
   return (
     <Card
@@ -33,15 +31,15 @@ export async function StickerRed() {
             <div className="flex flex-col">
               <p className="font-thin text-xl">Delivery Stickers</p>
               <span className="text-base font-medium">
-                {formatter.format(sales)}
+                {redSales ? formatter.format(redSales) : "$0"}
               </span>
             </div>
             <p className="text-xl font-medium text-slate-500">
-              {Math.round(percentage)}%
+              {redPercentage ? Math.round(redPercentage) : 0}%
             </p>
           </div>
           <p className="text-2xl font-medium">
-            {count} <span className="text-base font-thin">Qty</span>
+            {redCount} <span className="text-base font-thin">Qty</span>
           </p>
         </CardTitle>
       </CardHeader>

@@ -1,17 +1,15 @@
-import {
-  getYellowCount,
-  getYellowPercentage,
-  getYellowSales,
-} from "@/app/functions/stickers";
+import { getStickerStatistics } from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
 export async function StickerYellow() {
-  const count = await getYellowCount();
-  const sales = await getYellowSales();
-  const percentage = await getYellowPercentage();
+  const [yellowCount, yellowSales, yellowPercentage] = await Promise.all([
+    getStickerStatistics("yellow", "count"),
+    getStickerStatistics("yellow", "sum"),
+    getStickerStatistics("yellow", "percentage"),
+  ]);
 
   return (
     <Card
@@ -33,15 +31,15 @@ export async function StickerYellow() {
             <div className="flex flex-col">
               <p className="font-thin text-xl">Tenant Stickers</p>
               <span className="text-base font-medium">
-                {formatter.format(sales)}
+                {yellowSales ? formatter.format(yellowSales) : "$0"}
               </span>
             </div>
             <p className="text-xl font-medium text-slate-500">
-              {Math.round(percentage)}%
+              {yellowPercentage ? Math.round(yellowPercentage) : 0}%
             </p>
           </div>
           <p className="text-2xl font-medium">
-            {count} <span className="text-base font-thin">Qty</span>
+            {yellowCount} <span className="text-base font-thin">Qty</span>
           </p>
         </CardTitle>
       </CardHeader>

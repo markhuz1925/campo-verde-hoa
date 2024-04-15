@@ -1,17 +1,15 @@
-import {
-  getSilverCount,
-  getSilverPercentage,
-  getSilverSales,
-} from "@/app/functions/stickers";
+import { getStickerStatistics } from "@/app/functions/stickers";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { urbanist } from "@/lib/constants";
 import { cn, formatter } from "@/lib/utils";
 import Image from "next/image";
 
 export async function StickerSilver() {
-  const count = await getSilverCount();
-  const sales = await getSilverSales();
-  const percentage = await getSilverPercentage();
+  const [silverCount, silverSales, silverPercentage] = await Promise.all([
+    getStickerStatistics("silver", "count"),
+    getStickerStatistics("silver", "sum"),
+    getStickerStatistics("silver", "percentage"),
+  ]);
 
   return (
     <Card
@@ -33,15 +31,15 @@ export async function StickerSilver() {
             <div className="flex flex-col">
               <p className="font-thin text-xl">Special Stickers</p>
               <span className="text-base font-medium">
-                {formatter.format(sales)}
+                {silverSales ? formatter.format(silverSales) : "$0"}
               </span>
             </div>
             <p className="text-xl font-medium text-slate-500">
-              {Math.round(percentage)}%
+              {silverPercentage ? Math.round(silverPercentage) : 0}%
             </p>
           </div>
           <p className="text-2xl font-medium">
-            {count} <span className="text-base font-thin">Qty</span>
+            {silverCount} <span className="text-base font-thin">Qty</span>
           </p>
         </CardTitle>
       </CardHeader>
