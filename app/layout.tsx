@@ -1,7 +1,5 @@
-import { ToasterProvider } from "@/providers/toast-provider";
-import { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import {ToasterProvider} from "@/providers/toast-provider";
+import {Metadata, Viewport} from "next";
 import "./globals.css";
 import InstallPwa from "@/components/install-pwa";
 
@@ -34,8 +32,6 @@ export default function RootLayout({
       <body className="bg-gradient-to-r from-teal-100/20 to-amber-100/20">
         <ToasterProvider />
         {children}
-        <Analytics />
-        <SpeedInsights />
         <InstallPwa />
       </body>
     </html>
