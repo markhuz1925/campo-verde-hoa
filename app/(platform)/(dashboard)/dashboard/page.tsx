@@ -10,8 +10,7 @@ import {StickerWhite} from './_components/sticker-white';
 import {StickerYellow} from './_components/sticker-yellow';
 import {TotalStickerSales} from './_components/total-sticker-sales';
 import {Suspense} from 'react';
-import {getExpense, getHoaFunds, getIncome, getTransactionChartData} from '@/app/functions/financials';
-import {getStickerChartData} from '@/app/functions/stickers';
+import {getExpense, getHoaFunds, getIncome} from '@/app/functions/financials';
 import {TotalHoaFunds} from '@/components/total-hoa-funds';
 import {TotalIncome} from '@/components/total-income';
 import {TotalExpense} from '@/components/total-expense';
@@ -21,14 +20,10 @@ export default async function DashboardPage() {
     incomeTransactions,
     expenseTransactions,
     totalHoaFunds,
-    stickerChartData,
-    transactionChartDate,
   ] = await Promise.all([
     getIncome(),
     getExpense(),
     getHoaFunds(),
-    getStickerChartData(),
-    getTransactionChartData(),
   ]);
 
   return (
