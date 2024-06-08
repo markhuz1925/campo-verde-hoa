@@ -61,15 +61,19 @@ export async function getExpense(retryCount = 3): Promise<number> {
 
     return totalExpense;
   } catch (error) {
-    const errorMessage = error as Error;
     if (retryCount > 0) {
-      console.warn(`Retrying getExpense due to error: ${errorMessage.message}`);
-      return getExpense(retryCount - 1);
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.warn(`Retrying getExpense due to error: ${errorMessage}`);
+      await prisma.$disconnect();
+      return getIncome(retryCount - 1);
     } else {
-      console.error("Failed to fetch expense after retries:", error);
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.error("Failed to fetch expense after retries:", errorMessage);
+      await prisma.$disconnect();
       throw error;
     }
-
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
