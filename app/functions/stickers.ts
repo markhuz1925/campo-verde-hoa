@@ -27,17 +27,27 @@ export async function getStickerSales(retryCount = 3): Promise<number> {
 
 }
 
-export async function getStickerCount(): Promise<number> {
+export async function getStickerCount(retryCount = 3): Promise<number> {
   try {
     return prisma.sticker.count();
   } catch (error) {
-    throw error;
+    if (retryCount > 0) {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.warn(`Retrying getStickerCount due to error: ${errorMessage}`);
+      await prisma.$disconnect();
+      return getStickerSales(retryCount - 1);
+    } else {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.error("Failed to fetch sticker count after retries:", errorMessage);
+      await prisma.$disconnect();
+      throw error;
+    }
   } finally {
     await prisma.$disconnect();
   }
 }
 
-export async function getStickerPercentage(): Promise<number> {
+export async function getStickerPercentage(retryCount = 3): Promise<number> {
   try {
     const soldCount = await prisma.sticker.count();
 
@@ -56,13 +66,23 @@ export async function getStickerPercentage(): Promise<number> {
 
     return (soldCount / totalQuantity) * 100;
   } catch (error) {
-    throw error;
+    if (retryCount > 0) {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.warn(`Retrying getStickerPercentage due to error: ${errorMessage}`);
+      await prisma.$disconnect();
+      return getStickerSales(retryCount - 1);
+    } else {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.error("Failed to fetch sticker percentage after retries:", errorMessage);
+      await prisma.$disconnect();
+      throw error;
+    }
   } finally {
     await prisma.$disconnect();
   }
 }
 
-export async function getStickerStatistics(color: any, type: string) {
+export async function getStickerStatistics(color: any, type: string, retryCount = 3): Promise<number> {
   try {
     const whereClause = color ? { stickerColor: color } : {};
     switch (type) {
@@ -83,10 +103,20 @@ export async function getStickerStatistics(color: any, type: string) {
         if (!totalQty || totalQty.quantity === undefined) return 0;
         return (soldCount / totalQty.quantity) * 100;
       default:
-        return null;
+        return 0;
     }
   } catch (error) {
-    throw error;
+    if (retryCount > 0) {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.warn(`Retrying getStickerStatistics due to error: ${errorMessage}`);
+      await prisma.$disconnect();
+      return getStickerSales(retryCount - 1);
+    } else {
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.error("Failed to fetch sticker statistics after retries:", errorMessage);
+      await prisma.$disconnect();
+      throw error;
+    }
   } finally {
     await prisma.$disconnect();
   }
