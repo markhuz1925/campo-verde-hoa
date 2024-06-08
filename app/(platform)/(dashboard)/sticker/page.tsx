@@ -1,13 +1,13 @@
-import { getStickerChartData } from "@/app/functions/stickers";
-import { VisitorDeliveryModal } from "@/components/modals/visitor-delivery-modal";
-import { formatter } from "@/lib/utils";
-import prisma from "@/prisma/client";
-import { format } from "date-fns";
-import { redirect } from "next/navigation";
-import { StickerChart } from "../dashboard/_components/sticker-chart";
-import { StickerColumn } from "./_components/columns";
-import { StickerClient } from "./_components/sticker-client";
-import { StickersHeading } from "./_components/stickersHeading";
+import {getStickerChartData} from '@/app/functions/stickers';
+import {VisitorDeliveryModal} from '@/components/modals/visitor-delivery-modal';
+import {formatter} from '@/lib/utils';
+import prisma from '@/prisma/client';
+import {format} from 'date-fns';
+import {redirect} from 'next/navigation';
+import {StickerChart} from '@/components/dashboard/sticker-chart';
+import {StickerColumn} from '@/components/sticker/columns';
+import {StickerClient} from '@/components/sticker/sticker-client';
+import {StickersHeading} from '@/components/sticker/stickersHeading';
 
 export default async function StickerPage() {
   const stickerChartData = await getStickerChartData();

@@ -4,14 +4,14 @@ import {
   getIncome,
   getTransactionChartData,
   getTransactionHistory,
-} from "@/app/functions/financials";
-import { PageHeading } from "@/components/page-heading";
-import { TotalExpense } from "@/components/total-expense";
-import { TotalHoaFunds } from "@/components/total-hoa-funds";
-import { TotalIncome } from "@/components/total-income";
-import { TransactionChart } from "@/components/transaction-chart";
-import { Separator } from "@/components/ui/separator";
-import { TransactionHistory } from "./_components/transaction-history";
+} from '@/app/functions/financials';
+import {PageHeading} from '@/components/page-heading';
+import {TotalExpense} from '@/components/total-expense';
+import {TotalHoaFunds} from '@/components/total-hoa-funds';
+import {TotalIncome} from '@/components/total-income';
+import {TransactionChart} from '@/components/transaction-chart';
+import {Separator} from '@/components/ui/separator';
+import {TransactionHistory} from '@/components/financial/transaction-history';
 
 export default async function FinancialsPage() {
   const transactionHistory = await getTransactionHistory();
