@@ -55,7 +55,7 @@ export async function getExpense(retryCount = 3): Promise<number> {
     });
 
     const totalExpense = expense.reduce(
-      (total: any, transaction: any) => total + Number(transaction.amount),
+      (total: any, transaction: { amount: any}) => total + Number(transaction.amount),
       0
     );
 
