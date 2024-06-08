@@ -47,7 +47,7 @@ export async function getStickerCount(retryCount = 3): Promise<number> {
   }
 }
 
-export async function getStickerPercentage(retryCount = 3): Promise<number> {
+export async function getStickerPercentage(retryCount = 3): Promise<any> {
   try {
     const soldCount = await prisma.sticker.count();
 
@@ -82,7 +82,7 @@ export async function getStickerPercentage(retryCount = 3): Promise<number> {
   }
 }
 
-export async function getStickerStatistics(color: any, type: string, retryCount = 3): Promise<number> {
+export async function getStickerStatistics(color: any, type: string): Promise<any> {
   try {
     const whereClause = color ? { stickerColor: color } : {};
     switch (type) {
@@ -103,20 +103,10 @@ export async function getStickerStatistics(color: any, type: string, retryCount 
         if (!totalQty || totalQty.quantity === undefined) return 0;
         return (soldCount / totalQty.quantity) * 100;
       default:
-        return 0;
+        return null;
     }
   } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getStickerStatistics due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getStickerSales(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch sticker statistics after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
+    throw error;
   } finally {
     await prisma.$disconnect();
   }
