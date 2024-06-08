@@ -1,7 +1,7 @@
-import { getStickerCount } from "@/app/functions/stickers";
-import { urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { BadgeDollarSignIcon } from "lucide-react";
+import {getStickerCount} from '@/functions/stickers';
+import {urbanist} from '@/lib/constants';
+import {cn} from '@/lib/utils';
+import {BadgeDollarSignIcon} from 'lucide-react';
 
 export async function StickerCount() {
   const stickerCount = await getStickerCount();

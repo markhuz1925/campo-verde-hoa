@@ -1,7 +1,7 @@
-import { getStickerSales } from "@/app/functions/stickers";
-import { Card, CardContent } from "@/components/ui/card";
-import { urbanist } from "@/lib/constants";
-import { cn, formatter } from "@/lib/utils";
+import {getStickerSales} from '@/functions/stickers';
+import {Card, CardContent} from '@/components/ui/card';
+import {urbanist} from '@/lib/constants';
+import {cn, formatter} from '@/lib/utils';
 
 export async function TotalStickerSales() {
   const stickerSales = await getStickerSales();

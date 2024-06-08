@@ -1,7 +1,7 @@
-import { getStickerPercentage } from "@/app/functions/stickers";
-import { urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { PercentIcon } from "lucide-react";
+import {getStickerPercentage} from '@/functions/stickers';
+import {urbanist} from '@/lib/constants';
+import {cn} from '@/lib/utils';
+import {PercentIcon} from 'lucide-react';
 
 export async function StickerPercentage() {
   const percentage = await getStickerPercentage();

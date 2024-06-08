@@ -10,7 +10,7 @@ import {StickerWhite} from '@/components/dashboard/sticker-white';
 import {StickerYellow} from '@/components/dashboard/sticker-yellow';
 import {TotalStickerSales} from '@/components/dashboard/total-sticker-sales';
 import {Suspense} from 'react';
-import {getExpense, getHoaFunds, getIncome} from '@/app/functions/financials';
+import {getExpense, getHoaFunds, getIncome} from '@/functions/financials';
 import {TotalHoaFunds} from '@/components/total-hoa-funds';
 import {TotalIncome} from '@/components/total-income';
 import {TotalExpense} from '@/components/total-expense';

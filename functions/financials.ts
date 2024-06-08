@@ -15,8 +15,7 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
   return transactionHistory;
 }
 
-export async function getIncome(retryCount = 3): Promise<number> {
-  try {
+export async function getIncome(): Promise<number> {
     const incomeTransactions = await prisma.transaction.findMany({
       where: {
         type: "income",
@@ -29,25 +28,9 @@ export async function getIncome(retryCount = 3): Promise<number> {
     );
 
     return totalIncome;
-  } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getIncome due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getIncome(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch income after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
-  } finally {
-    await prisma.$disconnect();
-  }
 }
 
-export async function getExpense(retryCount = 3): Promise<number> {
-  try {
+export async function getExpense(): Promise<number> {
     const expense = await prisma.transaction.findMany({
       where: {
         type: "expense",
@@ -60,21 +43,6 @@ export async function getExpense(retryCount = 3): Promise<number> {
     );
 
     return totalExpense;
-  } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getExpense due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getIncome(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch expense after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
-  } finally {
-    await prisma.$disconnect();
-  }
 }
 
 export async function getHoaFunds(): Promise<number> {

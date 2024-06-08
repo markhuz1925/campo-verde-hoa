@@ -1,8 +1,8 @@
-import { getStickerStatistics } from "@/app/functions/stickers";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { urbanist } from "@/lib/constants";
-import { cn, formatter } from "@/lib/utils";
-import Image from "next/image";
+import {getStickerStatistics} from '@/functions/stickers';
+import {Card, CardHeader, CardTitle} from '@/components/ui/card';
+import {urbanist} from '@/lib/constants';
+import {cn, formatter} from '@/lib/utils';
+import Image from 'next/image';
 
 export async function StickerWhite() {
   const [whiteCount, whiteSales, whitePercentage] = await Promise.all([

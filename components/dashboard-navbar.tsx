@@ -1,19 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { urbanist } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { UserButton } from "@clerk/nextjs";
-import { MenuIcon, SettingsIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {Button} from '@/components/ui/button';
+import {Sheet, SheetClose, SheetContent, SheetTrigger,} from '@/components/ui/sheet';
+import {urbanist} from '@/lib/constants';
+import {cn} from '@/lib/utils';
+import {UserButton} from '@clerk/nextjs';
+import {MenuIcon, SettingsIcon} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import {usePathname} from 'next/navigation';
 
 export function DashboardNavbar() {
   const pathname = usePathname();
@@ -35,29 +30,9 @@ export function DashboardNavbar() {
       active: pathname === `/financials`,
     },
     {
-      name: "Dues",
-      href: "/dues",
-      active: pathname === `/dues`,
-    },
-    {
       name: "Sticker",
       href: "/sticker",
       active: pathname === `/sticker`,
-    },
-    {
-      name: "Maintenance",
-      href: "/maintenance",
-      active: pathname === `/maintenance`,
-    },
-    {
-      name: "Announcements",
-      href: "/announcements",
-      active: pathname === `/announcements`,
-    },
-    {
-      name: "Events",
-      href: "/events",
-      active: pathname === `/events`,
     },
   ];
 

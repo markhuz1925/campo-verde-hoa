@@ -1,4 +1,4 @@
-import {getStickerChartData} from '@/app/functions/stickers';
+import {getStickerChartData} from '@/functions/stickers';
 import {VisitorDeliveryModal} from '@/components/modals/visitor-delivery-modal';
 import {formatter} from '@/lib/utils';
 import prisma from '@/prisma/client';

@@ -4,7 +4,7 @@ import {
   getIncome,
   getTransactionChartData,
   getTransactionHistory,
-} from '@/app/functions/financials';
+} from '@/functions/financials';
 import {PageHeading} from '@/components/page-heading';
 import {TotalExpense} from '@/components/total-expense';
 import {TotalHoaFunds} from '@/components/total-hoa-funds';
