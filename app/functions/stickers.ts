@@ -1,5 +1,5 @@
-import prisma from "@/prisma/client";
-import { format } from "date-fns";
+import prisma from '@/prisma/client';
+import {format} from 'date-fns';
 
 export async function getStickerSales(): Promise<number> {
   const stickerSales = await prisma.sticker.findMany();
@@ -11,7 +11,13 @@ export async function getStickerSales(): Promise<number> {
 }
 
 export async function getStickerCount(): Promise<number> {
-  return prisma.sticker.count();
+  try {
+    return prisma.sticker.count();
+  } catch (error) {
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export async function getStickerPercentage() {
