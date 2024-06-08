@@ -17,27 +17,32 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
 
 export async function getIncome(retryCount = 3): Promise<number> {
   try {
-    const income = await prisma.transaction.findMany({
+    const incomeTransactions = await prisma.transaction.findMany({
       where: {
         type: "income",
       },
     });
 
-    const totalIncome = income.reduce(
-      (total: any, transaction: any) => total + Number(transaction.amount),
+    const totalIncome = incomeTransactions.reduce(
+      (total: any, transaction: { amount: any }) => total + Number(transaction.amount),
       0
     );
 
     return totalIncome;
   } catch (error) {
-    const errorMessage = error as Error;
     if (retryCount > 0) {
-      console.warn(`Retrying getIncome due to error: ${errorMessage.message}`);
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.warn(`Retrying getIncome due to error: ${errorMessage}`);
+      await prisma.$disconnect();
       return getIncome(retryCount - 1);
     } else {
-      console.error("Failed to fetch income after retries:", error);
+      const errorMessage = (error as Error).message || 'Unknown error';
+      console.error("Failed to fetch income after retries:", errorMessage);
+      await prisma.$disconnect();
       throw error;
     }
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
