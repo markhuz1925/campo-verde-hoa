@@ -1,6 +1,6 @@
-import prisma from "@/prisma/client";
-import { Transaction } from "@prisma/client";
-import { format } from "date-fns";
+import prisma from '@/prisma/client';
+import {Transaction} from '@prisma/client';
+import {format} from 'date-fns';
 
 export async function getTransactionHistory(): Promise<Transaction[]> {
   const transactionHistory = await prisma.transaction.findMany({
@@ -15,7 +15,8 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
   return transactionHistory;
 }
 
-export async function getIncome(): Promise<number> {
+export async function getIncome(retryCount = 3): Promise<number> {
+  try {
   const income = await prisma.transaction.findMany({
     where: {
       type: "income",
@@ -28,6 +29,17 @@ export async function getIncome(): Promise<number> {
   );
 
   return totalIncome;
+
+  } catch (error) {
+    const errorMessage = error as Error;
+    if (retryCount > 0) {
+      console.warn(`Retrying getIncome due to error: ${errorMessage.message}`);
+      return getIncome(retryCount - 1);
+    } else {
+      console.error("Failed to fetch income after retries:", error);
+      throw error;
+    }
+  }
 }
 
 export async function getExpense(): Promise<number> {

@@ -10,21 +10,26 @@ import {StickerWhite} from './_components/sticker-white';
 import {StickerYellow} from './_components/sticker-yellow';
 import {TotalStickerSales} from './_components/total-sticker-sales';
 import {Suspense} from 'react';
+import {getExpense, getHoaFunds, getIncome, getTransactionChartData} from '@/app/functions/financials';
+import {getStickerChartData} from '@/app/functions/stickers';
+import {TotalHoaFunds} from '@/components/total-hoa-funds';
+import {TotalIncome} from '@/components/total-income';
+import {TotalExpense} from '@/components/total-expense';
 
 export default async function DashboardPage() {
-  // const [
-  //   incomeTransactions,
-  //   expenseTransactions,
-  //   totalHoaFunds,
-  //   stickerChartData,
-  //   transactionChartDate,
-  // ] = await Promise.all([
-  //   getIncome(),
-  //   getExpense(),
-  //   getHoaFunds(),
-  //   getStickerChartData(),
-  //   getTransactionChartData(),
-  // ]);
+  const [
+    incomeTransactions,
+    expenseTransactions,
+    totalHoaFunds,
+    stickerChartData,
+    transactionChartDate,
+  ] = await Promise.all([
+    getIncome(),
+    getExpense(),
+    getHoaFunds(),
+    getStickerChartData(),
+    getTransactionChartData(),
+  ]);
 
   return (
     <div className="md:px-5 pt-20 pb-20">
@@ -35,13 +40,13 @@ export default async function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle className="font-thin">Financial</CardTitle>
-              {/*<TotalHoaFunds data={totalHoaFunds} />*/}
+              <TotalHoaFunds data={totalHoaFunds} />
             </CardHeader>
             <CardContent>
-              {/* <TransactionChart data={transactionChartDate} /> */}
+               {/*<TransactionChart data={transactionChartDate} /> */}
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
-                {/*<TotalIncome data={incomeTransactions} />*/}
-                {/*<TotalExpense data={expenseTransactions} />*/}
+                <TotalIncome data={incomeTransactions} />
+                <TotalExpense data={expenseTransactions} />
               </div>
             </CardContent>
           </Card>
