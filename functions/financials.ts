@@ -65,7 +65,7 @@ export async function getExpense(): Promise<number> {
 
 export async function getHoaFunds(): Promise<number> {
   try {
-    const transactions = await prisma.transaction.findMany();
+    const transactions = await prisma.transaction.findMany({});
 
     const totalIncome = transactions
       .filter((transaction) => transaction.type === "income")

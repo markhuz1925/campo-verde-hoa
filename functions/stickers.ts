@@ -3,7 +3,7 @@ import {format} from 'date-fns';
 
 export async function getStickerSales(retryCount = 3): Promise<number> {
   try {
-    const stickerSales = await prisma.sticker.findMany();
+    const stickerSales = await prisma.sticker.findMany({});
 
     return stickerSales.reduce(
       (total: any, sticker: {amount: any}) => total + Number(sticker.amount),
@@ -29,7 +29,7 @@ export async function getStickerSales(retryCount = 3): Promise<number> {
 
 export async function getStickerCount(retryCount = 3): Promise<number> {
   try {
-    return prisma.sticker.count();
+    return prisma.sticker.count({});
   } catch (error) {
     if (retryCount > 0) {
       const errorMessage = (error as Error).message || 'Unknown error';
@@ -49,7 +49,7 @@ export async function getStickerCount(retryCount = 3): Promise<number> {
 
 export async function getStickerPercentage(retryCount = 3): Promise<any> {
   try {
-    const soldCount = await prisma.sticker.count();
+    const soldCount = await prisma.sticker.count({});
 
     const totalQty = await prisma.stickerPrice.aggregate({
       _sum: {
