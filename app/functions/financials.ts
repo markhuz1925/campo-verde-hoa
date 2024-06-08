@@ -17,19 +17,18 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
 
 export async function getIncome(retryCount = 3): Promise<number> {
   try {
-  const income = await prisma.transaction.findMany({
-    where: {
-      type: "income",
-    },
-  });
+    const income = await prisma.transaction.findMany({
+      where: {
+        type: "income",
+      },
+    });
 
-  const totalIncome = income.reduce(
-    (total: any, transaction: any) => total + Number(transaction.amount),
-    0
-  );
+    const totalIncome = income.reduce(
+      (total: any, transaction: any) => total + Number(transaction.amount),
+      0
+    );
 
-  return totalIncome;
-
+    return totalIncome;
   } catch (error) {
     const errorMessage = error as Error;
     if (retryCount > 0) {
@@ -42,19 +41,31 @@ export async function getIncome(retryCount = 3): Promise<number> {
   }
 }
 
-export async function getExpense(): Promise<number> {
-  const expense = await prisma.transaction.findMany({
-    where: {
-      type: "expense",
-    },
-  });
+export async function getExpense(retryCount = 3): Promise<number> {
+  try {
+    const expense = await prisma.transaction.findMany({
+      where: {
+        type: "expense",
+      },
+    });
 
-  const totalExpense = expense.reduce(
-    (total: any, transaction: any) => total + Number(transaction.amount),
-    0
-  );
+    const totalExpense = expense.reduce(
+      (total: any, transaction: any) => total + Number(transaction.amount),
+      0
+    );
 
-  return totalExpense;
+    return totalExpense;
+  } catch (error) {
+    const errorMessage = error as Error;
+    if (retryCount > 0) {
+      console.warn(`Retrying getExpense due to error: ${errorMessage.message}`);
+      return getExpense(retryCount - 1);
+    } else {
+      console.error("Failed to fetch expense after retries:", error);
+      throw error;
+    }
+
+  }
 }
 
 export async function getHoaFunds(): Promise<number> {
