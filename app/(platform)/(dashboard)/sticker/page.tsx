@@ -1,16 +1,14 @@
-import {getStickerChartData} from '@/functions/stickers';
 import {VisitorDeliveryModal} from '@/components/modals/visitor-delivery-modal';
 import {formatter} from '@/lib/utils';
 import prisma from '@/prisma/client';
 import {format} from 'date-fns';
 import {redirect} from 'next/navigation';
-import {StickerChart} from '@/components/dashboard/sticker-chart';
 import {StickerColumn} from '@/components/sticker/columns';
 import {StickerClient} from '@/components/sticker/sticker-client';
 import {StickersHeading} from '@/components/sticker/stickersHeading';
 
 export default async function StickerPage() {
-  const stickerChartData = await getStickerChartData();
+  // const stickerChartData = await getStickerChartData();
   const stickerPrices = await prisma.stickerPrice.findMany({});
 
   const stickers = await prisma.sticker.findMany({
@@ -44,7 +42,7 @@ export default async function StickerPage() {
       <StickersHeading />
       <VisitorDeliveryModal sticker={stickerPrices} />
       <div className="flex flex-col gap-5 py-4">
-        <StickerChart data={stickerChartData} />
+        {/*<StickerChart data={stickerChartData} />*/}
         <StickerClient data={formattedStickers} />
       </div>
     </div>

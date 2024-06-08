@@ -1,15 +1,8 @@
-import {
-  getExpense,
-  getHoaFunds,
-  getIncome,
-  getTransactionChartData,
-  getTransactionHistory,
-} from '@/functions/financials';
+import {getExpense, getHoaFunds, getIncome, getTransactionHistory,} from '@/functions/financials';
 import {PageHeading} from '@/components/page-heading';
 import {TotalExpense} from '@/components/total-expense';
 import {TotalHoaFunds} from '@/components/total-hoa-funds';
 import {TotalIncome} from '@/components/total-income';
-import {TransactionChart} from '@/components/transaction-chart';
 import {Separator} from '@/components/ui/separator';
 import {TransactionHistory} from '@/components/financial/transaction-history';
 
@@ -18,7 +11,7 @@ export default async function FinancialsPage() {
   const incomeTransactions = await getIncome();
   const expenseTransactions = await getExpense();
   const totalHoaFunds = await getHoaFunds();
-  const transactionChartDate = await getTransactionChartData();
+  // const transactionChartDate = await getTransactionChartData();
 
   return (
     <div className="pt-20 px-5 pb-5">
@@ -28,7 +21,7 @@ export default async function FinancialsPage() {
       />
       <Separator className="my-5" />
       <TotalHoaFunds data={totalHoaFunds} />
-      <TransactionChart data={transactionChartDate} />
+      {/*<TransactionChart data={transactionChartDate} />*/}
       <div className="flex flex-col lg:flex-row justify-between gap-5 mb-5 mt-5">
         <TotalIncome data={incomeTransactions} />
         <TotalExpense data={expenseTransactions} />
