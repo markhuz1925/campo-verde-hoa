@@ -6,16 +6,14 @@ export async function getTransactionHistory(): Promise<Transaction[]> {
   try {
     const transactionHistory = await prisma.transaction.findMany({
       include: {
-        sticker: true,
+        sticker: true
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: { createdAt: "desc" },
     });
-
     return transactionHistory;
   } catch (error) {
-    throw error;
+    const errorMessage = error as Error;
+    throw new Error(`Fetch transaction history failed: ${errorMessage.message}`);
   } finally {
     await prisma.$disconnect();
   }

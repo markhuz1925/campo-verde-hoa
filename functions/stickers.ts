@@ -3,7 +3,7 @@ import {format} from 'date-fns';
 
 export async function getStickerSales(): Promise<number> {
   try {
-    const stickerSales = await prisma.sticker.findMany({});
+    const stickerSales = await prisma.sticker.findMany();
 
     return stickerSales.reduce(
       (total: any, sticker: {amount: any}) => total + Number(sticker.amount),
