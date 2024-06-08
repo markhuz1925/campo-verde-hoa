@@ -3,19 +3,26 @@ import {Transaction} from '@prisma/client';
 import {format} from 'date-fns';
 
 export async function getTransactionHistory(): Promise<Transaction[]> {
-  const transactionHistory = await prisma.transaction.findMany({
-    include: {
-      sticker: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  try {
+    const transactionHistory = await prisma.transaction.findMany({
+      include: {
+        sticker: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  return transactionHistory;
+    return transactionHistory;
+  } catch (error) {
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export async function getIncome(): Promise<number> {
+  try {
     const incomeTransactions = await prisma.transaction.findMany({
       where: {
         type: "income",
@@ -28,9 +35,15 @@ export async function getIncome(): Promise<number> {
     );
 
     return totalIncome;
+  } catch (error) {
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export async function getExpense(): Promise<number> {
+  try {
     const expense = await prisma.transaction.findMany({
       where: {
         type: "expense",
@@ -43,6 +56,11 @@ export async function getExpense(): Promise<number> {
     );
 
     return totalExpense;
+  } catch (error) {
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export async function getHoaFunds(): Promise<number> {
