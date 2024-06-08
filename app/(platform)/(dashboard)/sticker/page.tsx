@@ -11,7 +11,7 @@ import {StickersHeading} from '@/components/sticker/stickersHeading';
 
 export default async function StickerPage() {
   const stickerChartData = await getStickerChartData();
-  const stickerPrices = await prisma.stickerPrice.findMany();
+  const stickerPrices = await prisma.stickerPrice.findMany({});
 
   const stickers = await prisma.sticker.findMany({
     orderBy: {

@@ -1,7 +1,7 @@
 import prisma from '@/prisma/client';
 import {format} from 'date-fns';
 
-export async function getStickerSales(retryCount = 3): Promise<number> {
+export async function getStickerSales(): Promise<number> {
   try {
     const stickerSales = await prisma.sticker.findMany({});
 
@@ -10,44 +10,24 @@ export async function getStickerSales(retryCount = 3): Promise<number> {
       0
     );
   } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getStickerSales due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getStickerSales(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch sticker sales after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
+    throw error;
   } finally {
     await prisma.$disconnect();
   }
 
 }
 
-export async function getStickerCount(retryCount = 3): Promise<number> {
+export async function getStickerCount(): Promise<number> {
   try {
     return prisma.sticker.count({});
   } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getStickerCount due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getStickerSales(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch sticker count after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
+    throw error;
   } finally {
     await prisma.$disconnect();
   }
 }
 
-export async function getStickerPercentage(retryCount = 3): Promise<any> {
+export async function getStickerPercentage(): Promise<any> {
   try {
     const soldCount = await prisma.sticker.count({});
 
@@ -66,17 +46,7 @@ export async function getStickerPercentage(retryCount = 3): Promise<any> {
 
     return (soldCount / totalQuantity) * 100;
   } catch (error) {
-    if (retryCount > 0) {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.warn(`Retrying getStickerPercentage due to error: ${errorMessage}`);
-      await prisma.$disconnect();
-      return getStickerSales(retryCount - 1);
-    } else {
-      const errorMessage = (error as Error).message || 'Unknown error';
-      console.error("Failed to fetch sticker percentage after retries:", errorMessage);
-      await prisma.$disconnect();
-      throw error;
-    }
+    throw error;
   } finally {
     await prisma.$disconnect();
   }
