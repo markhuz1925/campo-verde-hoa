@@ -10,21 +10,17 @@ import {StickerWhite} from '@/components/dashboard/sticker-white';
 import {StickerYellow} from '@/components/dashboard/sticker-yellow';
 import {TotalStickerSales} from '@/components/dashboard/total-sticker-sales';
 import {Suspense} from 'react';
-import {getExpense, getHoaFunds, getIncome} from '@/functions/financials';
-import {TotalHoaFunds} from '@/components/total-hoa-funds';
-import {TotalIncome} from '@/components/total-income';
-import {TotalExpense} from '@/components/total-expense';
 
 export default async function DashboardPage() {
-  const [
-    incomeTransactions,
-    expenseTransactions,
-    totalHoaFunds,
-  ] = await Promise.all([
-    getIncome(),
-    getExpense(),
-    getHoaFunds(),
-  ]);
+  // const [
+  //   incomeTransactions,
+  //   expenseTransactions,
+  //   totalHoaFunds,
+  // ] = await Promise.all([
+  //   getIncome(),
+  //   getExpense(),
+  //   getHoaFunds(),
+  // ]);
 
   return (
     <div className="md:px-5 pt-20 pb-20">
@@ -35,13 +31,13 @@ export default async function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle className="font-thin">Financial</CardTitle>
-              <TotalHoaFunds data={totalHoaFunds} />
+              {/*<TotalHoaFunds data={totalHoaFunds} />*/}
             </CardHeader>
             <CardContent>
                {/*<TransactionChart data={transactionChartDate} /> */}
               <div className="flex flex-col lg:flex-row lg:gap-10 px-5">
-                <TotalIncome data={incomeTransactions} />
-                <TotalExpense data={expenseTransactions} />
+                {/*<TotalIncome data={incomeTransactions} />*/}
+                {/*<TotalExpense data={expenseTransactions} />*/}
               </div>
             </CardContent>
           </Card>
