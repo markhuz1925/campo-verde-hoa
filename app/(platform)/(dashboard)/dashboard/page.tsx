@@ -1,37 +1,16 @@
-import {PageHeading} from '@/components/page-heading';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Separator} from '@/components/ui/separator';
-import {StickerCount} from '@/components/dashboard/sticker-count';
-import {StickerGreen} from '@/components/dashboard/sticker-green';
-import {StickerPercentage} from '@/components/dashboard/sticker-percentage';
-import {StickerRed} from '@/components/dashboard/sticker-red';
-import {StickerSilver} from '@/components/dashboard/sticker-silver';
-import {StickerWhite} from '@/components/dashboard/sticker-white';
-import {StickerYellow} from '@/components/dashboard/sticker-yellow';
-import {TotalStickerSales} from '@/components/dashboard/total-sticker-sales';
-import {Suspense} from 'react';
-import {getExpense, getHoaFunds, getIncome} from '@/functions/financials';
-import {TotalHoaFunds} from '@/components/total-hoa-funds';
-import {TotalIncome} from '@/components/total-income';
-import {TotalExpense} from '@/components/total-expense';
+import { PageHeading } from "@/components/page-heading";
+import { Separator } from "@/components/ui/separator";
 
 export default async function DashboardPage() {
-  const [
-    incomeTransactions,
-    expenseTransactions,
-    totalHoaFunds,
-  ] = await Promise.all([
-    getIncome(),
-    getExpense(),
-    getHoaFunds(),
-  ]);
+  // const [incomeTransactions, expenseTransactions, totalHoaFunds] =
+  //   await Promise.all([getIncome(), getExpense(), getHoaFunds()]);
 
   return (
     <div className="md:px-5 pt-20 pb-20">
       <div className="gap-10">
         <PageHeading title="Dashboard" description="" />
         <Separator className="my-5" />
-        <div className="flex flex-col gap-5">
+        {/* <div className="flex flex-col gap-5">
           <Card>
             <CardHeader>
               <CardTitle className="font-thin">Financial</CardTitle>
@@ -73,7 +52,7 @@ export default async function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
     </div>
   );

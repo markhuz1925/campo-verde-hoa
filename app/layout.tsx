@@ -1,7 +1,6 @@
-import {ToasterProvider} from "@/providers/toast-provider";
-import {Metadata, Viewport} from "next";
+import { ToasterProvider } from "@/providers/toast-provider";
+import { Metadata, Viewport } from "next";
 import "./globals.css";
-import InstallPwa from "@/components/install-pwa";
 
 export const metadata: Metadata = {
   title: "Campo Verde Homeowners Association - Management System",
@@ -32,7 +31,7 @@ export default function RootLayout({
       <body className="bg-gradient-to-r from-teal-100/20 to-amber-100/20">
         <ToasterProvider />
         {children}
-        <InstallPwa />
+        {/* <InstallPwa /> */}
       </body>
     </html>
   );

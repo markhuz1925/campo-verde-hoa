@@ -1,17 +1,13 @@
-import {formatter} from '@/lib/utils';
-import prisma from '@/prisma/client';
-import {format} from 'date-fns';
-import {StickerColumn} from '@/components/sticker/columns';
-import {StickerClient} from '@/components/sticker/sticker-client';
-import {StickersHeading} from '@/components/sticker/stickersHeading';
-import {VisitorDeliveryModal} from '@/components/modals/visitor-delivery-modal';
-import {redirect} from 'next/navigation';
-import {getStickerChartData} from '@/functions/stickers';
-import {StickerChart} from '@/components/dashboard/sticker-chart';
+import { StickerColumn } from "@/components/sticker/columns";
+import { StickerClient } from "@/components/sticker/sticker-client";
+import { StickersHeading } from "@/components/sticker/stickersHeading";
+import { formatter } from "@/lib/utils";
+import prisma from "@/prisma/client";
+import { format } from "date-fns";
 
 export default async function StickerPage() {
-  const stickerChartData = await getStickerChartData();
-  const stickerPrices = await prisma.stickerPrice.findMany({});
+  // const stickerChartData = await getStickerChartData();
+  // const stickerPrices = await prisma.stickerPrice.findMany({});
 
   const stickers = await prisma.sticker.findMany({
     orderBy: {
@@ -37,14 +33,14 @@ export default async function StickerPage() {
     amount: formatter.format(Number(sticker.amount)), // sticker.amount,
   }));
 
-  if (stickerPrices.length <= 0) redirect("/settings");
+  // if (stickerPrices.length <= 0) redirect("/settings");
 
   return (
     <div className="pt-20 px-4">
       <StickersHeading />
-      <VisitorDeliveryModal sticker={stickerPrices} />
+      {/* <VisitorDeliveryModal sticker={stickerPrices} /> */}
       <div className="flex flex-col gap-5 py-4">
-        <StickerChart data={stickerChartData} />
+        {/* <StickerChart data={stickerChartData} /> */}
         <StickerClient data={formattedStickers} />
       </div>
     </div>

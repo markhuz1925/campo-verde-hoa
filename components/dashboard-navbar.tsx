@@ -1,14 +1,19 @@
 "use client";
 
-import {Button} from '@/components/ui/button';
-import {Sheet, SheetClose, SheetContent, SheetTrigger,} from '@/components/ui/sheet';
-import {urbanist} from '@/lib/constants';
-import {cn} from '@/lib/utils';
-import {UserButton} from '@clerk/nextjs';
-import {MenuIcon, SettingsIcon} from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { urbanist } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { UserButton } from "@clerk/nextjs";
+import { MenuIcon, SettingsIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function DashboardNavbar() {
   const pathname = usePathname();
@@ -24,11 +29,11 @@ export function DashboardNavbar() {
       href: "/residents",
       active: pathname === `/residents`,
     },
-    {
-      name: "Financials",
-      href: "/financials",
-      active: pathname === `/financials`,
-    },
+    // {
+    //   name: "Financials",
+    //   href: "/financials",
+    //   active: pathname === `/financials`,
+    // },
     {
       name: "Sticker",
       href: "/sticker",

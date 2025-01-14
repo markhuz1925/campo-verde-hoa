@@ -1,11 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { bitter, urbanist } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Sticker } from "@prisma/client";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export function PurchasedStickers({
@@ -25,11 +23,11 @@ export function PurchasedStickers({
               {purchasedStickers?.length}
             </span>
           </div>
-          <Button asChild variant="outline" size="sm">
+          {/* <Button asChild variant="outline" size="sm">
             <Link href={`/residents/${params.residentId}/purchase-sticker`}>
               Purchase Sticker
             </Link>
-          </Button>
+          </Button> */}
         </CardTitle>
       </CardHeader>
       <CardContent>
